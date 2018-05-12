@@ -384,14 +384,14 @@ height:50vh;
             <main class="main post-page">
     <article class="article-entry">
         <h3 id="写在前面的话"><a href="#写在前面的话" class="headerlink" title="写在前面的话"></a>写在前面的话</h3><p>之前一直想搭个博客记录一下学习,也算是监督,办域名弄空间太麻烦了,于是打算就是使用github+hexo搭个静态的.</p>
-<p>###kali下的尝试<br>在网上搜了下全是关于windows和mac下的,并没有linux下的,更别说kali,要搭hexo首先要以下条件:<br>1.nodejs<br>2.git<br>3.hexo<br>开始发现kali自带nodejs,大喜!但是喜不过三秒,npm命令找不到,各种尝试,个个失败:(<br>突然发现可以重装node,于是卸载node,然后又在弄npm和node的链接,<br><code>npm install -g cnpm --registry=https://registry.npm.taobao.org</code><br><code>npm install hexo-cli -g</code><br><code>cd /node-v4.9.1-linux-x64/lib/node_modules/hexo-cli/bin</code><br><code>./hexo -v</code>终于有hexo了<br><code>hexo -init</code>提示not empty, please run <code>hexo init</code> on an empty folder and then copy your files into it<br><code>sudo ln -s /home/threst/node-v4.9.1-linux-x64/lib/node_modules/hexo-cli/bin /hexo                /usr/local/bin/hexo</code><br><code>mkdir hexo</code><br><code>cd hexo</code><br><code>hexo init</code><br>创建好了，可是使用<code>npm install</code>没有回显提示hexo<br>失败!!!!</p>
-<p>###win7尝试<br>因为去装了个移动硬盘原来那个kali系统不用了,所以要重新安装虚拟机,这里又是个坑,虚拟机各种报错,后来发现没有<code>apt upgrade</code></p>
-<p>###正式安装<br>1.下载git,nodejs<br>2.github创建gitpage项目<br>3.<code>npm install hexo -g</code><br>4.<code>hexo -v</code>检查是否安装成功<br>5.新建hexo文件夹,进入<code>hexo init</code>安装hexo<br>6.<code>npm install</code><br>7.在hexo文件夹中右键,git bash<br>8.<code>git config --global user.name &quot;threst&quot;</code><br>  <code>git config --global user.email &quot;qq.com&quot;</code><br>9.<code>ssh-keygen -t rsa -C &quot;qq.com&quot;</code><br>10.在github中添加ssh key,输入id_rsa.pub<br>11.<code>ssh -T git@github.com</code></p>
+<h3 id="kali下的尝试"><a href="#kali下的尝试" class="headerlink" title="kali下的尝试"></a>kali下的尝试</h3><p>在网上搜了下全是关于windows和mac下的,并没有linux下的,更别说kali,要搭hexo首先要以下条件:<br>1.nodejs<br>2.git<br>3.hexo<br>开始发现kali自带nodejs,大喜!但是喜不过三秒,npm命令找不到,各种尝试,个个失败:(<br>突然发现可以重装node,于是卸载node,然后又在弄npm和node的链接,<br><code>npm install -g cnpm --registry=https://registry.npm.taobao.org</code><br><code>npm install hexo-cli -g</code><br><code>cd /node-v4.9.1-linux-x64/lib/node_modules/hexo-cli/bin</code><br><code>./hexo -v</code>终于有hexo了<br><code>hexo -init</code>提示not empty, please run <code>hexo init</code> on an empty folder and then copy your files into it<br><code>sudo ln -s /home/threst/node-v4.9.1-linux-x64/lib/node_modules/hexo-cli/bin /hexo                /usr/local/bin/hexo</code><br><code>mkdir hexo</code><br><code>cd hexo</code><br><code>hexo init</code><br>创建好了，可是使用<code>npm install</code>没有回显提示hexo<br>失败!!!!</p>
+<h3 id="win7尝试"><a href="#win7尝试" class="headerlink" title="win7尝试"></a>win7尝试</h3><p>因为去装了个移动硬盘原来那个kali系统不用了,所以要重新安装虚拟机,这里又是个坑,虚拟机各种报错,后来发现没有<code>apt upgrade</code></p>
+<h3 id="正式安装"><a href="#正式安装" class="headerlink" title="正式安装"></a>正式安装</h3><p>1.下载git,nodejs<br>2.github创建gitpage项目<br>3.<code>npm install hexo -g</code><br>4.<code>hexo -v</code>检查是否安装成功<br>5.新建hexo文件夹,进入<code>hexo init</code>安装hexo<br>6.<code>npm install</code><br>7.在hexo文件夹中右键,git bash<br>8.<code>git config --global user.name &quot;threst&quot;</code><br>  <code>git config --global user.email &quot;qq.com&quot;</code><br>9.<code>ssh-keygen -t rsa -C &quot;qq.com&quot;</code><br>10.在github中添加ssh key,输入id_rsa.pub<br>11.<code>ssh -T git@github.com</code></p>
 <blockquote>
 <p>The authenticity of host ‘github.com (13.250.177.223)’ can’t be established.<br>RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.<br>Are you sure you want to continue connecting (yes/no)? yes<br>Warning: Permanently added ‘github.com,13.250.177.223’ (RSA) to the list of known hosts.<br>Hi threst! You’ve successfully authenticated, but GitHub does not provide shell access.</p>
 </blockquote>
 <p>ssh可以连接<br>这里又是个坑,hexo d的时候总是传不到github上去,只有本地有,问了些大佬,都没这种问题,后来发现<br>repo有两种方式,只有这种可以,之前试的是<a href="https://threst/threst.github.io.git" target="_blank" rel="noopener">https://threst/threst.github.io.git</a><br><code>deploy:</code><br>  <code>type: git</code><br>  <code>repo: git@github.com:threst/threst.github.io.git</code><br>  <code>branch: master</code><br>13.<br>提示ERROR Deployer not found: git<br><code>npm install hexo-deployer-git --save</code><br>14.<code>hexo clean</code><br>   <code>hexo g</code><br>   <code>hexo d</code><br>测试0k</p>
-<p>####安装主题<br>在hexo文件夹中打开gitbash<br><code>npm install hexo-generator-json-content --save &amp;&amp; git clone https://github.com/fi3ework/hexo-theme-archer.git themes/archer</code><br>在_config.yml中设置<code>theme: archer</code></p>
+<h3 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h3><p>在hexo文件夹中打开gitbash<br><code>npm install hexo-generator-json-content --save &amp;&amp; git clone https://github.com/fi3ework/hexo-theme-archer.git themes/archer</code><br>在_config.yml中设置<code>theme: archer</code></p>
 
     </article>
     <!-- license  -->
@@ -447,13 +447,6 @@ height:50vh;
             
         
     
-        
-            
-                <span class="iconfont-archer wechat" title=wechat>
-                  
-                  <img class="profile-qr" src="/assets/example_qr.png" />
-                </span>
-            
         
     
         
@@ -515,7 +508,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面的话"><span class="toc-number">1.</span> <span class="toc-text">写在前面的话</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面的话"><span class="toc-number">1.</span> <span class="toc-text">写在前面的话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#kali下的尝试"><span class="toc-number">2.</span> <span class="toc-text">kali下的尝试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#win7尝试"><span class="toc-number">3.</span> <span class="toc-text">win7尝试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正式安装"><span class="toc-number">4.</span> <span class="toc-text">正式安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装主题"><span class="toc-number">5.</span> <span class="toc-text">安装主题</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
