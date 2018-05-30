@@ -351,6 +351,63 @@ height:50vh;
     
     
         <article class="index-post">
+            <a class="abstract-title" href = "/2018/05/30/实验吧wp/" >
+                
+                    <span>实验吧wp(持续更新)</span>
+            </a>
+            <div class="abstract-content">
+                密码学疑惑的汉字题目： 现有一段经过加密的密文，内容如下：王夫 井工 夫口 由中人 井中 夫夫 由中大。请找出这段密文隐藏的消息明文。
+格式：CTF{ }
+解题链接： http://ctf5.shiyanbar.com/423/crypto/1.html
+当铺密码:就是一种将中文和数字进行转化的密码，算法相当简单:当前汉字有多少笔画出头，就是转化成数字几1     2    3   4    5    6   7   8   9由   中   人 工   大   王 夫 井  羊所以王夫 井工 夫口 由中人 井中 夫夫 由中大：67 84 70 123 82 77 125CTF{RM}
+...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/05/30</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "writeup ctf">writeup ctf</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2018/05/29/kali安装docker/" >
+                
+                    <span>kali下安装docker</span>
+            </a>
+            <div class="abstract-content">
+                周末水了下suctf，只做出签到题，太菜了，今天在安全客上面梅子酒师傅发出了wp，看了之后觉得质量非常高，最重要的是可以在docker上复现，发现现在kali上面并没有安装docker，之前在知乎上面写过一篇关于如何安装docker的文章，于是晚上试了下，尴尬的是失败了！！google了下，喜获一个一键安装脚本，看了下大佬脚本发现可能是apt-get install docker-ce这个的问题，因为之前一直是apt-cache policy docker-engine
+之前的安装方式由于kali linux是基于Debian Wheezy，所以这里docker需要的内核版本至少是3.1...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/05/29</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "kali docker">kali docker</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
             <a class="abstract-title" href = "/2018/05/22/你肯定不知道的GraphQL安全概述和测试技巧/" >
                 
                     <span>你肯定不知道的GraphQL安全概述和测试技巧</span>
@@ -757,7 +814,31 @@ if(enc($username) === $_COOKIE[&apos;verify&apos;]){
     
     
     
-    <div class="total-archive"> Total : 6 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 8 </div>
     
     <div class="post-archive">
     
@@ -766,6 +847,16 @@ if(enc($username) === $_COOKIE[&apos;verify&apos;]){
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/实验吧wp/" >实验吧wp(持续更新)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span><a class="archive-post-title" href= "/2018/05/29/kali安装docker/" >kali下安装docker</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -806,7 +897,11 @@ if(enc($username) === $_COOKIE[&apos;verify&apos;]){
     
         <span class="sidebar-tag-name" data-tags="writeup"><span class="iconfont-archer">&#xe606;</span>writeup</span>
     
+        <span class="sidebar-tag-name" data-tags="kali docker"><span class="iconfont-archer">&#xe606;</span>kali docker</span>
+    
         <span class="sidebar-tag-name" data-tags="安全客弃婴"><span class="iconfont-archer">&#xe606;</span>安全客弃婴</span>
+    
+        <span class="sidebar-tag-name" data-tags="writeup ctf"><span class="iconfont-archer">&#xe606;</span>writeup ctf</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>

@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>艰难的hexo上线 · threst&#39;s Blog</title>
+    <title>kali下安装docker · threst&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -207,7 +207,7 @@
                 <a href="/" >threst&#39;s Blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">艰难的hexo上线</a>
+                <a href="#" class="post-name">kali下安装docker</a>
             </div>
     </div>
     
@@ -239,7 +239,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            艰难的hexo上线
+            kali下安装docker
             <!-- 404 -->
             
         </h1>
@@ -255,9 +255,15 @@ height:50vh;
         
             <!-- 文章页标签  -->
             
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "kali docker">kali docker</a>
+    
+</div>
+            
             <div class="post-intro-meta">
                 <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                <span class="post-intro-time">2018/05/12</span>
+                <span class="post-intro-time">2018/05/29</span>
                 
                 <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                     <span class="iconfont-archer">&#xe602;</span>
@@ -383,27 +389,83 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <blockquote>
-<p>我就是那个触发了这一切的错漏。<br>漏洞不仅仅是个错误，这还说明有更大的问题。思想上的纰漏，说明了你是个怎么样的人。<br>永远不给他们看我的源代码，只有这样才能保护我自己。封闭自己，创造出冰冷而完美的迷宫，没人能找到我。<br>从现在开始，过一种没有漏洞的生活，不惜一切地保护我的完美迷宫。<br>                                                                《Mr Robot》S01<br>                                                                《黑客军团》第1季</p>
-</blockquote>
-<h3 id="写在前面的话"><a href="#写在前面的话" class="headerlink" title="写在前面的话"></a>写在前面的话</h3><p>之前一直想搭个博客记录一下学习,也算是监督,办域名弄空间太麻烦了,于是打算就是使用github+hexo搭个静态的.</p>
-<h3 id="kali下的尝试"><a href="#kali下的尝试" class="headerlink" title="kali下的尝试"></a>kali下的尝试</h3><p>在网上搜了下全是关于windows和mac下的,并没有linux下的,更别说kali,要搭hexo首先要以下条件:<br>1.nodejs<br>2.git<br>3.hexo<br>开始发现kali自带nodejs,大喜!但是喜不过三秒,npm命令找不到,各种尝试,个个失败:(<br>突然发现可以重装node,于是卸载node,然后又在弄npm和node的链接,<br><code>npm install -g cnpm --registry=https://registry.npm.taobao.org</code><br><code>npm install hexo-cli -g</code><br><code>cd /node-v4.9.1-linux-x64/lib/node_modules/hexo-cli/bin</code><br><code>./hexo -v</code>终于有hexo了<br><code>hexo -init</code>提示not empty, please run <code>hexo init</code> on an empty folder and then copy your files into it<br><code>sudo ln -s /home/threst/node-v4.9.1-linux-x64/lib/node_modules/hexo-cli/bin /hexo                /usr/local/bin/hexo</code><br><code>mkdir hexo</code><br><code>cd hexo</code><br><code>hexo init</code><br>创建好了，可是使用<code>npm install</code>没有回显提示hexo<br>失败!!!!</p>
-<h3 id="win7尝试"><a href="#win7尝试" class="headerlink" title="win7尝试"></a>win7尝试</h3><p>因为去装了个移动硬盘原来那个kali系统不用了,所以要重新安装虚拟机,这里又是个坑,虚拟机各种报错,后来发现没有<code>apt upgrade</code></p>
-<h3 id="正式安装"><a href="#正式安装" class="headerlink" title="正式安装"></a>正式安装</h3><p>1.下载git,nodejs<br>2.github创建gitpage项目<br>3.<code>npm install hexo -g</code><br>4.<code>hexo -v</code>检查是否安装成功<br>5.新建hexo文件夹,进入<code>hexo init</code>安装hexo<br>6.<code>npm install</code><br>7.在hexo文件夹中右键,git bash<br>8.<code>git config --global user.name &quot;threst&quot;</code><br>  <code>git config --global user.email &quot;qq.com&quot;</code><br>9.<code>ssh-keygen -t rsa -C &quot;qq.com&quot;</code><br>10.在github中添加ssh key,输入id_rsa.pub<br>11.<code>ssh -T git@github.com</code></p>
-<blockquote>
-<p>The authenticity of host ‘github.com (13.250.177.223)’ can’t be established.<br>RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.<br>Are you sure you want to continue connecting (yes/no)? yes<br>Warning: Permanently added ‘github.com,13.250.177.223’ (RSA) to the list of known hosts.<br>Hi threst! You’ve successfully authenticated, but GitHub does not provide shell access.</p>
-</blockquote>
-<p>ssh可以连接<br>这里又是个坑,hexo d的时候总是传不到github上去,只有本地有,问了些大佬,都没这种问题,后来发现<br>repo有两种方式,只有这种可以,之前试的是<a href="https://threst/threst.github.io.git" target="_blank" rel="noopener">https://threst/threst.github.io.git</a><br><code>deploy:</code><br>  <code>type: git</code><br>  <code>repo: git@github.com:threst/threst.github.io.git</code><br>  <code>branch: master</code><br>13.<br>提示ERROR Deployer not found: git<br><code>npm install hexo-deployer-git --save</code><br>14.<code>hexo clean</code><br>   <code>hexo g</code><br>   <code>hexo d</code><br>测试0k</p>
-<h3 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h3><p>在hexo文件夹中打开gitbash<br><code>npm install hexo-generator-json-content --save &amp;&amp; git clone https://github.com/fi3ework/hexo-theme-archer.git themes/archer</code><br>在_config.yml中设置<code>theme: archer</code></p>
-<h3 id="最后的坑"><a href="#最后的坑" class="headerlink" title="最后的坑"></a>最后的坑</h3><p>1.主题中_config的图片不用加引号<br>2.favion我没有写所以在_config中把那行直接去掉,而不是不填<br>这两点都可导致页面打开404或空白<br>(重装5遍)</p>
+        <p>周末水了下suctf，只做出签到题，太菜了，今天在安全客上面梅子酒师傅发出了wp，看了之后觉得质量非常高，最重要的是可以在docker上复现，发现现在kali上面并没有安装docker，之前在知乎上面写过一篇关于如何安装docker的<a href="https://zhuanlan.zhihu.com/p/32288292" target="_blank" rel="noopener">文章</a>，于是晚上试了下，尴尬的是失败了！！google了下，喜获一个一键安装脚本，看了下大佬脚本发现可能是<code>apt-get install docker-ce</code>这个的问题，因为之前一直是<code>apt-cache policy docker-engine</code></p>
+<h2 id="之前的安装方式"><a href="#之前的安装方式" class="headerlink" title="之前的安装方式"></a>之前的安装方式</h2><p>由于kali linux是基于Debian Wheezy，所以这里docker需要的内核版本至少是3.10，因此需要检查下kali的内核，如果不够的话，需要更新内核<br><code>uname -a</code><br>切换用户root下</p>
+<h3 id="1-创建-etc-apt-sources-list-d-backports-list"><a href="#1-创建-etc-apt-sources-list-d-backports-list" class="headerlink" title="1.创建/etc/apt/sources.list.d/backports.list"></a>1.创建/etc/apt/sources.list.d/backports.list</h3><p><code>leafpad /etc/apt/sources.list.d/backports.list</code></p>
+<h3 id="2-在list文件里加上一条反向端口条目"><a href="#2-在list文件里加上一条反向端口条目" class="headerlink" title="2.在list文件里加上一条反向端口条目"></a>2.在list文件里加上一条反向端口条目</h3><p><code>deb http://http.debian.net/debian wheezy-backports main</code></p>
+<h3 id="3-更新软件包"><a href="#3-更新软件包" class="headerlink" title="3.更新软件包"></a>3.更新软件包</h3><p><code>apt update</code></p>
+<h3 id="4-如果以前安装过docker"><a href="#4-如果以前安装过docker" class="headerlink" title="4.如果以前安装过docker"></a>4.如果以前安装过docker</h3><p>就这样删除所有旧版本docker</p>
+<pre><code>apt-get purge lxc-docker*
+apt-get purge docker.io*
+</code></pre><p>可能没有旧版本（之前没有安装过）<br>没有的继续</p>
+<h3 id="5-确认apt添加了https方法和CA-cerificates"><a href="#5-确认apt添加了https方法和CA-cerificates" class="headerlink" title="5.确认apt添加了https方法和CA cerificates"></a>5.确认apt添加了https方法和CA cerificates</h3><p><code>apt-get install apt-transport-https ca-certificates gnupg2</code></p>
+<h3 id="6-添加一个新的GPG-key"><a href="#6-添加一个新的GPG-key" class="headerlink" title="6.添加一个新的GPG key"></a>6.添加一个新的GPG key</h3><p><code>apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D</code></p>
+<h3 id="7-安装repository"><a href="#7-安装repository" class="headerlink" title="7.安装repository"></a>7.安装repository</h3><p><code>apt-cache policy docker-engine</code><br>这个命令可以查看是否存在资源之后再<br><code>apt-get install docker-engine</code><br>但是这个好像不行了要执行下列命令<br><code>apt-get install docker-ce</code></p>
+<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><pre><code>#!/bin/bash
+# install dependencies 
+sudo apt-get install apt-transport-https ca-certificates curl gnupg software-properties-common dirmngr
+
+# use https get sources  
+sudo echo &quot;deb https://http.kali.org/kali kali-rolling main non-free contrib&quot; &gt; /etc/apt/sources.list
+sudo echo &quot;deb-src https://http.kali.org/kali kali-rolling main non-free contrib&quot; &gt;&gt; /etc/apt/sources.list
+
+# update apt-get
+export DEBIAN_FRONTEND=&quot;noninteractive&quot;
+sudo apt-get update
+
+# remove previously installed Docker
+sudo apt-get purge lxc-docker*
+sudo apt-get purge docker.io*
+
+# add Docker repo gpg key
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+
+# add deb docker sources
+sudo echo &quot;deb [arch=amd64] https://download.docker.com/linux/debian stretch stable&quot; &gt;&gt; /etc/apt/sources.list 
+cat &gt; /etc/apt/sources.list.d/docker.list &lt;&lt;&apos;EOF&apos;
+deb https://apt.dockerproject.org/repo debian-stretch main
+EOF
+sudo apt-get update
+
+# install Docker
+sudo apt-get install docker-ce
+
+# run Hellow World image
+sudo docker run hello-world
+
+# manage Docker as a non-root user
+sudo groupadd docker
+sudo usermod -aG docker $USER
+
+# configure Docker to start on boot
+sudo systemctl enable docker
+</code></pre><p><a href="https://github.com/Mr-xn/Kali-install-docker" target="_blank" rel="noopener">脚本地址</a></p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试:"></a>测试:</h2><p><code>root@kali:/home/threst# docker run hello-world</code><br>出现下面这个就是安装成功了</p>
+<pre><code>Hello from Docker!
+This message shows that your installation appears to be working correctly.
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the &quot;hello-world&quot; image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+For more examples and ideas, visit:
+ https://docs.docker.com/engine/userguide/
+</code></pre><p>使用国内镜像:<br><code>docker pull registry.docker-cn.com/myname/myrepo:mytag</code><br>例如<br><code>docker pull registry.docker-cn.com/suctf/2018-web-annonymous</code></p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="https://threst.github.io">threst</a>
-            <p>原文链接: <a href="https://threst.github.io/2018/05/12/艰难的hexo上线/">https://threst.github.io/2018/05/12/艰难的hexo上线/</a>
-            <p>发表日期: <a href="https://threst.github.io/2018/05/12/艰难的hexo上线/">May 12th 2018, 5:33:09</a>
+            <p>原文链接: <a href="https://threst.github.io/2018/05/29/kali安装docker/">https://threst.github.io/2018/05/29/kali安装docker/</a>
+            <p>发表日期: <a href="https://threst.github.io/2018/05/29/kali安装docker/">May 29th 2018, 8:33:09</a>
             <p>版权声明: 本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -412,16 +474,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/05/12/isccwp/" title= isccwp >
-                    <div class="nextTitle">isccwp</div>
+                <a href= "/2018/05/30/实验吧wp/" title= 实验吧wp(持续更新) >
+                    <div class="nextTitle">实验吧wp(持续更新)</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/05/12/逆向工程入门— ARM64上的Linux/" title= 逆向入门--ARM64的linux >
-                    <div class="prevTitle">逆向入门--ARM64的linux</div>
+                <a href= "/2018/05/22/你肯定不知道的GraphQL安全概述和测试技巧/" title= 你肯定不知道的GraphQL安全概述和测试技巧 >
+                    <div class="prevTitle">你肯定不知道的GraphQL安全概述和测试技巧</div>
                 </a>
             
         </li>
@@ -522,7 +584,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面的话"><span class="toc-number">1.</span> <span class="toc-text">写在前面的话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#kali下的尝试"><span class="toc-number">2.</span> <span class="toc-text">kali下的尝试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#win7尝试"><span class="toc-number">3.</span> <span class="toc-text">win7尝试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正式安装"><span class="toc-number">4.</span> <span class="toc-text">正式安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装主题"><span class="toc-number">5.</span> <span class="toc-text">安装主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最后的坑"><span class="toc-number">6.</span> <span class="toc-text">最后的坑</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#之前的安装方式"><span class="toc-number">1.</span> <span class="toc-text">之前的安装方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-创建-etc-apt-sources-list-d-backports-list"><span class="toc-number">1.1.</span> <span class="toc-text">1.创建/etc/apt/sources.list.d/backports.list</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-在list文件里加上一条反向端口条目"><span class="toc-number">1.2.</span> <span class="toc-text">2.在list文件里加上一条反向端口条目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-更新软件包"><span class="toc-number">1.3.</span> <span class="toc-text">3.更新软件包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-如果以前安装过docker"><span class="toc-number">1.4.</span> <span class="toc-text">4.如果以前安装过docker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-确认apt添加了https方法和CA-cerificates"><span class="toc-number">1.5.</span> <span class="toc-text">5.确认apt添加了https方法和CA cerificates</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-添加一个新的GPG-key"><span class="toc-number">1.6.</span> <span class="toc-text">6.添加一个新的GPG key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-安装repository"><span class="toc-number">1.7.</span> <span class="toc-text">7.安装repository</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一键安装脚本"><span class="toc-number">2.</span> <span class="toc-text">一键安装脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-number">3.</span> <span class="toc-text">测试:</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
