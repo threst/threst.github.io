@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>threst&#39;s Blog</title>
+    <title>常见文件格式分析 · threst&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -70,6 +70,8 @@
 
     <link rel="preload" href= /css/style.css?v=20180501 as="style" onload="this.onload=null;this.rel='stylesheet'" />
     <link rel="stylesheet" href= /css/mobile.css?v=20180501 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
         
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -191,12 +193,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >threst&#39;s Blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">常见文件格式分析</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>threst's Blog</a>
 </header>
@@ -210,24 +223,67 @@
 
 
 
+height:50vh;
+
 >
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            常见文件格式分析
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
+    
+</div>
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2018/06/01</span>
+                
+                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                    <span class="iconfont-archer">&#xe602;</span>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+                <span class="shareWrapper">
+                    <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                    <span class="shareText">Share</span>
+                    <ul class="shareList">
+                        <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                            <div class="share-qrcode"></div>
+                        </li>
+                        <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                        <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                        <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                        <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                    </ul>
+                </span>
+            </div>
         
     </div>
 </div>
@@ -331,127 +387,66 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/06/01/如何在MIMIKATZ添加模块/" >
-                
-                    <span>如何在MIMIKATZ添加模块</span>
-            </a>
-            <div class="abstract-content">
-                嗨，大家好 ！我今天要写关于“我怎样才能添加到模块到mimikatz中？”首先，你必须在github中克隆或下载。我使用Visual Studio Community 2015来打开该项目。
-在尝试添加新模块之前，我们必须构建mimikatz项目。如果这里失败了，记得在下一次操作之前先修复你的开发环境。我试过了，结果成功了，让我们继续，我们在/ mimikatz / modules中创建自己的模块头和C文件，在这里：
-/mimikatz/modules/kuhl_m_littlePrince.c
-/mimikatz/modules/kuhl_m_littlePrince.h
-我将讨论在检...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/06/01</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "安全客弃婴">安全客弃婴</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/05/22/你肯定不知道的GraphQL安全概述和测试技巧/" >
-                
-                    <span>你肯定不知道的GraphQL安全概述和测试技巧</span>
-            </a>
-            <div class="abstract-content">
-                写在前面的话随着GraphQL技术的日益普及，我们总结了一些关于常见安全错误的文档和提示。
-什么是GraphQL？GraphQL是由Facebook开发并于2015年公开发布的数据查询语言。它是REST API的替代品。
-即使你没有看到任何GraphQL在那里，很可能你已经在使用它，因为它是在一些大的科技巨头，Facebook, GitHub, Pinterest, Twitter, HackerOne更多。
-这项技术的几个关键点1.GraphQL提供了API中数据的完整和可理解的描述，并使客户能够精确地询问他们需要什么。返回可预测的结果。2.典型的RESTAPI需要从多个URL进行加载...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/05/22</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "安全客弃婴">安全客弃婴</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/05/12/逆向工程入门— ARM64上的Linux/" >
-                
-                    <span>逆向入门--ARM64的linux</span>
-            </a>
-            <div class="abstract-content">
-                序幕正如您知道的那样，ARM为我们周围的各种低功耗设备供电，包括但不限于电话，路由器，物联网设备等。因此，深入研究这种体系结构并理解它与x86和x64体系结构有何不同之处是合理的。对于这篇文章，我们将重点介绍目前最常用的64位ARM CPU。我们的设备包括ARM Cortex-A53 CPU的Ubuntu 16.04，它支持32位和64位指令集。
-在之前的文章中，我们逆向了x64Linux和Windows中的C++二进制文件。在这篇文章中，我们将会使用同样的程序，但用c语言重写。
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="文件格式概述"><a href="#文件格式概述" class="headerlink" title="文件格式概述"></a>文件格式概述</h1><p>文件格式实质上是信息的一种特殊的编码方式，计算机在存储信息时，由于信息种类的不同，所采取的文件格式也不同，在windows系统中，计算机通常采用扩展名的方式来区分不同的文件格式，ctf中考察文件格式大致分为4的类：</p>
+<ul>
+<li>文本格式：<code>.txt</code>,<code>.doc</code>,<code>.docx</code></li>
+<li>图像格式：<code>.png</code>,<code>.jpg</code>,<code>bmp</code>,<code>.gif</code></li>
+<li>音频格式:<code>.mp3</code>,<code>.wma</code>,<code>.wav</code></li>
+<li>视频格式:<code>.mp4</code>,<code>.rmvb</code>,<code>.avi</code></li>
+</ul>
+<h3 id="txt格式"><a href="#txt格式" class="headerlink" title="txt格式"></a>txt格式</h3><p>txt即英文text的缩写，通常是指windows操作系统自带的一种纯文本文件格式</p>
+<h3 id="doc-docx格式"><a href="#doc-docx格式" class="headerlink" title="doc/docx格式"></a>doc/docx格式</h3><p>doc即document的缩写，docx在doc的基础上加入了xml，通常是指Microsoft Office Word软件创建的文件格式，docx实际上是作为一个zip压缩方式的压缩文件，的哦出现相对doc体积更小，支持的对象更多，同常采用AOPR的工具爆破docx的难度更大</p>
+<h3 id="png格式"><a href="#png格式" class="headerlink" title="png格式"></a>png格式</h3><p><code>89 50 4e 47 0d 0a 1a</code><br>属于无损压缩的位图格式，他采用LZ77的派生算法进行压缩，压缩比高，文件体积小，同时不损失颜色和数据，一个png文件可以由一个文件头标志和若干个数据块构成，而数据块有可以分为关键数据块和辅助数据块，每一类数据块又包含若干具体的数据块部分<br><img src="https://i.loli.net/2018/06/01/5b1158a6079eb.png" alt=""></p>
+<p>wiki:<a href="https://ctf-wiki.github.io/ctf-wiki/misc/picture/png/" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-wiki/misc/picture/png/</a></p>
+<h3 id="jpeg格式"><a href="#jpeg格式" class="headerlink" title="jpeg格式"></a>jpeg格式</h3><p>属于有损压缩的与平台无关的图像格式，jpeg的压缩比高(可高达100：1),png主要是块，而jpeg主要是以段的形式<br>wiki:<a href="https://ctf-wiki.github.io/ctf-wiki/misc/picture/jpg/" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-wiki/misc/picture/jpg/</a></p>
+<h2 id="bmp格式"><a href="#bmp格式" class="headerlink" title="bmp格式"></a>bmp格式</h2><p>是windows的标准图像文件格式，通常情况下采用位映射存储格式，除了图像的深度(可以理解为控制色彩的能力)可选外，不采用任何其他的压缩方式，因此bmp的图像质量非常高，体积也非常大，bmp图像通常可以分为设备相关位图和设备无关位图两大类，一个bmp的文件格式通常由文件头，信息头，颜色信息和位图数据四部分组成<br>文件头:前面两个字节一般<code>42 4D</code>，随后4个字节表示位图大小,再后面4个字节为保留位设置为0,再后面的4个字节非常关键，表示文件头到位图数据的偏移量</p>
+<h2 id="gif格式"><a href="#gif格式" class="headerlink" title="gif格式"></a>gif格式</h2><p>也是一种无损压缩，它存储的不是颜色的本身，而是该点的颜色列表的索引值，其内部分成许多存储快，可以用来存储多副图像或者是决定图像表现行为的控制块，继而实现动图和交互式应用，一个gif图像通常由文件头，gif数据流和文件终结器三个部分组成，目前常见的有87(不支持动图)和89两个版本<br>wiki:<a href="https://ctf-wiki.github.io/ctf-wiki/misc/picture/gif/" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-wiki/misc/picture/gif/</a></p>
+<h3 id="mp3"><a href="#mp3" class="headerlink" title="mp3"></a>mp3</h3><p>mp3即MPEG-a Audio Layer-3的简称，根据压缩质量和编码的复杂程度可以大致分为3层，分别对应与mp1,mp2,mp3,这三种有损压缩的声音文件，根据用途的不同，每层采用的编码方式也不同，其编码层次越高，编码器就越复杂，压缩率也高，一个mp3文件大致可以分成TAG_V2,Frame,TAG_V1三部分，其中frame是构成mp3的最小组成单位</p>
 
-编译程序：$ gcc crack_me.c -o crack_me
-####二进制信息：
-
-反编译现在让我...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/05/12</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
+    </article>
+    <!-- license  -->
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "安全客弃婴">安全客弃婴</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/05/12/逆向工程基础 - Linux x64/" >
-                
-                    <span>逆向入门--linux64</span>
-            </a>
-            <div class="abstract-content">
-                序幕这个Ground Zero系列适合初学者入门使用，让他们进入逆向工程领域。因为这是x64的时代，所以我跳过了x86体系结构。但是你要知道，所有将用c++编写的示例也可以编译为x86，但是我将把它作为作业留给你们。如果你没有任何经验，也无所谓了。你唯一需要的就是有对编程语言的基本理解。开始时，我们将编写一个简单的c++程序，它将提示用户输入密码。它将检查密码是否匹配，如果它正确，它将提示正确，否则将提示错误。我举这个例子的主要原因是，这个例子将让你了解jump，以及其他类似的条件在汇编语言中是如何工作的。另一个原因是，大多数具有硬编码键的程序都可以用类似的方式破解，只不过需要更多的数学...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/05/12</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "安全客弃婴">安全客弃婴</a>
-    
-</div>
-                
-            </div>
-        </article>
+        <div class="license-wrapper">
+            <p>原文作者: <a href="https://threst.github.io">threst</a>
+            <p>原文链接: <a href="https://threst.github.io/2018/06/01/常见文件格式分析/">https://threst.github.io/2018/06/01/常见文件格式分析/</a>
+            <p>发表日期: <a href="https://threst.github.io/2018/06/01/常见文件格式分析/">June 1st 2018, 10:13:14</a>
+            <p>版权声明: 本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2018/06/01/61随想/" title= 61随想 >
+                    <div class="nextTitle">61随想</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/06/01/如何在MIMIKATZ添加模块/" title= 如何在MIMIKATZ添加模块 >
+                    <div class="prevTitle">如何在MIMIKATZ添加模块</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -519,6 +514,24 @@
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#文件格式概述"><span class="toc-number">1.</span> <span class="toc-text">文件格式概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#txt格式"><span class="toc-number">1.0.1.</span> <span class="toc-text">txt格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#doc-docx格式"><span class="toc-number">1.0.2.</span> <span class="toc-text">doc/docx格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#png格式"><span class="toc-number">1.0.3.</span> <span class="toc-text">png格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jpeg格式"><span class="toc-number">1.0.4.</span> <span class="toc-text">jpeg格式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bmp格式"><span class="toc-number">1.1.</span> <span class="toc-text">bmp格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gif格式"><span class="toc-number">1.2.</span> <span class="toc-text">gif格式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mp3"><span class="toc-number">1.2.1.</span> <span class="toc-text">mp3</span></a></li></ol></li></ol></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -792,6 +805,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
     
     </body>
 </html>
