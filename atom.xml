@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://threst.github.io/"/>
-  <updated>2018-06-06T03:14:01.687Z</updated>
+  <updated>2018-06-15T14:30:58.014Z</updated>
   <id>https://threst.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>艰难的kali破解xp开机密码之路</title>
+    <link href="https://threst.github.io/2018/06/15/kali%E7%A0%B4%E8%A7%A3xp%E5%BC%80%E6%9C%BA%E5%AF%86%E7%A0%81/"/>
+    <id>https://threst.github.io/2018/06/15/kali破解xp开机密码/</id>
+    <published>2018-06-15T14:13:14.000Z</published>
+    <updated>2018-06-15T14:30:58.014Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>今天一个妹子来找我，说开机密码忘记了，说是妹子其实根本没看见人——因为是他男朋友送电脑过来的，刺激！！</p><h2 id="win10pe初尝试"><a href="#win10pe初尝试" class="headerlink" title="win10pe初尝试"></a>win10pe初尝试</h2><p>拿到电脑那一刻，懵懂了，这哪是电脑，这根本就是十年前的古董啊！！病毒运行起来都卡，一大堆问题，本来是想直接用微pe盘破解（微pe真心好用），哪想这古董识别不了u盘</p><p>古董照片<br><img src="https://i.loli.net/2018/06/15/5b23c8cd36de6.jpg" alt=""></p><h2 id="kali大法好"><a href="#kali大法好" class="headerlink" title="kali大法好"></a>kali大法好</h2><p>正好威神那里有kali的启动盘，抱着试一试的想法插入了，啊！居然可以识别，直接设为u盘启动，开启kali<br>参考:<a href="https://blog.csdn.net/qq_31481187/article/details/52602454" target="_blank" rel="noopener">https://blog.csdn.net/qq_31481187/article/details/52602454</a><br>先挂载windows的系统盘，打开终端，输入<br><code>cd /WINDOWS/system32/config</code></p><p>然后使用chntpw神器<br><code>chntpw -l SAM</code></p><p><img src="https://i.loli.net/2018/06/15/5b23c941d0cb6.jpg" alt=""></p><p>看见<code>Administrator</code>用户</p><p>输入：<br><code>chntpw -u Adminstrator SAM</code></p><p><img src="https://i.loli.net/2018/06/15/5b23c9a302c02.jpg" alt=""></p><p>要你选择<br><img src="https://i.loli.net/2018/06/15/5b23ca01d02bd.jpg" alt=""></p><h5 id="选择2解锁密码-最后退出的时候要需选择y，因为第一次选择1-退出输入n结果并没有改密码"><a href="#选择2解锁密码-最后退出的时候要需选择y，因为第一次选择1-退出输入n结果并没有改密码" class="headerlink" title="选择2解锁密码,最后退出的时候要需选择y，因为第一次选择1,退出输入n结果并没有改密码"></a>选择2解锁密码,最后退出的时候要需选择y，因为第一次选择1,退出输入n结果并没有改密码</h5><p>在输入<code>chntpw -u Adminstrator SAM</code>检查下<br><img src="https://i.loli.net/2018/06/15/5b23ca06ece30.jpg" alt=""><br>已经是blank了</p><h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p><img src="https://i.loli.net/2018/06/15/5b23caf35f99e.jpg" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;今天一个妹子来找我，说开机密码忘记了，说是妹子其实根本没看见人——因为是他男朋友送电脑过来的，刺激！！&lt;/p&gt;
+&lt;h2 id=&quot;win10p
+      
+    
+    </summary>
+    
+    
+      <category term="瞎记罢写" scheme="https://threst.github.io/tags/%E7%9E%8E%E8%AE%B0%E7%BD%A2%E5%86%99/"/>
+    
+  </entry>
   
   <entry>
     <title>利用 PATH 环境变量进行 Linux 提权</title>
@@ -40,29 +64,6 @@
   </entry>
   
   <entry>
-    <title>61随想</title>
-    <link href="https://threst.github.io/2018/06/01/61%E9%9A%8F%E6%83%B3/"/>
-    <id>https://threst.github.io/2018/06/01/61随想/</id>
-    <published>2018-06-01T14:13:14.000Z</published>
-    <updated>2018-06-01T14:58:02.906Z</updated>
-    
-    <content type="html"><![CDATA[<p>今天是国际儿童节,可能每个人心里都住着一个孩子,动态朋友圈都是关于61礼物的,连室友都回长沙陪女朋友了,我就不一样了,买的内存和电脑都到了,装上之后确实不一样了,可以愉快的开虚拟机了!!其实今天还是大四的毕业晚会,想想三年之后就是我们了,现在还是这么菜,每天还是CTAL+V,还是要多看书,又想起高三的生活,转眼一年过去了,根据朋友圈的动态来分析,他们过的都还好,离2018高考也只有6天了,一起加油吧!<br><img src="https://i.loli.net/2018/06/01/5b115eb53507e.jpg" alt=""></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;今天是国际儿童节,可能每个人心里都住着一个孩子,动态朋友圈都是关于61礼物的,连室友都回长沙陪女朋友了,我就不一样了,买的内存和电脑都到了,装上之后确实不一样了,可以愉快的开虚拟机了!!其实今天还是大四的毕业晚会,想想三年之后就是我们了,现在还是这么菜,每天还是CTAL+V
-      
-    
-    </summary>
-    
-    
-      <category term="瞎记罢写" scheme="https://threst.github.io/tags/%E7%9E%8E%E8%AE%B0%E7%BD%A2%E5%86%99/"/>
-    
-  </entry>
-  
-  <entry>
     <title>常见文件格式分析</title>
     <link href="https://threst.github.io/2018/06/01/%E5%B8%B8%E8%A7%81%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E5%88%86%E6%9E%90/"/>
     <id>https://threst.github.io/2018/06/01/常见文件格式分析/</id>
@@ -82,6 +83,29 @@
     
     
       <category term="ctf" scheme="https://threst.github.io/tags/ctf/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>61随想</title>
+    <link href="https://threst.github.io/2018/06/01/61%E9%9A%8F%E6%83%B3/"/>
+    <id>https://threst.github.io/2018/06/01/61随想/</id>
+    <published>2018-06-01T14:13:14.000Z</published>
+    <updated>2018-06-01T14:58:02.906Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天是国际儿童节,可能每个人心里都住着一个孩子,动态朋友圈都是关于61礼物的,连室友都回长沙陪女朋友了,我就不一样了,买的内存和电脑都到了,装上之后确实不一样了,可以愉快的开虚拟机了!!其实今天还是大四的毕业晚会,想想三年之后就是我们了,现在还是这么菜,每天还是CTAL+V,还是要多看书,又想起高三的生活,转眼一年过去了,根据朋友圈的动态来分析,他们过的都还好,离2018高考也只有6天了,一起加油吧!<br><img src="https://i.loli.net/2018/06/01/5b115eb53507e.jpg" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;今天是国际儿童节,可能每个人心里都住着一个孩子,动态朋友圈都是关于61礼物的,连室友都回长沙陪女朋友了,我就不一样了,买的内存和电脑都到了,装上之后确实不一样了,可以愉快的开虚拟机了!!其实今天还是大四的毕业晚会,想想三年之后就是我们了,现在还是这么菜,每天还是CTAL+V
+      
+    
+    </summary>
+    
+    
+      <category term="瞎记罢写" scheme="https://threst.github.io/tags/%E7%9E%8E%E8%AE%B0%E7%BD%A2%E5%86%99/"/>
     
   </entry>
   
@@ -247,29 +271,6 @@
   </entry>
   
   <entry>
-    <title>逆向入门--linux64</title>
-    <link href="https://threst.github.io/2018/05/12/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%9F%BA%E7%A1%80%20-%20Linux%20x64/"/>
-    <id>https://threst.github.io/2018/05/12/逆向工程基础 - Linux x64/</id>
-    <published>2018-05-12T09:33:09.000Z</published>
-    <updated>2018-05-13T14:27:12.061Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="序幕"><a href="#序幕" class="headerlink" title="序幕"></a>序幕</h2><p>这个Ground Zero系列适合初学者入门使用，让他们进入逆向工程领域。因为这是x64的时代，所以我跳过了x86体系结构。但是你要知道，所有将用c++编写的示例也可以编译为x86，但是我将把它作为作业留给你们。如果你没有任何经验，也无所谓了。你唯一需要的就是有对编程语言的基本理解。<br>开始时，我们将编写一个简单的c++程序，它将提示用户输入密码。它将检查密码是否匹配，如果它正确，它将提示正确，否则将提示错误。我举这个例子的主要原因是，这个例子将让你了解<code>jump</code>，以及其他类似的条件在汇编语言中是如何工作的。另一个原因是，大多数具有硬编码键的程序都可以用类似的方式破解，只不过需要更多的数学知识，而这正是大多数盗版分销商如何破解合法软件并传播密钥的方式。<br>让我们先了解一下我们编写的c++程序。所有的代码都将托管在我的Github页面中：<br><a href="https://github.com/paranoidninja/ScriptDotSh-Reverse-Engineering" target="_blank" rel="noopener">https://github.com/paranoidninja/ScriptDotSh-Reverse-Engineering</a></p><p><img src="https://p1.ssl.qhimg.com/t0165944dc182584b5b.png" alt=""></p><p>这里的代码非常简单。我们的程序将一个参数作为密码输入，如果我不输入任何密码，它将打印help命令。如果我指定了一个密码，它会以10个字节的字符形式存储，并将密码发送到<code>check_pass()</code>函数。我们的硬编码密码是<code>check_pass()</code>函数中的<code>PASSWORD1</code>。在这里，我们的密码与<code>strcmp90</code>函数的实际密码变量<code>mypass</code>进行比较。如果密码匹配，则返回零，否则返回1。返回到我们的主功能，如果我们接收到1，它会打印错误的密码，否则会打印正确的密码。</p><p><img src="https://p2.ssl.qhimg.com/t01db5dfd877f783341.png" alt=""></p><p>现在，让我们在GDB调试器中找到这个代码。用GDB执行二进制文件，将首先在<code>main</code>中设置一个断点，然后再发送参数。其次，我们会让<code>enable time</code>在我们的GDB上运行，所以如果我们走错了一步，我们可以逆转这一步。这可以通过以下命令完成：<code>target record-full</code>和<code>reverse-stepi / nexti</code></p><p><img src="https://p2.ssl.qhimg.com/t0126b47001ec4a0b9b.png" alt=""></p><p>如果你不明白这一点，问题不大。你只需关注<code>gdb $</code>部分，就像你上面看到的那样，在给断点使用<code>break main</code>之后，我输了一个错误的密码<code>pass123</code>。我的编译过的代码应该如前所述打印一个不正确的密码，但是随着我们继续，我们会找到两种方法来绕过代码; 一种是通过从内存中取出实际密码，二是通过修改跳转值并打印密码正确。</p><h2 id="反汇编"><a href="#反汇编" class="headerlink" title="反汇编"></a>反汇编</h2><p>下一步是反汇编整个代码，看看到底发生了什么： </p><p><img src="https://p3.ssl.qhimg.com/t01cdc172e3a5a43676.png" alt=""></p><p>我们在整个反汇编代码中的主要关注以下几点：</p><p>1.<code>je</code> - <code>je</code>表示如果相等就跳转到某个地址，如果不相等，继续下一步。<br>2.<code>call</code>-调用一个新的函数。请记住，在加载完成后，反汇编代码将从主反汇编函数更改为新函数的反汇编代码。</p><ol start="3"><li><code>test</code> - 检查两个值是否相等</li><li><code>cmp</code>- 比较两个值</li><li><code>JNE</code> - 如果它不等于某物，jne就意味着跳转。否则，继续下一步。</li></ol><p>有些人可能会问，既然我们有<code>cmp</code>，我们为什么要进行<code>test</code>呢?答案可以在这里找到，解释得很漂亮:<br><a href="https://stackoverflow.com/questions/39556649/linux-assembly-whats-difference-between-test-eax-eax-and-cmp-eax-0" target="_blank" rel="noopener">https://stackoverflow.com/questions/39556649/linux-assembly-whats-difference-between-test-eax-eax-and-cmp-eax-0</a></p><p>所以，如果我们看到上面的反汇编代码，我们知道如果我们运行没有密码或参数的二进制文件，它将打印帮助，否则将继续检查密码。所以这个<code>cmp</code>应该是检查我们是否有参数的部分。如果一个参数不存在，它将继续打印帮助，否则它将跳转到<code>&lt;main + 70&gt;</code>。如果你在左边的地址旁边看到那些数字，我们可以看到在<code>&lt;+70&gt;</code>处，我们正在将某些东西移动到<code>rax</code>寄存器中。所以，我们要做的是我们将在<code>je</code>上设置一个断点，方法是指定它的地址<code>0x0000000000400972</code>，然后看看它是跳转到<code>&lt;+70&gt;</code>通过要求它继续<code>c</code>。GDB命令<code>c</code>将继续运行二进制文件，直到遇到另一个断点。</p><p><img src="https://p3.ssl.qhimg.com/t019b5d1fcd776dc33b.png" alt=""></p><p>而现在，如果您执行的是<code>step</code>迭代的<code>stepi</code>，它将执行一次迭代执行，并且它应该将您带到<code>&lt;+70&gt;</code>它将<code>Quad Word</code>移入<code>rax</code>寄存器的位置。</p><p><img src="https://p3.ssl.qhimg.com/t01d5a7a0d7e8592bc1.png" alt=""></p><p>我们的逻辑到现在为止都是正确的，现在我们来看下一个有趣的东西，也就是调用部分。如果你看到它旁边，它上面写着类似于<code>&lt;_Z10check_passPc&gt;</code>，它就是我们的<code>check_pass()</code>函数。让我们跳到使用<code>stepi</code>，看看函数里面是什么。一旦你跳到<code>check_pass()</code>函数并反汇编它，你会看到一组新的反汇编代码，它就是<code>check_pass()</code>函数本身的代码。这里有四行有趣的代码：</p><p><img src="https://p3.ssl.qhimg.com/t01a9eb4a8a425d69ee.png" alt=""></p><p>第一部分是将<code>rdx</code>寄存器的值移至<code>rsi</code>并将<code>rax</code>移至<code>rdi</code>。下一部分是调用<code>strcmp()</code>函数，它是C ++的字符串比较函数。接下来，我们有测试这两个值进行比较，如果这两个值相等，我们跳（<code>JE</code>）到<code>&lt;_Z10check_passPc + 77&gt;</code>将0移动到<code>EAX</code>寄存器。如果值不相等，函数将继续在<code>&lt;+70&gt;</code>处继续并在<code>eax</code>寄存器赋值1。现在，这些只不过是我们先前在<code>check_pass()</code>函数中指定的返回值。由于我们输入了无效密码，将发送的返回值为1。但是如果我们可以将返回值修改为零，那么它将输出为“正确的密码”。</p><p>另外，我们可以继续检查被移动到<code>rsi</code>和<code>rdi</code>寄存器中的内容。所以，让我们在那里放置一个断点并直接跳到它。</p><p><img src="https://p0.ssl.qhimg.com/t01de5fefd77f5b7a0e.png" alt=""></p><p>从上图可以看出，我使用了<code>x / s $ rdx</code>和<code>x / s $ rax</code>命令从寄存器中获取值。<code>x / s</code>表示检查寄存器并将其显示为一个字符串。如果你想以字节为单位获得它，你可以指定<code>x / b</code>，或者如果你想要字符，你可以指定<code>x / c</code>等等。然而，有多种变化。现在我们获取密码的第一部分已经在这里了。但是，让我们看看我们如何将<code>&lt;_Z10check_passPc + 70&gt;</code>处的返回值修改为零。所以，我们会拍摄stepi并跳到这个迭代。</p><p><img src="https://p4.ssl.qhimg.com/t01f33946211673bae8.png" alt=""></p><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>正如您在上面看到的，函数在二进制中将<code>0x1</code>移到<code>eax</code>，但是在它可以做一个<code>je</code>之前，我们使用<code>set $eax = 0x0</code>将值修改为<code>0x0</code>，然后继续使用<code>c</code>作为下面的函数，瞧!!!我们有一个返回的值作为正确的密码!</p><p><img src="https://p4.ssl.qhimg.com/t01f64a6e72bae59f2a.png" alt=""><br>这只是一个简单的例子，让您开始逆向工程。随着我们深入，我们将看到套接字函数，运行时加密，编码隐藏的域名等等。这整个过程可以在Windows中使用Olly调试器完成，我将在下一篇博文中展示。</p><p>原文地址:<a href="https://scriptdotsh.com/index.php/2018/04/09/ground-zero-part-1-reverse-engineering-basics/" target="_blank" rel="noopener">https://scriptdotsh.com/index.php/2018/04/09/ground-zero-part-1-reverse-engineering-basics/</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;序幕&quot;&gt;&lt;a href=&quot;#序幕&quot; class=&quot;headerlink&quot; title=&quot;序幕&quot;&gt;&lt;/a&gt;序幕&lt;/h2&gt;&lt;p&gt;这个Ground Zero系列适合初学者入门使用，让他们进入逆向工程领域。因为这是x64的时代，所以我跳过了x86体系结构。但是你要知道，所
-      
-    
-    </summary>
-    
-    
-      <category term="安全客弃婴" scheme="https://threst.github.io/tags/%E5%AE%89%E5%85%A8%E5%AE%A2%E5%BC%83%E5%A9%B4/"/>
-    
-  </entry>
-  
-  <entry>
     <title>逆向入门--ARM64的linux</title>
     <link href="https://threst.github.io/2018/05/12/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%85%A5%E9%97%A8%E2%80%94%20ARM64%E4%B8%8A%E7%9A%84Linux/"/>
     <id>https://threst.github.io/2018/05/12/逆向工程入门— ARM64上的Linux/</id>
@@ -283,6 +284,29 @@
       
       
         &lt;h2 id=&quot;序幕&quot;&gt;&lt;a href=&quot;#序幕&quot; class=&quot;headerlink&quot; title=&quot;序幕&quot;&gt;&lt;/a&gt;序幕&lt;/h2&gt;&lt;p&gt;正如您知道的那样，ARM为我们周围的各种低功耗设备供电，包括但不限于电话，路由器，物联网设备等。因此，深入研究这种体系结构并理解它与x86和
+      
+    
+    </summary>
+    
+    
+      <category term="安全客弃婴" scheme="https://threst.github.io/tags/%E5%AE%89%E5%85%A8%E5%AE%A2%E5%BC%83%E5%A9%B4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>逆向入门--linux64</title>
+    <link href="https://threst.github.io/2018/05/12/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%9F%BA%E7%A1%80%20-%20Linux%20x64/"/>
+    <id>https://threst.github.io/2018/05/12/逆向工程基础 - Linux x64/</id>
+    <published>2018-05-12T09:33:09.000Z</published>
+    <updated>2018-05-13T14:27:12.061Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="序幕"><a href="#序幕" class="headerlink" title="序幕"></a>序幕</h2><p>这个Ground Zero系列适合初学者入门使用，让他们进入逆向工程领域。因为这是x64的时代，所以我跳过了x86体系结构。但是你要知道，所有将用c++编写的示例也可以编译为x86，但是我将把它作为作业留给你们。如果你没有任何经验，也无所谓了。你唯一需要的就是有对编程语言的基本理解。<br>开始时，我们将编写一个简单的c++程序，它将提示用户输入密码。它将检查密码是否匹配，如果它正确，它将提示正确，否则将提示错误。我举这个例子的主要原因是，这个例子将让你了解<code>jump</code>，以及其他类似的条件在汇编语言中是如何工作的。另一个原因是，大多数具有硬编码键的程序都可以用类似的方式破解，只不过需要更多的数学知识，而这正是大多数盗版分销商如何破解合法软件并传播密钥的方式。<br>让我们先了解一下我们编写的c++程序。所有的代码都将托管在我的Github页面中：<br><a href="https://github.com/paranoidninja/ScriptDotSh-Reverse-Engineering" target="_blank" rel="noopener">https://github.com/paranoidninja/ScriptDotSh-Reverse-Engineering</a></p><p><img src="https://p1.ssl.qhimg.com/t0165944dc182584b5b.png" alt=""></p><p>这里的代码非常简单。我们的程序将一个参数作为密码输入，如果我不输入任何密码，它将打印help命令。如果我指定了一个密码，它会以10个字节的字符形式存储，并将密码发送到<code>check_pass()</code>函数。我们的硬编码密码是<code>check_pass()</code>函数中的<code>PASSWORD1</code>。在这里，我们的密码与<code>strcmp90</code>函数的实际密码变量<code>mypass</code>进行比较。如果密码匹配，则返回零，否则返回1。返回到我们的主功能，如果我们接收到1，它会打印错误的密码，否则会打印正确的密码。</p><p><img src="https://p2.ssl.qhimg.com/t01db5dfd877f783341.png" alt=""></p><p>现在，让我们在GDB调试器中找到这个代码。用GDB执行二进制文件，将首先在<code>main</code>中设置一个断点，然后再发送参数。其次，我们会让<code>enable time</code>在我们的GDB上运行，所以如果我们走错了一步，我们可以逆转这一步。这可以通过以下命令完成：<code>target record-full</code>和<code>reverse-stepi / nexti</code></p><p><img src="https://p2.ssl.qhimg.com/t0126b47001ec4a0b9b.png" alt=""></p><p>如果你不明白这一点，问题不大。你只需关注<code>gdb $</code>部分，就像你上面看到的那样，在给断点使用<code>break main</code>之后，我输了一个错误的密码<code>pass123</code>。我的编译过的代码应该如前所述打印一个不正确的密码，但是随着我们继续，我们会找到两种方法来绕过代码; 一种是通过从内存中取出实际密码，二是通过修改跳转值并打印密码正确。</p><h2 id="反汇编"><a href="#反汇编" class="headerlink" title="反汇编"></a>反汇编</h2><p>下一步是反汇编整个代码，看看到底发生了什么： </p><p><img src="https://p3.ssl.qhimg.com/t01cdc172e3a5a43676.png" alt=""></p><p>我们在整个反汇编代码中的主要关注以下几点：</p><p>1.<code>je</code> - <code>je</code>表示如果相等就跳转到某个地址，如果不相等，继续下一步。<br>2.<code>call</code>-调用一个新的函数。请记住，在加载完成后，反汇编代码将从主反汇编函数更改为新函数的反汇编代码。</p><ol start="3"><li><code>test</code> - 检查两个值是否相等</li><li><code>cmp</code>- 比较两个值</li><li><code>JNE</code> - 如果它不等于某物，jne就意味着跳转。否则，继续下一步。</li></ol><p>有些人可能会问，既然我们有<code>cmp</code>，我们为什么要进行<code>test</code>呢?答案可以在这里找到，解释得很漂亮:<br><a href="https://stackoverflow.com/questions/39556649/linux-assembly-whats-difference-between-test-eax-eax-and-cmp-eax-0" target="_blank" rel="noopener">https://stackoverflow.com/questions/39556649/linux-assembly-whats-difference-between-test-eax-eax-and-cmp-eax-0</a></p><p>所以，如果我们看到上面的反汇编代码，我们知道如果我们运行没有密码或参数的二进制文件，它将打印帮助，否则将继续检查密码。所以这个<code>cmp</code>应该是检查我们是否有参数的部分。如果一个参数不存在，它将继续打印帮助，否则它将跳转到<code>&lt;main + 70&gt;</code>。如果你在左边的地址旁边看到那些数字，我们可以看到在<code>&lt;+70&gt;</code>处，我们正在将某些东西移动到<code>rax</code>寄存器中。所以，我们要做的是我们将在<code>je</code>上设置一个断点，方法是指定它的地址<code>0x0000000000400972</code>，然后看看它是跳转到<code>&lt;+70&gt;</code>通过要求它继续<code>c</code>。GDB命令<code>c</code>将继续运行二进制文件，直到遇到另一个断点。</p><p><img src="https://p3.ssl.qhimg.com/t019b5d1fcd776dc33b.png" alt=""></p><p>而现在，如果您执行的是<code>step</code>迭代的<code>stepi</code>，它将执行一次迭代执行，并且它应该将您带到<code>&lt;+70&gt;</code>它将<code>Quad Word</code>移入<code>rax</code>寄存器的位置。</p><p><img src="https://p3.ssl.qhimg.com/t01d5a7a0d7e8592bc1.png" alt=""></p><p>我们的逻辑到现在为止都是正确的，现在我们来看下一个有趣的东西，也就是调用部分。如果你看到它旁边，它上面写着类似于<code>&lt;_Z10check_passPc&gt;</code>，它就是我们的<code>check_pass()</code>函数。让我们跳到使用<code>stepi</code>，看看函数里面是什么。一旦你跳到<code>check_pass()</code>函数并反汇编它，你会看到一组新的反汇编代码，它就是<code>check_pass()</code>函数本身的代码。这里有四行有趣的代码：</p><p><img src="https://p3.ssl.qhimg.com/t01a9eb4a8a425d69ee.png" alt=""></p><p>第一部分是将<code>rdx</code>寄存器的值移至<code>rsi</code>并将<code>rax</code>移至<code>rdi</code>。下一部分是调用<code>strcmp()</code>函数，它是C ++的字符串比较函数。接下来，我们有测试这两个值进行比较，如果这两个值相等，我们跳（<code>JE</code>）到<code>&lt;_Z10check_passPc + 77&gt;</code>将0移动到<code>EAX</code>寄存器。如果值不相等，函数将继续在<code>&lt;+70&gt;</code>处继续并在<code>eax</code>寄存器赋值1。现在，这些只不过是我们先前在<code>check_pass()</code>函数中指定的返回值。由于我们输入了无效密码，将发送的返回值为1。但是如果我们可以将返回值修改为零，那么它将输出为“正确的密码”。</p><p>另外，我们可以继续检查被移动到<code>rsi</code>和<code>rdi</code>寄存器中的内容。所以，让我们在那里放置一个断点并直接跳到它。</p><p><img src="https://p0.ssl.qhimg.com/t01de5fefd77f5b7a0e.png" alt=""></p><p>从上图可以看出，我使用了<code>x / s $ rdx</code>和<code>x / s $ rax</code>命令从寄存器中获取值。<code>x / s</code>表示检查寄存器并将其显示为一个字符串。如果你想以字节为单位获得它，你可以指定<code>x / b</code>，或者如果你想要字符，你可以指定<code>x / c</code>等等。然而，有多种变化。现在我们获取密码的第一部分已经在这里了。但是，让我们看看我们如何将<code>&lt;_Z10check_passPc + 70&gt;</code>处的返回值修改为零。所以，我们会拍摄stepi并跳到这个迭代。</p><p><img src="https://p4.ssl.qhimg.com/t01f33946211673bae8.png" alt=""></p><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>正如您在上面看到的，函数在二进制中将<code>0x1</code>移到<code>eax</code>，但是在它可以做一个<code>je</code>之前，我们使用<code>set $eax = 0x0</code>将值修改为<code>0x0</code>，然后继续使用<code>c</code>作为下面的函数，瞧!!!我们有一个返回的值作为正确的密码!</p><p><img src="https://p4.ssl.qhimg.com/t01f64a6e72bae59f2a.png" alt=""><br>这只是一个简单的例子，让您开始逆向工程。随着我们深入，我们将看到套接字函数，运行时加密，编码隐藏的域名等等。这整个过程可以在Windows中使用Olly调试器完成，我将在下一篇博文中展示。</p><p>原文地址:<a href="https://scriptdotsh.com/index.php/2018/04/09/ground-zero-part-1-reverse-engineering-basics/" target="_blank" rel="noopener">https://scriptdotsh.com/index.php/2018/04/09/ground-zero-part-1-reverse-engineering-basics/</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;序幕&quot;&gt;&lt;a href=&quot;#序幕&quot; class=&quot;headerlink&quot; title=&quot;序幕&quot;&gt;&lt;/a&gt;序幕&lt;/h2&gt;&lt;p&gt;这个Ground Zero系列适合初学者入门使用，让他们进入逆向工程领域。因为这是x64的时代，所以我跳过了x86体系结构。但是你要知道，所
       
     
     </summary>

@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>kali下安装docker · threst&#39;s Blog</title>
+    <title>艰难的kali破解xp开机密码之路 · threst&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -207,7 +207,7 @@
                 <a href="/" >threst&#39;s Blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">kali下安装docker</a>
+                <a href="#" class="post-name">艰难的kali破解xp开机密码之路</a>
             </div>
     </div>
     
@@ -239,7 +239,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            kali下安装docker
+            艰难的kali破解xp开机密码之路
             <!-- 404 -->
             
         </h1>
@@ -257,13 +257,13 @@ height:50vh;
             
                 <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "kali docker">kali docker</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "瞎记罢写">瞎记罢写</a>
     
 </div>
             
             <div class="post-intro-meta">
                 <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                <span class="post-intro-time">2018/05/29</span>
+                <span class="post-intro-time">2018/06/15</span>
                 
                 <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                     <span class="iconfont-archer">&#xe602;</span>
@@ -389,83 +389,26 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>周末水了下suctf，只做出签到题，太菜了，今天在安全客上面梅子酒师傅发出了wp，看了之后觉得质量非常高，最重要的是可以在docker上复现，发现现在kali上面并没有安装docker，之前在知乎上面写过一篇关于如何安装docker的<a href="https://zhuanlan.zhihu.com/p/32288292" target="_blank" rel="noopener">文章</a>，于是晚上试了下，尴尬的是失败了！！google了下，喜获一个一键安装脚本，看了下大佬脚本发现可能是<code>apt-get install docker-ce</code>这个的问题，因为之前一直是<code>apt-cache policy docker-engine</code></p>
-<h2 id="之前的安装方式"><a href="#之前的安装方式" class="headerlink" title="之前的安装方式"></a>之前的安装方式</h2><p>由于kali linux是基于Debian Wheezy，所以这里docker需要的内核版本至少是3.10，因此需要检查下kali的内核，如果不够的话，需要更新内核<br><code>uname -a</code><br>切换用户root下</p>
-<h3 id="1-创建-etc-apt-sources-list-d-backports-list"><a href="#1-创建-etc-apt-sources-list-d-backports-list" class="headerlink" title="1.创建/etc/apt/sources.list.d/backports.list"></a>1.创建/etc/apt/sources.list.d/backports.list</h3><p><code>leafpad /etc/apt/sources.list.d/backports.list</code></p>
-<h3 id="2-在list文件里加上一条反向端口条目"><a href="#2-在list文件里加上一条反向端口条目" class="headerlink" title="2.在list文件里加上一条反向端口条目"></a>2.在list文件里加上一条反向端口条目</h3><p><code>deb http://http.debian.net/debian wheezy-backports main</code></p>
-<h3 id="3-更新软件包"><a href="#3-更新软件包" class="headerlink" title="3.更新软件包"></a>3.更新软件包</h3><p><code>apt update</code></p>
-<h3 id="4-如果以前安装过docker"><a href="#4-如果以前安装过docker" class="headerlink" title="4.如果以前安装过docker"></a>4.如果以前安装过docker</h3><p>就这样删除所有旧版本docker</p>
-<pre><code>apt-get purge lxc-docker*
-apt-get purge docker.io*
-</code></pre><p>可能没有旧版本（之前没有安装过）<br>没有的继续</p>
-<h3 id="5-确认apt添加了https方法和CA-cerificates"><a href="#5-确认apt添加了https方法和CA-cerificates" class="headerlink" title="5.确认apt添加了https方法和CA cerificates"></a>5.确认apt添加了https方法和CA cerificates</h3><p><code>apt-get install apt-transport-https ca-certificates gnupg2</code></p>
-<h3 id="6-添加一个新的GPG-key"><a href="#6-添加一个新的GPG-key" class="headerlink" title="6.添加一个新的GPG key"></a>6.添加一个新的GPG key</h3><p><code>apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D</code></p>
-<h3 id="7-安装repository"><a href="#7-安装repository" class="headerlink" title="7.安装repository"></a>7.安装repository</h3><p><code>apt-cache policy docker-engine</code><br>这个命令可以查看是否存在资源之后再<br><code>apt-get install docker-engine</code><br>但是这个好像不行了要执行下列命令<br><code>apt-get install docker-ce</code></p>
-<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><pre><code>#!/bin/bash
-# install dependencies 
-sudo apt-get install apt-transport-https ca-certificates curl gnupg software-properties-common dirmngr
-
-# use https get sources  
-sudo echo &quot;deb https://http.kali.org/kali kali-rolling main non-free contrib&quot; &gt; /etc/apt/sources.list
-sudo echo &quot;deb-src https://http.kali.org/kali kali-rolling main non-free contrib&quot; &gt;&gt; /etc/apt/sources.list
-
-# update apt-get
-export DEBIAN_FRONTEND=&quot;noninteractive&quot;
-sudo apt-get update
-
-# remove previously installed Docker
-sudo apt-get purge lxc-docker*
-sudo apt-get purge docker.io*
-
-# add Docker repo gpg key
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
-
-# add deb docker sources
-sudo echo &quot;deb [arch=amd64] https://download.docker.com/linux/debian stretch stable&quot; &gt;&gt; /etc/apt/sources.list 
-cat &gt; /etc/apt/sources.list.d/docker.list &lt;&lt;&apos;EOF&apos;
-deb https://apt.dockerproject.org/repo debian-stretch main
-EOF
-sudo apt-get update
-
-# install Docker
-sudo apt-get install docker-ce
-
-# run Hellow World image
-sudo docker run hello-world
-
-# manage Docker as a non-root user
-sudo groupadd docker
-sudo usermod -aG docker $USER
-
-# configure Docker to start on boot
-sudo systemctl enable docker
-</code></pre><p><a href="https://github.com/Mr-xn/Kali-install-docker" target="_blank" rel="noopener">脚本地址</a></p>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试:"></a>测试:</h2><p><code>root@kali:/home/threst# docker run hello-world</code><br>出现下面这个就是安装成功了</p>
-<pre><code>Hello from Docker!
-This message shows that your installation appears to be working correctly.
-To generate this message, Docker took the following steps:
- 1. The Docker client contacted the Docker daemon.
- 2. The Docker daemon pulled the &quot;hello-world&quot; image from the Docker Hub.
-    (amd64)
- 3. The Docker daemon created a new container from that image which runs the
-    executable that produces the output you are currently reading.
- 4. The Docker daemon streamed that output to the Docker client, which sent it
-    to your terminal.
-To try something more ambitious, you can run an Ubuntu container with:
- $ docker run -it ubuntu bash
-Share images, automate workflows, and more with a free Docker ID:
- https://hub.docker.com/
-For more examples and ideas, visit:
- https://docs.docker.com/engine/userguide/
-</code></pre><p>使用国内镜像:<br><code>docker pull registry.docker-cn.com/myname/myrepo:mytag</code><br>例如<br><code>docker pull registry.docker-cn.com/suctf/2018-web-annonymous</code></p>
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>今天一个妹子来找我，说开机密码忘记了，说是妹子其实根本没看见人——因为是他男朋友送电脑过来的，刺激！！</p>
+<h2 id="win10pe初尝试"><a href="#win10pe初尝试" class="headerlink" title="win10pe初尝试"></a>win10pe初尝试</h2><p>拿到电脑那一刻，懵懂了，这哪是电脑，这根本就是十年前的古董啊！！病毒运行起来都卡，一大堆问题，本来是想直接用微pe盘破解（微pe真心好用），哪想这古董识别不了u盘</p>
+<p>古董照片<br><img src="https://i.loli.net/2018/06/15/5b23c8cd36de6.jpg" alt=""></p>
+<h2 id="kali大法好"><a href="#kali大法好" class="headerlink" title="kali大法好"></a>kali大法好</h2><p>正好威神那里有kali的启动盘，抱着试一试的想法插入了，啊！居然可以识别，直接设为u盘启动，开启kali<br>参考:<a href="https://blog.csdn.net/qq_31481187/article/details/52602454" target="_blank" rel="noopener">https://blog.csdn.net/qq_31481187/article/details/52602454</a><br>先挂载windows的系统盘，打开终端，输入<br><code>cd /WINDOWS/system32/config</code></p>
+<p>然后使用chntpw神器<br><code>chntpw -l SAM</code></p>
+<p><img src="https://i.loli.net/2018/06/15/5b23c941d0cb6.jpg" alt=""></p>
+<p>看见<code>Administrator</code>用户</p>
+<p>输入：<br><code>chntpw -u Adminstrator SAM</code></p>
+<p><img src="https://i.loli.net/2018/06/15/5b23c9a302c02.jpg" alt=""></p>
+<p>要你选择<br><img src="https://i.loli.net/2018/06/15/5b23ca01d02bd.jpg" alt=""></p>
+<h5 id="选择2解锁密码-最后退出的时候要需选择y，因为第一次选择1-退出输入n结果并没有改密码"><a href="#选择2解锁密码-最后退出的时候要需选择y，因为第一次选择1-退出输入n结果并没有改密码" class="headerlink" title="选择2解锁密码,最后退出的时候要需选择y，因为第一次选择1,退出输入n结果并没有改密码"></a>选择2解锁密码,最后退出的时候要需选择y，因为第一次选择1,退出输入n结果并没有改密码</h5><p>在输入<code>chntpw -u Adminstrator SAM</code>检查下<br><img src="https://i.loli.net/2018/06/15/5b23ca06ece30.jpg" alt=""><br>已经是blank了</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p><img src="https://i.loli.net/2018/06/15/5b23caf35f99e.jpg" alt=""></p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="https://threst.github.io">threst</a>
-            <p>原文链接: <a href="https://threst.github.io/2018/05/29/kali安装docker/">https://threst.github.io/2018/05/29/kali安装docker/</a>
-            <p>发表日期: <a href="https://threst.github.io/2018/05/29/kali安装docker/">May 29th 2018, 8:33:09</a>
+            <p>原文链接: <a href="https://threst.github.io/2018/06/15/kali破解xp开机密码/">https://threst.github.io/2018/06/15/kali破解xp开机密码/</a>
+            <p>发表日期: <a href="https://threst.github.io/2018/06/15/kali破解xp开机密码/">June 15th 2018, 10:13:14</a>
             <p>版权声明: 本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -473,17 +416,12 @@ For more examples and ideas, visit:
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/05/30/实验吧wp/" title= 实验吧wp(持续更新) >
-                    <div class="nextTitle">实验吧wp(持续更新)</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/05/22/你肯定不知道的GraphQL安全概述和测试技巧/" title= 你肯定不知道的GraphQL安全概述和测试技巧 >
-                    <div class="prevTitle">你肯定不知道的GraphQL安全概述和测试技巧</div>
+                <a href= "/2018/06/06/利用 PATH 环境变量进行 Linux 提权/" title= 利用 PATH 环境变量进行 Linux 提权 >
+                    <div class="prevTitle">利用 PATH 环境变量进行 Linux 提权</div>
                 </a>
             
         </li>
@@ -584,7 +522,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#之前的安装方式"><span class="toc-number">1.</span> <span class="toc-text">之前的安装方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-创建-etc-apt-sources-list-d-backports-list"><span class="toc-number">1.1.</span> <span class="toc-text">1.创建/etc/apt/sources.list.d/backports.list</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-在list文件里加上一条反向端口条目"><span class="toc-number">1.2.</span> <span class="toc-text">2.在list文件里加上一条反向端口条目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-更新软件包"><span class="toc-number">1.3.</span> <span class="toc-text">3.更新软件包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-如果以前安装过docker"><span class="toc-number">1.4.</span> <span class="toc-text">4.如果以前安装过docker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-确认apt添加了https方法和CA-cerificates"><span class="toc-number">1.5.</span> <span class="toc-text">5.确认apt添加了https方法和CA cerificates</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-添加一个新的GPG-key"><span class="toc-number">1.6.</span> <span class="toc-text">6.添加一个新的GPG key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-安装repository"><span class="toc-number">1.7.</span> <span class="toc-text">7.安装repository</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一键安装脚本"><span class="toc-number">2.</span> <span class="toc-text">一键安装脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-number">3.</span> <span class="toc-text">测试:</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#背景"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#win10pe初尝试"><span class="toc-number">2.</span> <span class="toc-text">win10pe初尝试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#kali大法好"><span class="toc-number">3.</span> <span class="toc-text">kali大法好</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#选择2解锁密码-最后退出的时候要需选择y，因为第一次选择1-退出输入n结果并没有改密码"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">选择2解锁密码,最后退出的时候要需选择y，因为第一次选择1,退出输入n结果并没有改密码</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后"><span class="toc-number">4.</span> <span class="toc-text">最后</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
