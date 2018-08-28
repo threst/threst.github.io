@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="threst">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="threst">
+    <meta name="keywords" content="Hexo | threst">
+    <meta name="description" content="">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>ctf之隱寫術 · threst&#39;s Blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=20180501 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180501 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+        
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >threst&#39;s Blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">ctf之隱寫術</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>threst's Blog</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            ctf之隱寫術
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
+    
+</div>
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2018/08/28</span>
+                
+                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                    <span class="iconfont-archer">&#xe602;</span>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+                <span class="shareWrapper">
+                    <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                    <span class="shareText">Share</span>
+                    <ul class="shareList">
+                        <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                            <div class="share-qrcode"></div>
+                        </li>
+                        <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                        <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                        <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                        <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                    </ul>
+                </span>
+            </div>
+        
+    </div>
+</div>
+        <script>
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+  
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntroTags = document.getElementsByClassName('post-intro-tags')[0],
+        postIntroMeat = document.getElementsByClassName('post-intro-meta')[0];
+      if (postIntroTags) {
+        postIntroTags.classList.add('post-fade-in');
+      }
+      if (postIntroMeat) {
+        postIntroMeat.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="写在前面的话"><a href="#写在前面的话" class="headerlink" title="写在前面的话"></a>写在前面的话</h2><p>做了这么多的ctf比赛，告诉我个道理——再少不会少隐写！！！隐写题可是每次比赛都有的，But回顾过去，摸着自己的良心说那次解题不是用工具去套，套中了就解开了，没套中就凉了，于是在这种大背景下，我打算写一篇关于隐写的系(xia)统(che）的文章。各位师傅看就看，别骂人。</p>
+<h2 id="what-is-隐写？"><a href="#what-is-隐写？" class="headerlink" title="what is 隐写？"></a>what is 隐写？</h2><p>参考百度上面说就是：隐写术(Steganography)是一门关于信息隐藏的技巧与科学，所谓信息隐藏指的是不让除预期的接收者之外的任何人知晓信息的传递事件或者信息的内容。这里提到了信息隐藏技术，粗略的说下，信息隐藏技术不仅仅只包括隐写术，还有数字水印，隐蔽信道，阀下信道，匿名通信这几种，但是我们都不需要了解，其中数字水印主要应用于产权保护，而隐写术主要应用于通信。</p>
+<h2 id="隐写术应用场景"><a href="#隐写术应用场景" class="headerlink" title="隐写术应用场景"></a>隐写术应用场景</h2><p>要说隐写术的应用不得不提下伟大的Simmons模型，由于最近在看&lt;你好，旧时光&gt;(真心好看)，就拿林杨和余周周来打比方。<br>1.林杨和余周周分属两个教室，一个文科，一个理科。<br>2.为了将同学情谊升华需要进行通信，而通信的短信必须经过中间的潘主任的审阅。<br>3.潘主任可以阅读短信的内容，而且阅读后可以判断他们是否早恋。</p>
+<h4 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h4><p>加密短信方法不可取，因为潘主任会阅读传送的信息的内容，加密后的信息大概率会引起潘主任的怀疑，潘主任可以以此为依据对他们进行调查。因此林杨和余周周需要一种对通信过程隐藏的手段。<br>这么分析一下，可能很多同学对密码学和隐写术产生了困惑，什么时候用隐写，什么时候用密码？<br>密码学与隐写术要根据请情况的不同来选择。<br>密码学：试图通过对信息加密的方式，使信息变得无意义，继而使他人无法获得真正的信息。<br>隐写术：试图隐藏通信事件本身。<br>但他们都有相同目的都是为了针对第三方，在隐蔽性方面(总体上)隐写&gt;加密。因为加密后的文本通常为无意义文本，较易察觉(当然也存在诸如培根密码等密文为有意义文本的加密方<br>式),但在安全性上面(总体上)加密&gt;隐写,隐写方式或算法一但被识别，通常也就取得信息了，但是加密通常即使知道加密算法也无法解出明文(不考虑碰撞)。</p>
+<p>现代数字隐写四大载体</p>
+<ul>
+<li>1.文本：字体、空格、标点、行间距等<br>2.图像：各类图片格式特征(png、jpg、bmp)<br>3.音频：mp3 stego、波形图、频谱图<br>4.视频：压缩视频、未压缩视频</li>
+</ul>
+<h3 id="关于CTF比赛"><a href="#关于CTF比赛" class="headerlink" title="关于CTF比赛"></a>关于CTF比赛</h3><p>在ctf比赛中隐写套路较为固定比赛工具较为成熟。<br>好处：通常题目难度较低，即使没有解题思路，依次尝试各个解法往往也能在没发现提示<br>的情况下找出问题所在。<br>坏处：容易形成思维定势，一旦题目考察方式不常规，往往容易无从下手，不知道从哪开<br>始去分析，失去独立发现问题和思考的能力。<br>通常作为MISC类题目的一个考察方向，(这里MISC泛指Misc &amp; Steganography &amp; forensic &amp; Crypto)，因为不作为单独分类，因此隐写术通常只是一道Misc题中的一部分，与其他考察方向<br>共同构成一道完整的Misc题。在国外CTF比赛中以计算机取证(Forensics)类的题目出现。</p>
+<h2 id="CTF比赛中的典型隐写分析工具"><a href="#CTF比赛中的典型隐写分析工具" class="headerlink" title="CTF比赛中的典型隐写分析工具"></a>CTF比赛中的典型隐写分析工具</h2><h4 id="Binwalk"><a href="#Binwalk" class="headerlink" title="Binwalk"></a>Binwalk</h4><p>固件分析工具，常用作路由器逆向、后门分析，或识别二进制图像中的嵌入式文件和可<br>执行代码<br>常用参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">命令：binwalk -e firmware.bin——选项“-e&quot;和“--extract&quot;用于按照定义的配置文件中的提取方法从固件中提取探测到的文件系统。</span><br><span class="line">命令：binwalk -Me firmware.bin——选项“-M&quot;和“--matryoshka&quot;用于根据magic签名扫描结果进行递归提取，仅对&quot;-e&quot;和“--dd&quot;选项有效。</span><br><span class="line">命令：binwalk -Me -d 5 firmware.bin——选项“-d&quot;和“--depth=&lt;int&gt;&quot;用于限制递归提取深度，默认深度为8，仅当“-M&quot;选项存在时有效。</span><br></pre></td></tr></table></figure></p>
+<h4 id="Stegsolve"><a href="#Stegsolve" class="headerlink" title="Stegsolve"></a>Stegsolve</h4><p>图片通道查看器,常用参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Analyse下拉菜单：</span><br><span class="line">File Format：查看文件格式和参数信息，有时候flag会写在图片信息里</span><br><span class="line">Data Extract：数据提取，如LSB隐写等在这个选项中提取信息</span><br><span class="line">Stereogram solver：立体视图，可以左右移动控制偏移量</span><br><span class="line">Frame Broswer：逐帧浏览，如查看快速闪过的GIF图中的flag</span><br><span class="line">Image Combiner：图片结合，可以对两张图片做xor、add、sub等运算</span><br></pre></td></tr></table></figure></p>
+<h4 id="StegDetect"><a href="#StegDetect" class="headerlink" title="StegDetect"></a>StegDetect</h4><p>数字图像隐写分析工具，主要针对JPEG,常用参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-q 仅显示可能包含隐藏内容的图像。</span><br><span class="line">-n 启用检查JPEG文件头功能，以降低误报率。如果启用，所有带有批注区域的文件将被视为没有被嵌入信息。如果JPEG文件的JFIF标识符中的版本号不是1.1，则禁用OutGuess检测。</span><br><span class="line">-s 修改检测算法的敏感度，该值的默认值为1。检测结果的匹配度与检测算法的敏感度成正比，算法敏感度的值越大，检测出的可疑文件包含敏感信息的可能性越大。</span><br><span class="line">-d 打印带行号的调试信息。</span><br><span class="line">-t 设置要检测哪些隐写工具（默认检测jopi），可设置的选项如下：</span><br><span class="line">j 检测图像中的信息是否是用jsteg嵌入的。</span><br><span class="line">o 检测图像中的信息是否是用outguess嵌入的。</span><br><span class="line">p 检测图像中的信息是否是用jphide嵌入的。</span><br><span class="line">i 检测图像中的信息是否是用invisible secrets嵌入的。</span><br></pre></td></tr></table></figure></p>
+<h4 id="Foremost"><a href="#Foremost" class="headerlink" title="Foremost"></a>Foremost</h4><p>基于文件开始格式，文件结束标志和内部数据结构进行恢复文件的程序。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-V  - 显示版权信息并退出</span><br><span class="line">-t  - 指定文件类型.  (-t jpeg,pdf ...) </span><br><span class="line">-d  -打开间接块检测 (针对UNIX文件系统) </span><br><span class="line">-i  - 指定输入文件 (默认为标准输入) </span><br><span class="line">-a  - 写入所有的文件头部, 不执行错误检测(损坏文件) </span><br><span class="line">-w  - 向磁盘写入审计文件，不写入任何检测到的文件</span><br><span class="line">-o  - 设置输出目录 (默认为为输出)</span><br><span class="line">-c  - 设置配置文件 (默认为 foremost.conf)</span><br><span class="line">-q  - 启用快速模式. 在512字节边界执行搜索.</span><br><span class="line">-Q  - 启用安静模式. 禁用输出消息. </span><br><span class="line">-v  - 详细模式. 向屏幕上记录所有消息。</span><br></pre></td></tr></table></figure></p>
+<h4 id="strings"><a href="#strings" class="headerlink" title="strings"></a>strings</h4><p>strings命令在对象文件或二进制文件中查找可打印的字符串。字符串是4个或更多可打印字符的任意序列，以换行符或空字符结束。 strings命令对识别随机对象文件很有用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-a --all：扫描整个文件而不是只扫描目标文件初始化和装载段</span><br><span class="line">-f –print-file-name：在显示字符串前先显示文件名</span><br><span class="line">-t --radix=&#123;o,d,x&#125; ：输出字符的位置，基于八进制，十进制或者十六进制</span><br><span class="line">-e --encoding=&#123;s,S,b,l,B,L&#125; ：选择字符大小和排列顺序:s = 7-bit, S = 8-bit, &#123;b,l&#125; = 16-bit, &#123;B,L&#125; = 32-bit</span><br></pre></td></tr></table></figure></p>
+<h2 id="常见文件格式"><a href="#常见文件格式" class="headerlink" title="常见文件格式"></a>常见文件格式</h2><h3 id="what-is-文件格式"><a href="#what-is-文件格式" class="headerlink" title="what is 文件格式?"></a>what is 文件格式?</h3><p>文件格式（或文件类型）是指电脑为了存储信息而使用的对信息的特殊编码方式，是用于识别内部储存的资料。比如有的储存图片，有的储存程序，有的储存文字信息。每一类信息，都可以一种或多种文件格式保存在电脑存储中。每一种文件格式通常会有一种或多种扩展名可以用来识别，但也可能没有扩展名。扩展名可以帮助应用程序识别的文件格式。</p>
+<h3 id="文件头"><a href="#文件头" class="headerlink" title="文件头"></a>文件头</h3><p>文件头就是是位于文件开头的一段承担一定任务的数据。一般都在开头的部分。以jpg图片和zip压缩包文件为例。图6和图7分别是jpg图片的文件头以及jpg图片的结尾。</p>
+<h3 id="txt格式"><a href="#txt格式" class="headerlink" title="txt格式"></a>txt格式</h3><p>txt是微软在操作系统上附带的一种文本格式，是最常见的一种文件格式 ，早在DOS时代应用就很多，主要存文本信息，即为文字信息，现在的操作系统大多使用记事本等程序保存，大多数软件可以查看，如记事本，浏览器等等。<br><img src="https://i.loli.net/2018/07/28/5b5c2ff8cadd7.jpg" alt="txt.jpg"></p>
+<h4 id="doc-docx格式"><a href="#doc-docx格式" class="headerlink" title="doc/docx格式"></a>doc/docx格式</h4><p>doc即document的缩写，docx在doc的基础上加入了xml，通常是指Microsoft Office Word软件创建的文件格式，docx实际上是作为一个zip压缩方式的压缩文件，docx相对doc体积更小，支持的对象更多，同常采用AOPR的工具爆破docx的难度更大。<br><img src="https://i.loli.net/2018/07/28/5b5c3256e7cdc.jpg" alt="doc和docx大小.jpg"><br>doc和docx中内容一样，docx比doc相比，体积更小。<br><img src="https://i.loli.net/2018/07/28/5b5c325808e21.jpg" alt="docx.jpg"><br>注意这里标记的pk，其实docx可以讲是一种zip文件。我们把后缀名改成zip试试。<br><img src="https://i.loli.net/2018/07/28/5b5c501148515.jpg" alt="docxzip.jpg"><br>可以看到，可以用解压软件打开。<br><img src="https://i.loli.net/2018/07/28/5b5c325811908.jpg" alt="doc.jpg"></p>
+<h4 id="png格式"><a href="#png格式" class="headerlink" title="png格式"></a>png格式</h4><p>属于无损压缩的位图格式，他采用LZ77的派生算法进行压缩，压缩比高，文件体积小，同时不损失颜色和数据，一个png文件可以由一个文件头标志和若干个数据块构成，而数据块有可以分为关键数据块和辅助数据块，每一类数据块又包含若干具体的数据块部分。</p>
+<p>拿张png的图片来举个例子．<br><img src="https://i.loli.net/2018/07/28/5b5c4ef373d27.png" alt="png"><br>丢到winhex中分析，对于一个PNG文件来说，其文件头总是由位固定的字节来描述的，剩余的部分由 3 个以上的 PNG 的数据块（Chunk）按照特定的顺序组成。PNG图片是有两种数据块的，一个是叫关键数据块，另一种是辅助数据块。正常的关键数据块，定义了4种标准数据块，每个PNG文件都必须包含它们。<br>一般格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">文件头 89 50 4E 47 0D 0A 1A 0A+数据块+数据块+数据块……</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2018/06/01/5b1158a6079eb.png" alt=""></p>
+<h4 id="jpeg格式"><a href="#jpeg格式" class="headerlink" title="jpeg格式"></a>jpeg格式</h4><p>JPEG 是有损压缩格式，将像素信息用JPEG保存成文件再读取出来，其中某些像素值会有少许变化。在保存时有个质量参数可在0至100之间选择，参数越大图片就越保真，但图片的体积也就越大。一般情况下选择 70 或 80 就足够了,png主要是块，而jpeg主要是以段的形式<br><img src="https://i.loli.net/2018/07/28/5b5c51e8274a8.jpg" alt="jpg"><br>一样拿张图片做栗子，注意jpg文件有些段是没有长度描述也没有内容，只有段标识和段类型。比如文件头和文件尾均属于这种段，段与段之间无论有多少 <code>FF</code>都是合法的，这些<code>FF</code>称为「填充字节」，必须被忽略掉。<br><img src="https://i.loli.net/2018/07/28/5b5c586860555.jpg" alt="文件头.jpg"><br><code>0xffd8</code>和 <code>0xffd9</code>为 JPG 文件的开始结束的标志<br><img src="https://i.loli.net/2018/07/28/5b5c5b13c92a9.jpg" alt="文件尾.jpg"></p>
+<h4 id="bmp格式"><a href="#bmp格式" class="headerlink" title="bmp格式"></a>bmp格式</h4><p>是windows的标准图像文件格式，通常情况下采用位映射存储格式，除了图像的深度(可以理解为控制色彩的能力)可选外，不采用任何其他的压缩方式，因此bmp的图像质量非常高，体积也非常大，bmp图像通常可以分为设备相关位图和设备无关位图两大类，一个bmp的文件格式通常由文件头，信息头，颜色信息和位图数据四部分组成<br>文件头:前面两个字节一般42 4D，随后4个字节表示位图大小,再后面4个字节为保留位设置为0,再后面的4个字节非常关键，表示文件头到位图数据的偏移量<br><img src="https://i.loli.net/2018/07/28/5b5c5bd8ec998.bmp" alt="1.bmp"></p>
+<p><img src="https://i.loli.net/2018/07/28/5b5c5e8d58825.jpg" alt="bmp.jpg"><br>其中图像文件头。<code>0x4d42=’BM’</code>，表示是Windows支持的BMP格式。(注意：查ascii表B 0x42,M0x4d,bfType为两个字节，B为low字节，M为high字节所以bfType=<code>0x4D42</code>，而不是<code>0x424D</code>，请注意)<br><a href="https://baike.baidu.com/item/BMP/35116" target="_blank" rel="noopener">https://baike.baidu.com/item/BMP/35116</a></p>
+<h4 id="gif"><a href="#gif" class="headerlink" title="gif"></a>gif</h4><p>gif就是我们经常看见的动图,比如各种表情包,从文件格式来讲它也是一种无损压缩，它存储的不是颜色的本身，而是该点的颜色列表的索引值，其内部分成许多存储快，可以用来存储多副图像或者是决定图像表现行为的控制块，继而实现动图和交互式应用，一个gif图像通常由文件头，gif数据流和文件终结器三个部分组成，目前常见的有87(不支持动图)和89两个版本.</p>
+<p><img src="https://i.loli.net/2018/07/28/5b5c62100b597.gif" alt="gif"></p>
+<p>我们还是用一张git图来举栗子</p>
+<p><code>&lt;GIF数据流&gt; ::= 头部 &lt;；逻辑视屏&gt; &lt;；数据&gt;* 尾记录</code>,这个规则将<gif 数据流="">；实体定义如下。它必须以头部开始，头部后面接一个逻辑视屏实体，该实体要用其他规则来定义。最后，数据实体接结束符。数据实体后面的*表示数据实体可以在此位置出现0或多次。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;Gif 数据流&gt; ::= 头部 &lt;；逻辑视屏&gt; &lt;；数据&gt;* 尾记录</span><br><span class="line">&lt;；逻辑视屏&gt; ::= 逻辑视屏描述块 [全局色表]</span><br><span class="line">&lt;；数据&gt; ::= &lt;；成象块&gt; |&lt;；特殊用途块&gt;</span><br><span class="line">&lt;；成象块&gt; ::= [图象控制扩充] &lt;；成象块&gt;</span><br><span class="line">&lt;；成象块&gt; ::= &lt;；基于表的图象&gt; |纯文本扩充</span><br><span class="line">&lt;；基于表的图象&gt; ::= 图象描述符 [局部色表] 图象数据</span><br><span class="line">&lt;；特殊用途块&gt; ::= 应用扩充 |注释扩充</span><br></pre></td></tr></table></figure></gif></p>
+<p><img src="https://i.loli.net/2018/07/29/5b5d69773c0d7.jpg" alt="gif.jpg"></p>
+<h4 id="mp3"><a href="#mp3" class="headerlink" title="mp3"></a>mp3</h4><p>mp3格式是在音频隐写中常见的一种格式,mp3即MPEG-a Audio Layer-3的简称，根据压缩质量和编码的复杂程度可以大致分为3层，分别对应与mp1,mp2,mp3,这三种有损压缩的声音文件，根据用途的不同，每层采用的编码方式也不同，其编码层次越高，编码器就越复杂，压缩率也高，一个mp3文件大致可以分成TAG_V2,Frame,TAG_V1三部分，其中frame是构成mp3的最小组成单位。<br>拿十三哥的音频来举个例子,使用audacity工具可以查看mp3的波形图,频谱图.<br><img src="https://i.loli.net/2018/07/28/5b5c612c4846e.jpg" alt="mp32.jpg"></p>
+<p><img src="https://i.loli.net/2018/07/28/5b5c612c8f6ca.jpg" alt="mp3.jpg"></p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者: <a href="https://threst.github.io">threst</a>
+            <p>原文链接: <a href="https://threst.github.io/2018/08/28/CTF之隐写术/">https://threst.github.io/2018/08/28/CTF之隐写术/</a>
+            <p>发表日期: <a href="https://threst.github.io/2018/08/28/CTF之隐写术/">August 28th 2018, 10:13:14</a>
+            <p>版权声明: 本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/06/15/kali破解xp开机密码/" title= 艰难的kali破解xp开机密码之路 >
+                    <div class="prevTitle">艰难的kali破解xp开机密码之路</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:3451078463@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/threst" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+        <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在前面的话"><span class="toc-number">1.</span> <span class="toc-text">写在前面的话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#what-is-隐写？"><span class="toc-number">2.</span> <span class="toc-text">what is 隐写？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#隐写术应用场景"><span class="toc-number">3.</span> <span class="toc-text">隐写术应用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#分析："><span class="toc-number">3.0.1.</span> <span class="toc-text">分析：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于CTF比赛"><span class="toc-number">3.1.</span> <span class="toc-text">关于CTF比赛</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CTF比赛中的典型隐写分析工具"><span class="toc-number">4.</span> <span class="toc-text">CTF比赛中的典型隐写分析工具</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Binwalk"><span class="toc-number">4.0.1.</span> <span class="toc-text">Binwalk</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Stegsolve"><span class="toc-number">4.0.2.</span> <span class="toc-text">Stegsolve</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#StegDetect"><span class="toc-number">4.0.3.</span> <span class="toc-text">StegDetect</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Foremost"><span class="toc-number">4.0.4.</span> <span class="toc-text">Foremost</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#strings"><span class="toc-number">4.0.5.</span> <span class="toc-text">strings</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见文件格式"><span class="toc-number">5.</span> <span class="toc-text">常见文件格式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#what-is-文件格式"><span class="toc-number">5.1.</span> <span class="toc-text">what is 文件格式?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件头"><span class="toc-number">5.2.</span> <span class="toc-text">文件头</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#txt格式"><span class="toc-number">5.3.</span> <span class="toc-text">txt格式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#doc-docx格式"><span class="toc-number">5.3.1.</span> <span class="toc-text">doc/docx格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#png格式"><span class="toc-number">5.3.2.</span> <span class="toc-text">png格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jpeg格式"><span class="toc-number">5.3.3.</span> <span class="toc-text">jpeg格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#bmp格式"><span class="toc-number">5.3.4.</span> <span class="toc-text">bmp格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gif"><span class="toc-number">5.3.5.</span> <span class="toc-text">gif</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mp3"><span class="toc-number">5.3.6.</span> <span class="toc-text">mp3</span></a></li></ol></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 14 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/28</span><a class="archive-post-title" href= "/2018/08/28/CTF之隐写术/" >ctf之隱寫術</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/2018/06/15/kali破解xp开机密码/" >艰难的kali破解xp开机密码之路</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/06</span><a class="archive-post-title" href= "/2018/06/06/利用 PATH 环境变量进行 Linux 提权/" >利用 PATH 环境变量进行 Linux 提权</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/2018/06/01/61随想/" >61随想</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/2018/06/01/常见文件格式分析/" >常见文件格式分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/2018/06/01/如何在MIMIKATZ添加模块/" >如何在MIMIKATZ添加模块</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/实验吧wp/" >实验吧wp(持续更新)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span><a class="archive-post-title" href= "/2018/05/29/kali安装docker/" >kali下安装docker</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span><a class="archive-post-title" href= "/2018/05/22/你肯定不知道的GraphQL安全概述和测试技巧/" >你肯定不知道的GraphQL安全概述和测试技巧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/17</span><a class="archive-post-title" href= "/2018/05/17/git一条龙(一看就会的那种)/" >git一条龙(一看就会的那种)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/逆向工程基础 - Linux x64/" >逆向入门--linux64</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/逆向工程入门— ARM64上的Linux/" >逆向入门--ARM64的linux</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/艰难的hexo上线/" >艰难的hexo上线</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/isccwp/" >isccwp</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="瞎记罢写"><span class="iconfont-archer">&#xe606;</span>瞎记罢写</span>
+    
+        <span class="sidebar-tag-name" data-tags="ctf"><span class="iconfont-archer">&#xe606;</span>ctf</span>
+    
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="writeup"><span class="iconfont-archer">&#xe606;</span>writeup</span>
+    
+        <span class="sidebar-tag-name" data-tags="kali docker"><span class="iconfont-archer">&#xe606;</span>kali docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="安全客弃婴"><span class="iconfont-archer">&#xe606;</span>安全客弃婴</span>
+    
+        <span class="sidebar-tag-name" data-tags="writeup ctf"><span class="iconfont-archer">&#xe606;</span>writeup ctf</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: '/',
+        author: 'threst'
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+    
+    </body>
+</html>
+
+
