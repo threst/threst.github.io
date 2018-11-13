@@ -351,6 +351,39 @@ height:50vh;
     
     
         <article class="index-post">
+            <a class="abstract-title" href = "/2018/11/14/pwn_repeater/" >
+                
+                    <span>pwn之路_repeater(山东省赛)</span>
+            </a>
+            <div class="abstract-content">
+                repeater考点:格式化字符串漏洞
+pwntools知识点fmtstr_payload是pwntools提供的函数，用于自动生成格式化字符串。
+fmtstr_payload有两个参数,第一个参数是int，用于表示取参数的偏移个数,第二个参数是字典，字典的意义是往key的地址，写入value的值
+fmtstr_payload(7, {printf_got: system_add})
+这个函数调用会往printf_got中写入system_add
+分析代码此题为简单的格式化字符串漏洞，首先总览分析一下程序，循环受totalcount次数限制，初始值为1。
+
+程序提供了 getFlag 方...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/14</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "pwn">pwn</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
             <a class="abstract-title" href = "/2018/11/11/ctf/" >
                 
                     <span>无处安放的wp(不定期更)</span>
@@ -404,6 +437,32 @@ height:50vh;
     
     
         <article class="index-post">
+            <a class="abstract-title" href = "/2018/11/02/D-CTFQuals2018/" >
+                
+                    <span>D-CTFQuals2018</span>
+            </a>
+            <div class="abstract-content">
+                XORnigma12345678910import itertoolsdef xor_two_str(s, key):    key = key * (len(s) / len(key) + 1)    return ''.join(chr(ord(x) ^ ord(y)) for (x,y) in itertools.izip(s, key)) flag = "" flag_key = ""x = xor_two_str(flag, flag_key)print x.encode("hex")# 000000003f2537257777312725266c242070627770273...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/02</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
             <a class="abstract-title" href = "/2018/11/02/HID/" >
                 
                     <span>BadUSB初探</span>
@@ -435,32 +494,6 @@ AVR处理器，16 MHz
                 <div class= abstract-tags >
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "BadUSB">BadUSB</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/11/02/D-CTFQuals2018/" >
-                
-                    <span>D-CTFQuals2018</span>
-            </a>
-            <div class="abstract-content">
-                XORnigma12345678910import itertoolsdef xor_two_str(s, key):    key = key * (len(s) / len(key) + 1)    return ''.join(chr(ord(x) ^ ord(y)) for (x,y) in itertools.izip(s, key)) flag = "" flag_key = ""x = xor_two_str(flag, flag_key)print x.encode("hex")# 000000003f2537257777312725266c242070627770273...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/02</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
     
 </div>
                 
@@ -616,36 +649,10 @@ allow_url_include(php版本大于5.2默认为off)当该配置项为ON时，可�
             </div>
         </article>
     
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/10/04/phpgd绕过/" >
-                
-                    <span>phpgd绕过</span>
-            </a>
-            <div class="abstract-content">
-                源码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991001011021031041051061071081091101111121131141151161171181191201211221231241251261271281291301311321331341...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/04</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "php">php</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">NEXT &#62;</a>
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">NEXT &#62;</a>
     </nav>
     
 </main>
@@ -1194,7 +1201,64 @@ allow_url_include(php版本大于5.2默认为off)当该配置项为ON时，可�
     
     
     
-    <div class="total-archive"> Total : 30 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 31 </div>
     
     <div class="post-archive">
     
@@ -1203,6 +1267,11 @@ allow_url_include(php版本大于5.2默认为off)当该配置项为ON时，可�
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href= "/2018/11/14/pwn_repeater/" >pwn之路_repeater(山东省赛)</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1236,7 +1305,7 @@ allow_url_include(php版本大于5.2默认为off)当该配置项为ON时，可�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/网鼎杯wp/" >网鼎杯wp</a>
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/phpgd绕过/" >phpgd绕过</a>
         </li>
     
     
@@ -1251,17 +1320,17 @@ allow_url_include(php版本大于5.2默认为off)当该配置项为ON时，可�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/tjctf2018misc/" >tjctf2018wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/csaw2018wp/" >csaw 2018 wp</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/phpgd绕过/" >phpgd绕过</a>
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/tjctf2018misc/" >tjctf2018wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/网鼎杯wp/" >网鼎杯wp</a>
         </li>
     
     
@@ -1369,15 +1438,15 @@ allow_url_include(php版本大于5.2默认为off)当该配置项为ON时，可�
     
         <span class="sidebar-tag-name" data-tags="netcat"><span class="iconfont-archer">&#xe606;</span>netcat</span>
     
-        <span class="sidebar-tag-name" data-tags="系统"><span class="iconfont-archer">&#xe606;</span>系统</span>
-    
         <span class="sidebar-tag-name" data-tags="CVE-2017-11882"><span class="iconfont-archer">&#xe606;</span>CVE-2017-11882</span>
     
         <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
     
-        <span class="sidebar-tag-name" data-tags="writeup"><span class="iconfont-archer">&#xe606;</span>writeup</span>
+        <span class="sidebar-tag-name" data-tags="系统"><span class="iconfont-archer">&#xe606;</span>系统</span>
     
         <span class="sidebar-tag-name" data-tags="kali docker"><span class="iconfont-archer">&#xe606;</span>kali docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="writeup"><span class="iconfont-archer">&#xe606;</span>writeup</span>
     
         <span class="sidebar-tag-name" data-tags="php"><span class="iconfont-archer">&#xe606;</span>php</span>
     

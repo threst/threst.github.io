@@ -336,227 +336,23 @@
     
     
         <article class="index-post">
-            <a class="abstract-title" href = "/2018/10/16/install/" >
+            <a class="abstract-title" href = "/2018/05/12/逆向工程基础 - Linux x64/" >
                 
-                    <span>parrot安装</span>
+                    <span>逆向入门--linux64</span>
             </a>
             <div class="abstract-content">
-                下载系统网站:https://www.parrotsec.org/download.php
-镜像制作:Etcherhttps://etcher.io/
-支持3平台，很好用
-更新系统换源sudo vim /etc/apt/sources.list.d/parrot.list添加清华源deb http://mirrors.tuna.tsinghua.edu.cn/parrot/ parrot main contrib non-free
-更新
-apt-get updateapt-get dist-upgrade
-安装搜狗输入法安装fcitxsudo apt-get install fcitx
-...
+                序幕这个Ground Zero系列适合初学者入门使用，让他们进入逆向工程领域。因为这是x64的时代，所以我跳过了x86体系结构。但是你要知道，所有将用c++编写的示例也可以编译为x86，但是我将把它作为作业留给你们。如果你没有任何经验，也无所谓了。你唯一需要的就是有对编程语言的基本理解。开始时，我们将编写一个简单的c++程序，它将提示用户输入密码。它将检查密码是否匹配，如果它正确，它将提示正确，否则将提示错误。我举这个例子的主要原因是，这个例子将让你了解jump，以及其他类似的条件在汇编语言中是如何工作的。另一个原因是，大多数具有硬编码键的程序都可以用类似的方式破解，只不过需要更多的数学...
             </div>
             <div class="abstract-post-meta">
                 <!-- date  -->
                 <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/16</span>
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/05/12</span>
                 </div>
                 <!-- tags  -->
                 
                 <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "系统">系统</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/10/14/极客大挑战/" >
-                
-                    <span>极客大挑战wp</span>
-            </a>
-            <div class="abstract-content">
-                初来乍到查看源码
-flag: SYC{View_Page_Source_to_Get_Flag} 
-代号为geek的行动第二幕：废弃的地下黑客论坛登录框,放到sqlmap上面跑了下，没有注入，可是根据The sql you execute in final :select * from users where username=&#39;admin&#39;&quot;&quot;&#39; and password=&#39;admi
-判断可能是王能密码，尝试username=admin&#39; or 1=1-- -&amp;password=admin
-结果提示hack!!! Th...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/14</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/10/04/csaw2018wp/" >
-                
-                    <span>csaw 2018 wp</span>
-            </a>
-            <div class="abstract-content">
-                首发安全脉搏:https://www.secpulse.com/archives/75785.html
-cryptobabycrypto题目123456yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeetsingle yeet yeeted with single yeet == 0yeeetwhat is yeet?yeet is yeetYeetdate: yeeted yeet at yeet: 9:42 pm
-提示single yeet yeeted with single yeet == 0想到a XOR a == 0,可能是单字的xor加密
-ciphertext
-...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/04</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/10/04/Netcat/" >
-                
-                    <span>netcat食用指南</span>
-            </a>
-            <div class="abstract-content">
-                阿里云ecs:47.106.230.228目标机kali:校园网
-可以输入nc -h查看帮助：123456789101112131415161718-h 查看帮助信息-d 后台模式-g gateway source-routing hop point[s], up to 8-G num source-routing pointer: 4, 8, 12, …-e prog程序重定向，一但连接就执行［危险］-i secs延时的间隔-l 监听模式，用于入站连接-L 监听模式，连接天闭后仍然继续监听，直到CTR+C-n IP地址，不能用域名(不使用DNS反向查询IP地址的域名)-o film记录...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/04</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "netcat">netcat</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/10/04/php安全/" >
-                
-                    <span>php安全</span>
-            </a>
-            <div class="abstract-content">
-                0x01 PHP敏感配置项register_globals(php版本小于5.4时存在)当该配置项为ON时，会把用户通过GET、POST提交的参数自动注册成全局变量。当代码中存在有未初始化的变量时，可能会导致变量覆盖的问题；
-(PS:其中参数覆盖的顺序受到配置文件中variables_order的参数影响，默认是EGPCS。按顺序，右边的参数来源会覆盖左边的的参数来源)
-allow_url_include(php版本大于5.2默认为off)当该配置项为ON时，可以通过include、require等函数进行远程文件包含
-其中有个类似的配置项是allow_url_fopen，这个参数配置为...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/04</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "php">php</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/10/04/phpgd绕过/" >
-                
-                    <span>phpgd绕过</span>
-            </a>
-            <div class="abstract-content">
-                源码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991001011021031041051061071081091101111121131141151161171181191201211221231241251261271281291301311321331341...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/04</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "php">php</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/10/04/tjctf2018misc/" >
-                
-                    <span>tjctf2018wp</span>
-            </a>
-            <div class="abstract-content">
-                Trippystrings be37fef78cfd6c7deda71154f567e6d0cfefbda1f80698c064bab469d3a54c58_trippy.gif | grep tjctf
-Interference1.将v1和v2用stegsolveadd下，保存图片，在改变图片的偏移量，找到黑白的二维码，用windows反色，扫描出flag2.compare v1.png v2.png output.png再把output.png用stegsolve调至黑白，windows反色.
-Grid Parser
-解压文件，发现有个password.png，用binwalk提取出...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/04</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/10/04/网鼎杯wp/" >
-                
-                    <span>网鼎杯wp</span>
-            </a>
-            <div class="abstract-content">
-                网鼎杯wp套娃打开文件看见很多图片,首先判断lsb,用工具zsteg,一张一张试，试到第六张zsteg 6.png出flag1234567imagedata           .. text: &quot;-+,554$&amp;&amp;&quot;b1,rgb,lsb,xy       .. text: &quot;^;lI;bN$&quot;b1,bgr,lsb,xy       .. text: &quot;+flag&#123;03a253f5-8e93-4533-bcfc-af908830095d&#125;\nq&quot;b2,b,msb,xy         .. f...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/04</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "安全客弃婴">安全客弃婴</a>
     
 </div>
                 
@@ -564,6 +360,10 @@ Grid Parser
         </article>
     
     <!-- paginator  -->
+    
+    <nav class="page-nav">
+        <a class="extend prev" rel="prev" href="/archives/page/3/">&#60; PREV</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="page-number current">4</span>
+    </nav>
     
 </main>
             <!-- profile -->
