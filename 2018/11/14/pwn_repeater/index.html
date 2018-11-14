@@ -403,8 +403,6 @@ height:50vh;
 <p><code>totalcount</code>的地址为<code>0x0804A064</code>,所以要将其修改为3</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">payload = fmtstr_payload(4,&#123;0x0804A064:0x3&#125;)</span><br><span class="line">p.sendline(payload)</span><br></pre></td></tr></table></figure>
 <h3 id="number"><a href="#number" class="headerlink" title="number"></a>number</h3><p>然后改写 number 为 <code>0x2018</code>。同样我们要在<code>.data</code>中寻找number的值</p>
-<p><img src="https://www.superbed.cn/pic/5beae63c9dc6d6bf0f3b6ffd" alt=""></p>
-<p><code>20h</code>转为１０进制就是2018</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">payload = fmtstr_payload(4,&#123;0x0804A060:0x2018&#125;)</span><br><span class="line">p.sendline(payload)</span><br></pre></td></tr></table></figure>
 <h3 id="getflag"><a href="#getflag" class="headerlink" title="getflag"></a>getflag</h3><p>在最开始的图中我们可以知道，格式化字符串输出后就调用了<code>puts</code>函数，我们要做的就是将<code>puts</code>其地址修改为<code>getflag</code>函数的地址,最后调用 <code>getFlag</code>方法获取 Flag。</p>
 <p>那么我们现在有了新问题，怎么找到<code>puts</code>的地址和<code>getflag</code>的地址？介绍两种方法</p>
@@ -570,10 +568,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
     
     
     
@@ -1189,9 +1183,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="系统"><span class="iconfont-archer">&#xe606;</span>系统</span>
     
-        <span class="sidebar-tag-name" data-tags="kali docker"><span class="iconfont-archer">&#xe606;</span>kali docker</span>
-    
         <span class="sidebar-tag-name" data-tags="writeup"><span class="iconfont-archer">&#xe606;</span>writeup</span>
+    
+        <span class="sidebar-tag-name" data-tags="kali docker"><span class="iconfont-archer">&#xe606;</span>kali docker</span>
     
         <span class="sidebar-tag-name" data-tags="php"><span class="iconfont-archer">&#xe606;</span>php</span>
     
