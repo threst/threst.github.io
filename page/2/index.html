@@ -351,6 +351,221 @@ height:50vh;
     
     
         <article class="index-post">
+            <a class="abstract-title" href = "/2018/11/02/D-CTFQuals2018/" >
+                
+                    <span>D-CTFQuals2018</span>
+            </a>
+            <div class="abstract-content">
+                XORnigma12345678910import itertoolsdef xor_two_str(s, key):    key = key * (len(s) / len(key) + 1)    return ''.join(chr(ord(x) ^ ord(y)) for (x,y) in itertools.izip(s, key)) flag = "" flag_key = ""x = xor_two_str(flag, flag_key)print x.encode("hex")# 000000003f2537257777312725266c242070627770273...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/02</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2018/11/02/HID/" >
+                
+                    <span>BadUSB初探</span>
+            </a>
+            <div class="abstract-content">
+                Teensy USB开发板Teensy是一个非常小的完整的基于USB接口的单片机开发系统，能够实现多种类型的项目。所有的编程是通过USB端口。在没有特殊的程序要求下，只有一个标准的Mini-B USB电缆和PC或Macintosh电脑的USB端口。
+主要特点：
+可以是任何类型设备的USB
+AVR处理器，16 MHz
+单个按键编程
+易于使用的Teensy Loader应用程序
+免费软件开发工具
+兼容Mac OS X，Linux和Windows
+小尺寸,许多项目的完美支持
+使用标签面包板
+非常低的成本
+所需工具：
+1.Teensy ++ 2.0 
+2.Teensyduino插件v1.44
+3...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/02</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "BadUSB">BadUSB</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2018/10/16/install/" >
+                
+                    <span>parrot安装</span>
+            </a>
+            <div class="abstract-content">
+                下载系统网站:https://www.parrotsec.org/download.php
+镜像制作:Etcherhttps://etcher.io/
+支持3平台，很好用
+更新系统换源sudo vim /etc/apt/sources.list.d/parrot.list添加清华源deb http://mirrors.tuna.tsinghua.edu.cn/parrot/ parrot main contrib non-free
+更新
+apt-get updateapt-get dist-upgrade
+安装搜狗输入法安装fcitxsudo apt-get install fcitx
+...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/16</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "系统">系统</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2018/10/14/极客大挑战/" >
+                
+                    <span>极客大挑战wp</span>
+            </a>
+            <div class="abstract-content">
+                初来乍到查看源码
+flag: SYC{View_Page_Source_to_Get_Flag} 
+代号为geek的行动第二幕：废弃的地下黑客论坛登录框,放到sqlmap上面跑了下，没有注入，可是根据The sql you execute in final :select * from users where username=&#39;admin&#39;&quot;&quot;&#39; and password=&#39;admi
+判断可能是王能密码，尝试username=admin&#39; or 1=1-- -&amp;password=admin
+结果提示hack!!! Th...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/14</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2018/10/04/csaw2018wp/" >
+                
+                    <span>csaw 2018 wp</span>
+            </a>
+            <div class="abstract-content">
+                首发安全脉搏:https://www.secpulse.com/archives/75785.html
+cryptobabycrypto题目123456yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeetsingle yeet yeeted with single yeet == 0yeeetwhat is yeet?yeet is yeetYeetdate: yeeted yeet at yeet: 9:42 pm
+提示single yeet yeeted with single yeet == 0想到a XOR a == 0,可能是单字的xor加密
+ciphertext
+...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/04</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2018/10/04/Netcat/" >
+                
+                    <span>netcat食用指南</span>
+            </a>
+            <div class="abstract-content">
+                阿里云ecs:47.106.230.228目标机kali:校园网
+可以输入nc -h查看帮助：123456789101112131415161718-h 查看帮助信息-d 后台模式-g gateway source-routing hop point[s], up to 8-G num source-routing pointer: 4, 8, 12, …-e prog程序重定向，一但连接就执行［危险］-i secs延时的间隔-l 监听模式，用于入站连接-L 监听模式，连接天闭后仍然继续监听，直到CTR+C-n IP地址，不能用域名(不使用DNS反向查询IP地址的域名)-o film记录...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/04</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "netcat">netcat</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2018/10/04/php安全/" >
+                
+                    <span>php安全</span>
+            </a>
+            <div class="abstract-content">
+                0x01 PHP敏感配置项register_globals(php版本小于5.4时存在)当该配置项为ON时，会把用户通过GET、POST提交的参数自动注册成全局变量。当代码中存在有未初始化的变量时，可能会导致变量覆盖的问题；
+(PS:其中参数覆盖的顺序受到配置文件中variables_order的参数影响，默认是EGPCS。按顺序，右边的参数来源会覆盖左边的的参数来源)
+allow_url_include(php版本大于5.2默认为off)当该配置项为ON时，可以通过include、require等函数进行远程文件包含
+其中有个类似的配置项是allow_url_fopen，这个参数配置为...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/04</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "php">php</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
             <a class="abstract-title" href = "/2018/10/04/phpgd绕过/" >
                 
                     <span>phpgd绕过</span>
@@ -423,213 +638,6 @@ Grid Parser
                 <div class= abstract-tags >
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/09/18/cve-2017-11882/" >
-                
-                    <span>CVE-2017-11882复现</span>
-            </a>
-            <div class="abstract-content">
-                0x00 漏洞简介2017年11月14日，微软发布了11月份的安全补丁更新，其中比较引人关注的莫过于悄然修复了潜伏17年之久的Office远程代码执行漏洞（CVE-2017-11882）。该漏洞为Office内存破坏漏洞，影响目前流行的所有Office版本。攻击者可以利用漏洞以当前登录的用户的身份执行任意命令。 由于漏洞影响面较广，漏洞披露后，金睛安全研究团队持续对漏洞相关攻击事件进行关注。11月19日，监控到了已有漏洞POC在网上流传，随即迅速对相关样本进行了分析。目前该样本全球仅微软杀毒可以检测。
-
-漏洞影响版本：
-Office 365
-Microsoft Office 2000
-M...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/18</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "CVE-2017-11882">CVE-2017-11882</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/09/15/noxctf2018wp/" >
-                
-                    <span>noxctf2018wp</span>
-            </a>
-            <div class="abstract-content">
-                Reference题目
-
-What is your reference again?http://chal.noxale.com:5000
-
-提示我改这个Referer
-
-我就用Firefox的改包重发改成/check_from_google
-
-bm94Q1RGe0cwb2dMM18xc180bFc0WXNfVXJfYjNTVF9SM2YzcjNuYzN9
-base64解密下
-flag:noxCTF{G0ogL3_1s_4lW4Ys_Ur_b3ST_R3f3r3nc3}
-MyFileUploader题目
-
-This is my new file uploader server. I be...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/15</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/09/11/CVE-2017-8464漏洞复现/" >
-                
-                    <span>CVE-2017-8464漏洞复现</span>
-            </a>
-            <div class="abstract-content">
-                漏洞描述2017年6月13日，微软官方发布编号为CVE-2017-8464的漏洞公告，官方介绍Windows系统在解析快捷方式时存在远程执行任意代码的高危漏洞，黑客可以通过U盘、网络共享等途径触发漏洞，完全控制用户系统，攻击者可以向用户呈现包含恶意的.LNK文件和相关联的恶意二进制文件的可移动驱动器或远程共享。 当用户在Windows资源管理器或解析.LNK文件的任何其他应用程序中打开此驱动器（或远程共享）时，恶意二进制程序将在目标系统上执行攻击者选择的代码，成功利用此漏洞的攻击者可以获得与本地用户相同的用户权限。注释:.LNK是windows系统内应用程序快捷方式文件的文件类型后缀名。...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/11</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "CVE-2017-8464">CVE-2017-8464</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/09/09/双杀0day漏洞(CVE-2018-8174)复现/" >
-                
-                    <span>双杀0day漏洞(CVE-2018-8174)复现</span>
-            </a>
-            <div class="abstract-content">
-                漏洞描述：CVE-2018-8174 是 Windows VBScript Engine 代码执行漏洞。微软在4月20日早上确认此漏洞，并于5月8号发布了官方安全补丁，对该 0day 漏洞进行了修复，将其命名为 CVE-2018-8174由于 VBScript 脚本执行引擎(vbscript.dll)存在代码执行漏洞，攻击者可以将恶意的VBScript嵌入到Office文件或者网站中，一旦用户不小心点击，远程攻击者可以获取当前用户权限执行脚本中的恶意代码。
-漏洞复现：攻击机 IP：192.168.1.101靶机 IP：192.168.1.111
-github:https://github...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/09</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "CVE-2018-8174">CVE-2018-8174</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/08/28/CTF之隐写术/" >
-                
-                    <span>ctf之隱寫術</span>
-            </a>
-            <div class="abstract-content">
-                写在前面的话做了这么多的ctf比赛，告诉我个道理——再少不会少隐写！！！隐写题可是每次比赛都有的，But回顾过去，摸着自己的良心说那次解题不是用工具去套，套中了就解开了，没套中就凉了，于是在这种大背景下，我打算写一篇关于隐写的系(xia)统(che）的文章。各位师傅看就看，别骂人。
-what is 隐写？参考百度上面说就是：隐写术(Steganography)是一门关于信息隐藏的技巧与科学，所谓信息隐藏指的是不让除预期的接收者之外的任何人知晓信息的传递事件或者信息的内容。这里提到了信息隐藏技术，粗略的说下，信息隐藏技术不仅仅只包括隐写术，还有数字水印，隐蔽信道，阀下信道，匿名通信这几种，...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/28</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/06/15/kali破解xp开机密码/" >
-                
-                    <span>艰难的kali破解xp开机密码之路</span>
-            </a>
-            <div class="abstract-content">
-                背景今天一个妹子来找我，说开机密码忘记了，说是妹子其实根本没看见人——因为是他男朋友送电脑过来的，刺激！！
-win10pe初尝试拿到电脑那一刻，懵懂了，这哪是电脑，这根本就是十年前的古董啊！！病毒运行起来都卡，一大堆问题，本来是想直接用微pe盘破解（微pe真心好用），哪想这古董识别不了u盘
-古董照片
-kali大法好正好威神那里有kali的启动盘，抱着试一试的想法插入了，啊！居然可以识别，直接设为u盘启动，开启kali参考:https://blog.csdn.net/qq_31481187/article/details/52602454先挂载windows的系统盘，打开终端，输入cd /...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/06/15</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "瞎记罢写">瞎记罢写</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/06/06/利用 PATH 环境变量进行 Linux 提权/" >
-                
-                    <span>利用 PATH 环境变量进行 Linux 提权</span>
-            </a>
-            <div class="abstract-content">
-                高考加油写在前面的话在解决了几个OSCP挑战之后，我决定写一篇关于用于Linux提权方法的文章，这对我们的渗透测试项目很有帮助。在本文中，我们将学习“操纵$PATH变量的各种方法”，以获得远程主机的根访问权，以及CTF challenges用于提权的$PATH漏洞的技术。
-介绍PATH是Linux和unix操作系统中的环境变量，它存储可执行程序的所有bin和sbin目录。当用户在终端上运行命令时，它对shell的请求是根据用户执行的命令在PATH变量的帮助下搜索可执行文件。超级用户通常还拥有/sbin和/usr/sbin条目，以便轻松执行系统管理命令。使用echo命令查看用户路径。ech...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/06/06</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "安全客弃婴">安全客弃婴</a>
     
 </div>
                 
@@ -1241,7 +1249,140 @@ kali大法好正好威神那里有kali的启动盘，抱着试一试的想法插
     
     
     
-    <div class="total-archive"> Total : 31 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 38 </div>
     
     <div class="post-archive">
     
@@ -1250,6 +1391,36 @@ kali大法好正好威神那里有kali的启动盘，抱着试一试的想法插
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2018/12/31/2018流水账/" >2018流水账</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/23</span><a class="archive-post-title" href= "/2018/12/23/readfile0day/" >readfile-0day复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/20</span><a class="archive-post-title" href= "/2018/12/20/2018鹏城杯Myblog思考/" >2018鹏城杯Myblog思考</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/18</span><a class="archive-post-title" href= "/2018/12/18/pwnable_collision/" >pwnable_collision</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/18</span><a class="archive-post-title" href= "/2018/12/18/pwnable_fd/" >pwnable_fd</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/22</span><a class="archive-post-title" href= "/2018/11/22/hackagame2018/" >hackagame2018</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1264,6 +1435,11 @@ kali大法好正好威神那里有kali的启动盘，抱着试一试的想法插
     
         <li class="archive-post-item">
             <span class="archive-post-date">11/11</span><a class="archive-post-title" href= "/2018/11/11/pwn之路_ret2text/" >pwn之路_ret2text</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/hackover18/" >hackover18</a>
         </li>
     
     
@@ -1293,7 +1469,12 @@ kali大法好正好威神那里有kali的启动盘，抱着试一试的想法插
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/php安全/" >php安全</a>
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/网鼎杯wp/" >网鼎杯wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/tjctf2018misc/" >tjctf2018wp</a>
         </li>
     
     
@@ -1308,12 +1489,7 @@ kali大法好正好威神那里有kali的启动盘，抱着试一试的想法插
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/tjctf2018misc/" >tjctf2018wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/网鼎杯wp/" >网鼎杯wp</a>
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/php安全/" >php安全</a>
         </li>
     
     
@@ -1393,17 +1569,17 @@ kali大法好正好威神那里有kali的启动盘，抱着试一试的想法插
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/isccwp/" >isccwp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/逆向工程入门— ARM64上的Linux/" >逆向入门--ARM64的linux</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/艰难的hexo上线/" >艰难的hexo上线</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/isccwp/" >isccwp</a>
         </li>
     
     </div>
@@ -1434,6 +1610,8 @@ kali大法好正好威神那里有kali的启动盘，抱着试一试的想法插
         <span class="sidebar-tag-name" data-tags="php"><span class="iconfont-archer">&#xe606;</span>php</span>
     
         <span class="sidebar-tag-name" data-tags="pwn"><span class="iconfont-archer">&#xe606;</span>pwn</span>
+    
+        <span class="sidebar-tag-name" data-tags="0day"><span class="iconfont-archer">&#xe606;</span>0day</span>
     
         <span class="sidebar-tag-name" data-tags="安全客弃婴"><span class="iconfont-archer">&#xe606;</span>安全客弃婴</span>
     

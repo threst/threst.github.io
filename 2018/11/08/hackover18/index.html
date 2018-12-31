@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="threst">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="threst">
+    <meta name="keywords" content="Hexo | threst">
+    <meta name="description" content="">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>hackover18 · threst&#39;s Blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=20180501 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180501 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+        
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >threst&#39;s Blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">hackover18</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>threst's Blog</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/7.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            hackover18
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
+    
+</div>
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2018/11/08</span>
+                
+                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                    <span class="iconfont-archer">&#xe602;</span>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+                <span class="shareWrapper">
+                    <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                    <span class="shareText">Share</span>
+                    <ul class="shareList">
+                        <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                            <div class="share-qrcode"></div>
+                        </li>
+                        <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                        <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                        <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                        <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                    </ul>
+                </span>
+            </div>
+        
+    </div>
+</div>
+        <script>
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+  
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntroTags = document.getElementsByClassName('post-intro-tags')[0],
+        postIntroMeat = document.getElementsByClassName('post-intro-meta')[0];
+      if (postIntroTags) {
+        postIntroTags.classList.add('post-fade-in');
+      }
+      if (postIntroMeat) {
+        postIntroMeat.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p><a href="https://xz.aliyun.com/t/3169" target="_blank" rel="noopener">文章首发先知</a></p>
+<h2 id="I-AM-MANY"><a href="#I-AM-MANY" class="headerlink" title="I AM MANY"></a>I AM MANY</h2><p>直接foremost分离即可</p>
+<p><img src="https://i.loli.net/2018/10/13/5bc1ede5b2733.png" alt=""></p>
+<p>flag:<code>hackover18{different_Fl4g_for_3arly_ch33tahz}</code></p>
+<h2 id="ez-web"><a href="#ez-web" class="headerlink" title="ez web"></a>ez web</h2><blockquote>
+<p>Easy web challenge in the slimmest possible design…. namely none.<br><a href="http://ez-web.ctf.hackover.de:8080" target="_blank" rel="noopener">http://ez-web.ctf.hackover.de:8080</a></p>
+</blockquote>
+<p>发现有<code>robots.txt</code>文件，提示<code>/flag/</code>,进入文件夹,有个<code>falg.txt</code>,点击提示</p>
+<blockquote>
+<p>You do not have permission to enter this Area. A mail has been sent to our Admins.<br>You shall be arrested shortly.</p>
+</blockquote>
+<p>抓包修改<code>Cookie: isAllowed=true</code></p>
+<p>flag:<code>hackover18{W3llD0n3,K1d.Th4tSh0tw4s1InAM1ll10n}</code></p>
+<h2 id="i-love-heddha"><a href="#i-love-heddha" class="headerlink" title="i-love-heddha"></a>i-love-heddha</h2><blockquote>
+<p>A continuation of the Ez-Web challenge. enjoy<br>207.154.226.40:8080</p>
+</blockquote>
+<p>是刚才那个的升级版,一样的找到<code>/flag/flag.txt</code>,设置<code>isAllowed</code>，</p>
+<p>可是然后提示<code>ou are using the wrong browser, &#39;Builder browser 1.0.1&#39; is required</code></p>
+<p><code>You are refered from the wrong location hackover.18 would be the correct place to come fro</code></p>
+<p>修改UA,referer,得到flag:<code>hackover18{4ngryW3bS3rv3rS4ysN0}</code></p>
+<p><img src="https://i.loli.net/2018/10/13/5bc1e7f86e780.png" alt=""></p>
+<h2 id="who-knows-john-dows"><a href="#who-knows-john-dows" class="headerlink" title="who knows john dows?"></a>who knows john dows?</h2><blockquote>
+<p>Howdy mate! Just login and hand out the flag, aye! You can find on h18johndoe has all you need!</p>
+</blockquote>
+<p>打开网站直接是要你输入用户名或邮箱</p>
+<p><img src="https://i.loli.net/2018/10/13/5bc1e74a031c9.png" alt=""></p>
+<p>随便输一个，发现不对,根据提示<code>h18johndoe</code>,去github上面试试，果然搜到一个用户</p>
+<p>github:<a href="https://github.com/h18johndoe" target="_blank" rel="noopener">https://github.com/h18johndoe</a></p>
+<p>把这个仓库下下来<code>git clone https://github.com/h18johndoe/user_repository.git</code></p>
+<p><img src="https://i.loli.net/2018/10/13/5bc1e892d9ac4.png" alt=""></p>
+<p>发现很多邮箱，一个一个去试试,尝试之后只有<a href="mailto:`john_doe@notes.h18" target="_blank" rel="noopener">`john_doe@notes.h18</a>`可以登录</p>
+<p><img src="https://i.loli.net/2018/10/13/5bc1e8f4dcda5.png" alt=""></p>
+<p>登录之后提示输入密码，尝试万能密码<code>&#39; OR 1=1 --:</code>,成功！！</p>
+<p>flag:<code>hackover18{I_KN0W_H4W_70_STALK_2018}</code></p>
+<h2 id="secure-hash"><a href="#secure-hash" class="headerlink" title="secure-hash"></a>secure-hash</h2><blockquote>
+<p>We advise you to replace uses of unordered_hash with our new SecureHashtable class, since we added advanced crypto to make it 14.3 times more secure.<br>Update: the binary was compiled with g++ and libstdc++, 64bit<br>We’re running a demo version, try it now:<br>nc secure-hash.ctf.hackover.de 1337</p>
+</blockquote>
+<p>源代码如下:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;openssl/evp.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unordered_set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="comment">// TODO - Make an #ifdef to detect openssl/libressl.</span></span><br><span class="line"><span class="comment">//#define EVP_CREATE_FN() EVP_MD_CTX_new()</span></span><br><span class="line"><span class="comment">//#define EVP_DESTROY_FN(x) EVP_MD_CTX_free(x)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EVP_CREATE_FN() EVP_MD_CTX_create()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EVP_DESTROY_FN(x) EVP_MD_CTX_cleanup(x)</span></span><br><span class="line"><span class="keyword">enum</span> auth_result &#123;</span><br><span class="line">    AUTH_FAILURE,</span><br><span class="line">    AUTH_SUCCESS,</span><br><span class="line">    AUTH_TIMEOUT,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SecureHashtable</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> MAX_SIZE = <span class="number">15000</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">unordered_set</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt; values;</span><br><span class="line">    <span class="built_in">std</span>::<span class="function"><span class="built_in">string</span> <span class="title">sha512sum</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; name, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; password)</span> </span>&#123;</span><br><span class="line">        EVP_MD_CTX *mdctx;</span><br><span class="line">        <span class="keyword">const</span> EVP_MD *md;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">char</span> md_value[EVP_MAX_MD_SIZE];</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> md_len;</span><br><span class="line">        mdctx = EVP_CREATE_FN();</span><br><span class="line">        md = EVP_get_digestbyname(<span class="string">"sha512"</span>);</span><br><span class="line">        EVP_MD_CTX_init(mdctx);</span><br><span class="line">        EVP_DigestInit_ex(mdctx, md, <span class="literal">NULL</span>);</span><br><span class="line">        EVP_DigestUpdate(mdctx, name.c_str(), name.size());</span><br><span class="line">        EVP_DigestUpdate(mdctx, password.c_str(), password.size());</span><br><span class="line">        EVP_DigestFinal_ex(mdctx, md_value, &amp;md_len);</span><br><span class="line">        EVP_DESTROY_FN(mdctx);</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">std</span>::<span class="built_in">string</span>(<span class="keyword">reinterpret_cast</span>&lt;<span class="keyword">char</span>*&gt;(md_value), md_len);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    SecureHashtable() &#123;</span><br><span class="line">        values.reserve(MAX_SIZE);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">insert_keyvalue</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; name, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; password)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (values.size() &gt;= MAX_SIZE)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>; <span class="comment">// Size limit exceeded.</span></span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">string</span> digest = sha512sum(name, password);</span><br><span class="line">        values.insert(digest);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">auth_result <span class="title">lookup_keyvalue</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; name, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; password)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">string</span> digest = sha512sum(name, password);</span><br><span class="line">        <span class="keyword">size_t</span> bucket = values.bucket(digest);</span><br><span class="line">        <span class="keyword">auto</span> it = values.begin(bucket), end = values.end(bucket);</span><br><span class="line">        <span class="keyword">size_t</span> iterations = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">size_t</span> MAX_ITERATIONS = <span class="number">1000</span>;</span><br><span class="line">        <span class="keyword">while</span> (it != end) &#123;</span><br><span class="line">            <span class="keyword">if</span> (*it++ == digest)</span><br><span class="line">                <span class="keyword">return</span> AUTH_SUCCESS;</span><br><span class="line">            <span class="comment">// Avoid DoS attacks by fixing upper time limit.</span></span><br><span class="line">            <span class="keyword">if</span> (iterations++ &gt;= MAX_ITERATIONS)</span><br><span class="line">                <span class="keyword">return</span> AUTH_TIMEOUT;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> AUTH_FAILURE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    OpenSSL_add_all_digests();</span><br><span class="line">    <span class="built_in">std</span>::<span class="function">ifstream <span class="title">ifs</span><span class="params">(<span class="string">"./flag.txt"</span>)</span></span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> flag;</span><br><span class="line">    ifs &gt;&gt; flag;</span><br><span class="line">    SecureHashtable table;</span><br><span class="line">    table.insert_keyvalue(<span class="string">"root"</span>, flag);</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        usleep(<span class="number">1000</span>);</span><br><span class="line">        <span class="keyword">int</span> choice;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">string</span> name, password;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Main menu:\n1 - Register new user\n2 - Login\n"</span>);</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cin</span> &gt;&gt; choice;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Name: "</span>);</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cin</span> &gt;&gt; name;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Password: "</span>);</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cin</span> &gt;&gt; password;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (choice == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (name == <span class="string">"root"</span>) &#123;</span><br><span class="line">                            <span class="built_in">printf</span>(<span class="string">"You are not root!\n"</span>);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            table.insert_keyvalue(name, password);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (choice == <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (table.lookup_keyvalue(name, password)) &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"Success! Logged in as %s\n"</span>, name.c_str());</span><br><span class="line">                <span class="keyword">if</span> (name == <span class="string">"root"</span>) &#123;</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"You win, the flag is %s\n"</span>, flag.c_str());</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"Invalid credentials!\n"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Invalid choice!\n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>分析一下流程，首先要用户注册，可是不能注册root用户，但是在登录的时候要以root身份登录才可以获取flag</p>
+<p><code>EVP_MD_CTX_init</code><br>该函数初始化一个EVP_MD_CTX结构</p>
+<p><code>EVP_DigestInit_ex</code><br>该函数使用參数impl所指向的ENGINE设置该信息摘要结构体，參数ctx在调用本函数之前必须经过初始化。參数type通常是使用象EVP_sha1这种函数的返回值。假设impl为NULL。那么就会使用缺省实现的信息摘要函数。大多数应用程序里面impl是设置为NULL的。操作成功返回1，否则返回0。</p>
+<p><code>EVP_DigestUpdate</code><br>该函数将參数d中的cnt字节数据进行信息摘要到ctx结构中去。该函数能够被调用多次。用以对很多其它的数据进行信息摘要。操作成功返回1，否则返回0。</p>
+<p><code>EVP_DigestFinal_ex</code><br>本函数将<code>ctx</code>结构中的摘要信息数据返回到參数md中，假设參数<code>s</code>不是<code>NULL</code>，那么摘要数据的长度（字节）就会被写入到參数s中，大多数情况下，写入的值是<code>EVP_MAX_MD_SIZE</code>。在调用本函数后。不能使用同样的<code>ctx</code>结构调用<code>EVP_DigestUpdate</code>再进行数据的信息摘要操作,可是假设调用<code>EVP_DigestInit_ex</code>函数又一次初始化后能够进行新的信息摘要操作。操作成功返回1，否则返回0。</p>
+<p>特别注意，名称和密码一个接一个地添加到摘要中，并且使用<code>std :: string :: size</code>确定添加的字节数，它返回字符串的实际字节数，不包括null 字节。使用例如<code>name ==“fo”</code>和<code>password =“obar”</code>可以实现相同的结果，因此这两组凭证将导致相同的摘要，因此<code>std :: unordered_set</code>中的桶相同。现在我们来试试。我们注册名称为<code>==“ro”</code>且密码<code>==“ot1”</code>的用户，然后只需尝试登录名称<code>==“root”</code>和密码<code>==“1”</code></p>
+<p><img src="https://i.loli.net/2018/10/13/5bc209f185fb4.png" alt=""></p>
+<p>flag:<code>hackover18{00ps_y0u_mu5t_h4ve_h1t_a_v3ry_unlikely_5peci4l_c4s3}</code></p>
+<h2 id="Hummel-Hummel"><a href="#Hummel-Hummel" class="headerlink" title="Hummel Hummel"></a>Hummel Hummel</h2><blockquote>
+<p>There is no “hackover18{*}” in the word. the solution has to be inserted as hackover18{mysolution}.</p>
+</blockquote>
+<p>下载下来一个mp4的文件，播放看见一个马在打屁，可是很有节奏，用audacity查看，发现</p>
+<p><img src="https://i.loli.net/2018/10/20/5bcae369881ec.png" alt=""></p>
+<p>看起来像是莫斯密码,上下相连的为<code>.</code>,其他为<code>-</code>,全部连起来就是这样</p>
+<p><code>.--. --- . - .-. -.-- / .. -. ... .--. .. .-. . -.. / -... -.-- / -... .- -.- . -.. / -... . .- -. .....</code></p>
+<p>flag:<code>hackover18{poetry inspired by baked beans}</code></p>
+<h2 id="UnbreakMyStart"><a href="#UnbreakMyStart" class="headerlink" title="UnbreakMyStart"></a>UnbreakMyStart</h2><p>题目是<code>xz</code>文件，但是看起来好像损坏了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ xxd unbreak_my_start.tar.xz</span><br><span class="line">0000000: 504b 0304 1400 0800 0800 04e6 d6b4 4602  PK............F.</span><br><span class="line">0000010: 0021 0116 0000 0074 2fe5 a3e0 07ff 007d  .!.....t/......&#125;</span><br><span class="line">0000020: 5d00 331b 0847 5472 2320 a8d7 45d4 9ae8  ].3..GTr# ..E...</span><br><span class="line">0000030: 3a57 139f 493f c634 8905 8c4f 0bc6 3b67  :W..I?.4...O..;g</span><br><span class="line">0000040: 7028 1a35 f195 abb0 2e26 666d 8c92 da43  p(.5.....&amp;fm...C</span><br><span class="line">0000050: 11e1 10ac 4496 e2ed 36cf 9c99 afe6 5a8e  ....D...6.....Z.</span><br><span class="line">0000060: 311e cb99 f4be 6dca 943c 4410 8873 428a  1.....m..&lt;D..sB.</span><br><span class="line">0000070: 7c17 f47a d17d 7808 b7e4 22b8 ec19 9275  |..z.&#125;x...&quot;....u</span><br><span class="line">0000080: 5073 0c34 5f9e 14ac 1986 d378 7b79 9f87  Ps.4_......x&#123;y..</span><br><span class="line">0000090: 0623 7369 4372 19da 6e33 0217 7f8d 0000  .#siCr..n3......</span><br><span class="line">00000a0: 0000 001c 0f1d febd b436 8c00 0199 0180  .........6......</span><br><span class="line">00000b0: 1000 00ad af23 35b1 c467 fb02 0000 0000  .....#5..g......</span><br><span class="line">00000c0: 0459 5a                                                                               .YZ</span><br></pre></td></tr></table></figure>
+<p>这个<code>PK</code>是zip文件常见的,参考这个<code>xz</code>文件格式<a href="https://tukaani.org/xz/xz-file-format-1.0.4.txt" target="_blank" rel="noopener">https://tukaani.org/xz/xz-file-format-1.0.4.txt</a></p>
+<p>我们尝试用我们构造的头替换文件的前11个字节</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ dd if=unbreak_my_start.tar.xz of=trimmed.bin bs=1 skip=11</span><br><span class="line">184+0 records in</span><br><span class="line">184+0 records out</span><br><span class="line">184 bytes transferred in 0.000920 secs (199988 bytes/sec)</span><br><span class="line">$ (printf &quot;\xFD7zXZ\x00\x00\x04&quot;; cat trimmed.bin) &gt; fixed.tar.xz</span><br><span class="line">$ xz -d fixed.tar.xz</span><br><span class="line">$ cat fixed.tar </span><br><span class="line">flag.txt000644 001750 001750 00000000045 13340067500 013221 0ustar00heddhaheddha000000 000000 hackover18&#123;U_f0und_th3_B3st_V3rs10n&#125;</span><br></pre></td></tr></table></figure>
+<p>得到flag</p>
+<p>flag:<code>hackover18{U_f0und_th3_B3st_V3rs10n}</code></p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者: <a href="https://threst.github.io">threst</a>
+            <p>原文链接: <a href="https://threst.github.io/2018/11/08/hackover18/">https://threst.github.io/2018/11/08/hackover18/</a>
+            <p>发表日期: <a href="https://threst.github.io/2018/11/08/hackover18/">November 8th 2018, 1:32:13</a>
+            <p>版权声明: 本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2018/11/11/pwn之路_ret2text/" title= pwn之路_ret2text >
+                    <div class="nextTitle">pwn之路_ret2text</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/11/02/D-CTFQuals2018/" title= D-CTFQuals2018 >
+                    <div class="prevTitle">D-CTFQuals2018</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:3451078463@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/threst" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+        <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#I-AM-MANY"><span class="toc-number">1.</span> <span class="toc-text">I AM MANY</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ez-web"><span class="toc-number">2.</span> <span class="toc-text">ez web</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#i-love-heddha"><span class="toc-number">3.</span> <span class="toc-text">i-love-heddha</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#who-knows-john-dows"><span class="toc-number">4.</span> <span class="toc-text">who knows john dows?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#secure-hash"><span class="toc-number">5.</span> <span class="toc-text">secure-hash</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hummel-Hummel"><span class="toc-number">6.</span> <span class="toc-text">Hummel Hummel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UnbreakMyStart"><span class="toc-number">7.</span> <span class="toc-text">UnbreakMyStart</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 38 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2018/12/31/2018流水账/" >2018流水账</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/23</span><a class="archive-post-title" href= "/2018/12/23/readfile0day/" >readfile-0day复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/20</span><a class="archive-post-title" href= "/2018/12/20/2018鹏城杯Myblog思考/" >2018鹏城杯Myblog思考</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/18</span><a class="archive-post-title" href= "/2018/12/18/pwnable_collision/" >pwnable_collision</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/18</span><a class="archive-post-title" href= "/2018/12/18/pwnable_fd/" >pwnable_fd</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/22</span><a class="archive-post-title" href= "/2018/11/22/hackagame2018/" >hackagame2018</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href= "/2018/11/14/pwn_repeater/" >pwn之路_repeater(山东省赛)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/11</span><a class="archive-post-title" href= "/2018/11/11/ctf/" >无处安放的wp(不定期更)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/11</span><a class="archive-post-title" href= "/2018/11/11/pwn之路_ret2text/" >pwn之路_ret2text</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/hackover18/" >hackover18</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2018/11/02/HID/" >BadUSB初探</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2018/11/02/D-CTFQuals2018/" >D-CTFQuals2018</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/16</span><a class="archive-post-title" href= "/2018/10/16/install/" >parrot安装</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/14</span><a class="archive-post-title" href= "/2018/10/14/极客大挑战/" >极客大挑战wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/phpgd绕过/" >phpgd绕过</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/网鼎杯wp/" >网鼎杯wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/tjctf2018misc/" >tjctf2018wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/Netcat/" >netcat食用指南</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/csaw2018wp/" >csaw 2018 wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/php安全/" >php安全</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/18</span><a class="archive-post-title" href= "/2018/09/18/cve-2017-11882/" >CVE-2017-11882复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/15</span><a class="archive-post-title" href= "/2018/09/15/noxctf2018wp/" >noxctf2018wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/11</span><a class="archive-post-title" href= "/2018/09/11/CVE-2017-8464漏洞复现/" >CVE-2017-8464漏洞复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/09</span><a class="archive-post-title" href= "/2018/09/09/双杀0day漏洞(CVE-2018-8174)复现/" >双杀0day漏洞(CVE-2018-8174)复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/28</span><a class="archive-post-title" href= "/2018/08/28/CTF之隐写术/" >ctf之隱寫術</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/2018/06/15/kali破解xp开机密码/" >艰难的kali破解xp开机密码之路</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/06</span><a class="archive-post-title" href= "/2018/06/06/利用 PATH 环境变量进行 Linux 提权/" >利用 PATH 环境变量进行 Linux 提权</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/2018/06/01/61随想/" >61随想</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/2018/06/01/常见文件格式分析/" >常见文件格式分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/2018/06/01/如何在MIMIKATZ添加模块/" >如何在MIMIKATZ添加模块</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/实验吧wp/" >实验吧wp(持续更新)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span><a class="archive-post-title" href= "/2018/05/29/kali安装docker/" >kali下安装docker</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span><a class="archive-post-title" href= "/2018/05/22/你肯定不知道的GraphQL安全概述和测试技巧/" >你肯定不知道的GraphQL安全概述和测试技巧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/17</span><a class="archive-post-title" href= "/2018/05/17/git一条龙(一看就会的那种)/" >git一条龙(一看就会的那种)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/逆向工程基础 - Linux x64/" >逆向入门--linux64</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/isccwp/" >isccwp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/逆向工程入门— ARM64上的Linux/" >逆向入门--ARM64的linux</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/艰难的hexo上线/" >艰难的hexo上线</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="瞎记罢写"><span class="iconfont-archer">&#xe606;</span>瞎记罢写</span>
+    
+        <span class="sidebar-tag-name" data-tags="ctf"><span class="iconfont-archer">&#xe606;</span>ctf</span>
+    
+        <span class="sidebar-tag-name" data-tags="CVE-2017-8464"><span class="iconfont-archer">&#xe606;</span>CVE-2017-8464</span>
+    
+        <span class="sidebar-tag-name" data-tags="BadUSB"><span class="iconfont-archer">&#xe606;</span>BadUSB</span>
+    
+        <span class="sidebar-tag-name" data-tags="netcat"><span class="iconfont-archer">&#xe606;</span>netcat</span>
+    
+        <span class="sidebar-tag-name" data-tags="CVE-2017-11882"><span class="iconfont-archer">&#xe606;</span>CVE-2017-11882</span>
+    
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="系统"><span class="iconfont-archer">&#xe606;</span>系统</span>
+    
+        <span class="sidebar-tag-name" data-tags="writeup"><span class="iconfont-archer">&#xe606;</span>writeup</span>
+    
+        <span class="sidebar-tag-name" data-tags="kali docker"><span class="iconfont-archer">&#xe606;</span>kali docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="php"><span class="iconfont-archer">&#xe606;</span>php</span>
+    
+        <span class="sidebar-tag-name" data-tags="pwn"><span class="iconfont-archer">&#xe606;</span>pwn</span>
+    
+        <span class="sidebar-tag-name" data-tags="0day"><span class="iconfont-archer">&#xe606;</span>0day</span>
+    
+        <span class="sidebar-tag-name" data-tags="安全客弃婴"><span class="iconfont-archer">&#xe606;</span>安全客弃婴</span>
+    
+        <span class="sidebar-tag-name" data-tags="CVE-2018-8174"><span class="iconfont-archer">&#xe606;</span>CVE-2018-8174</span>
+    
+        <span class="sidebar-tag-name" data-tags="writeup ctf"><span class="iconfont-archer">&#xe606;</span>writeup ctf</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: '/',
+        author: 'threst'
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+    
+    </body>
+</html>
+
+
