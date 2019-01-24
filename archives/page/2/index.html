@@ -336,17 +336,112 @@
     
     
         <article class="index-post">
-            <a class="abstract-title" href = "/2018/11/02/D-CTFQuals2018/" >
+            <a class="abstract-title" href = "/2018/11/14/pwn_repeater/" >
                 
-                    <span>D-CTFQuals2018</span>
+                    <span>pwn之路_repeater(山东省赛)</span>
             </a>
             <div class="abstract-content">
-                XORnigma12345678910import itertoolsdef xor_two_str(s, key):    key = key * (len(s) / len(key) + 1)    return ''.join(chr(ord(x) ^ ord(y)) for (x,y) in itertools.izip(s, key)) flag = "" flag_key = ""x = xor_two_str(flag, flag_key)print x.encode("hex")# 000000003f2537257777312725266c242070627770273...
+                repeater考点:格式化字符串漏洞
+pwntools知识点fmtstr_payload是pwntools提供的函数，用于自动生成格式化字符串。
+fmtstr_payload有两个参数,第一个参数是int，用于表示取参数的偏移个数,第二个参数是字典，字典的意义是往key的地址，写入value的值
+fmtstr_payload(7, {printf_got: system_add})
+这个函数调用会往printf_got中写入system_add
+分析代码此题为简单的格式化字符串漏洞，首先总览分析一下程序，循环受totalcount次数限制，初始值为1。
+
+程序提供了 getFlag 方...
             </div>
             <div class="abstract-post-meta">
                 <!-- date  -->
                 <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/02</span>
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/14</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "pwn">pwn</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2018/11/11/ctf/" >
+                
+                    <span>无处安放的wp(不定期更)</span>
+            </a>
+            <div class="abstract-content">
+                tjctf1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991001011021031041051061071081091101111121131141151161171181191201211221231241251261271281291301311321331...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/11</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2018/11/11/pwn之路_ret2text/" >
+                
+                    <span>pwn之路_ret2text</span>
+            </a>
+            <div class="abstract-content">
+                ret2text题目地址:https://github.com/ctf-wiki/ctf-challenges/tree/master/pwn/stackoverflow/ret2text/bamboofox-ret2text
+源码12345678910111213141516171819202122232425262728#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;#include &lt;time.h&gt;void secure(void)&#123;    int secretcode, input;    srand(tim...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/11</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "pwn">pwn</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2018/11/08/hackover18/" >
+                
+                    <span>hackover18</span>
+            </a>
+            <div class="abstract-content">
+                文章首发先知
+I AM MANY直接foremost分离即可
+
+flag:hackover18{different_Fl4g_for_3arly_ch33tahz}
+ez web
+Easy web challenge in the slimmest possible design…. namely none.http://ez-web.ctf.hackover.de:8080
+
+发现有robots.txt文件，提示/flag/,进入文件夹,有个falg.txt,点击提示
+
+You do not have permission to enter this Area. A mail has ...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/08</span>
                 </div>
                 <!-- tags  -->
                 
@@ -393,6 +488,32 @@ AVR处理器，16 MHz
                 <div class= abstract-tags >
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "BadUSB">BadUSB</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2018/11/02/D-CTFQuals2018/" >
+                
+                    <span>D-CTFQuals2018</span>
+            </a>
+            <div class="abstract-content">
+                XORnigma12345678910import itertoolsdef xor_two_str(s, key):    key = key * (len(s) / len(key) + 1)    return ''.join(chr(ord(x) ^ ord(y)) for (x,y) in itertools.izip(s, key)) flag = "" flag_key = ""x = xor_two_str(flag, flag_key)print x.encode("hex")# 000000003f2537257777312725266c242070627770273...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/02</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
     
 </div>
                 
@@ -519,120 +640,10 @@ ciphertext
             </div>
         </article>
     
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/10/04/php安全/" >
-                
-                    <span>php安全</span>
-            </a>
-            <div class="abstract-content">
-                0x01 PHP敏感配置项register_globals(php版本小于5.4时存在)当该配置项为ON时，会把用户通过GET、POST提交的参数自动注册成全局变量。当代码中存在有未初始化的变量时，可能会导致变量覆盖的问题；
-(PS:其中参数覆盖的顺序受到配置文件中variables_order的参数影响，默认是EGPCS。按顺序，右边的参数来源会覆盖左边的的参数来源)
-allow_url_include(php版本大于5.2默认为off)当该配置项为ON时，可以通过include、require等函数进行远程文件包含
-其中有个类似的配置项是allow_url_fopen，这个参数配置为...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/04</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "php">php</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/10/04/phpgd绕过/" >
-                
-                    <span>phpgd绕过</span>
-            </a>
-            <div class="abstract-content">
-                源码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991001011021031041051061071081091101111121131141151161171181191201211221231241251261271281291301311321331341...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/04</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "php">php</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/10/04/tjctf2018misc/" >
-                
-                    <span>tjctf2018wp</span>
-            </a>
-            <div class="abstract-content">
-                Trippystrings be37fef78cfd6c7deda71154f567e6d0cfefbda1f80698c064bab469d3a54c58_trippy.gif | grep tjctf
-Interference1.将v1和v2用stegsolveadd下，保存图片，在改变图片的偏移量，找到黑白的二维码，用windows反色，扫描出flag2.compare v1.png v2.png output.png再把output.png用stegsolve调至黑白，windows反色.
-Grid Parser
-解压文件，发现有个password.png，用binwalk提取出...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/04</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/10/04/网鼎杯wp/" >
-                
-                    <span>网鼎杯wp</span>
-            </a>
-            <div class="abstract-content">
-                网鼎杯wp套娃打开文件看见很多图片,首先判断lsb,用工具zsteg,一张一张试，试到第六张zsteg 6.png出flag1234567imagedata           .. text: &quot;-+,554$&amp;&amp;&quot;b1,rgb,lsb,xy       .. text: &quot;^;lI;bN$&quot;b1,bgr,lsb,xy       .. text: &quot;+flag&#123;03a253f5-8e93-4533-bcfc-af908830095d&#125;\nq&quot;b2,b,msb,xy         .. f...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/04</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/archives/">&#60; PREV</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/3/">NEXT &#62;</a>
+        <a class="extend prev" rel="prev" href="/archives/">&#60; PREV</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><a class="page-number" href="/archives/page/5/">5</a><a class="extend next" rel="next" href="/archives/page/3/">NEXT &#62;</a>
     </nav>
     
 </main>
@@ -1283,18 +1294,41 @@ Grid Parser
     
     
     
-    
-    
-    
-    
-    
-    
-    <div class="total-archive"> Total : 38 </div>
+    <div class="total-archive"> Total : 42 </div>
     
     <div class="post-archive">
     
     
     
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/23</span><a class="archive-post-title" href= "/2019/01/23/Esfile/" >ES文件浏览器漏洞复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/23</span><a class="archive-post-title" href= "/2019/01/23/pwnable_bof/" >pwnable_bof</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span><a class="archive-post-title" href= "/2019/01/22/pwnable_flag/" >pwnable_fd</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span><a class="archive-post-title" href= "/2019/01/22/RLO文件名欺骗/" >RLO文件名欺骗</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
@@ -1351,12 +1385,12 @@ Grid Parser
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2018/11/02/D-CTFQuals2018/" >D-CTFQuals2018</a>
+            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2018/11/02/HID/" >BadUSB初探</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2018/11/02/HID/" >BadUSB初探</a>
+            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2018/11/02/D-CTFQuals2018/" >D-CTFQuals2018</a>
         </li>
     
     
@@ -1371,17 +1405,7 @@ Grid Parser
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/csaw2018wp/" >csaw 2018 wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/tjctf2018misc/" >tjctf2018wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/网鼎杯wp/" >网鼎杯wp</a>
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/phpgd绕过/" >phpgd绕过</a>
         </li>
     
     
@@ -1391,12 +1415,22 @@ Grid Parser
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/phpgd绕过/" >phpgd绕过</a>
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/csaw2018wp/" >csaw 2018 wp</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/php安全/" >php安全</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/网鼎杯wp/" >网鼎杯wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/tjctf2018misc/" >tjctf2018wp</a>
         </li>
     
     
@@ -1471,22 +1505,22 @@ Grid Parser
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/逆向工程入门— ARM64上的Linux/" >逆向入门--ARM64的linux</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/逆向工程基础 - Linux x64/" >逆向入门--linux64</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/isccwp/" >isccwp</a>
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/逆向工程入门— ARM64上的Linux/" >逆向入门--ARM64的linux</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/艰难的hexo上线/" >艰难的hexo上线</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/isccwp/" >isccwp</a>
         </li>
     
     </div>
@@ -1498,23 +1532,25 @@ Grid Parser
     
         <span class="sidebar-tag-name" data-tags="ctf"><span class="iconfont-archer">&#xe606;</span>ctf</span>
     
-        <span class="sidebar-tag-name" data-tags="BadUSB"><span class="iconfont-archer">&#xe606;</span>BadUSB</span>
-    
         <span class="sidebar-tag-name" data-tags="CVE-2017-8464"><span class="iconfont-archer">&#xe606;</span>CVE-2017-8464</span>
+    
+        <span class="sidebar-tag-name" data-tags="apt"><span class="iconfont-archer">&#xe606;</span>apt</span>
+    
+        <span class="sidebar-tag-name" data-tags="BadUSB"><span class="iconfont-archer">&#xe606;</span>BadUSB</span>
     
         <span class="sidebar-tag-name" data-tags="netcat"><span class="iconfont-archer">&#xe606;</span>netcat</span>
     
         <span class="sidebar-tag-name" data-tags="CVE-2017-11882"><span class="iconfont-archer">&#xe606;</span>CVE-2017-11882</span>
     
-        <span class="sidebar-tag-name" data-tags="writeup"><span class="iconfont-archer">&#xe606;</span>writeup</span>
-    
         <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
     
         <span class="sidebar-tag-name" data-tags="系统"><span class="iconfont-archer">&#xe606;</span>系统</span>
     
-        <span class="sidebar-tag-name" data-tags="php"><span class="iconfont-archer">&#xe606;</span>php</span>
+        <span class="sidebar-tag-name" data-tags="writeup"><span class="iconfont-archer">&#xe606;</span>writeup</span>
     
         <span class="sidebar-tag-name" data-tags="kali docker"><span class="iconfont-archer">&#xe606;</span>kali docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="php"><span class="iconfont-archer">&#xe606;</span>php</span>
     
         <span class="sidebar-tag-name" data-tags="pwn"><span class="iconfont-archer">&#xe606;</span>pwn</span>
     

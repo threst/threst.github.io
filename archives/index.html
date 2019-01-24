@@ -336,6 +336,132 @@
     
     
         <article class="index-post">
+            <a class="abstract-title" href = "/2019/01/23/pwnable_bof/" >
+                
+                    <span>pwnable_bof</span>
+            </a>
+            <div class="abstract-content">
+                nc pwnable.kr 9000
+源码
+123456789101112131415161718#include &lt;stdio.h&gt;#include &lt;string.h&gt;#include &lt;stdlib.h&gt;void func(int key)&#123;    char `[32];    printf("overflow me : ");    gets(overflowme);   // smash me!    if(key == 0xcafebabe)&#123;        system("/bin/sh");    &#125;   ...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/23</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "pwn">pwn</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2019/01/23/Esfile/" >
+                
+                    <span>ES文件浏览器漏洞复现</span>
+            </a>
+            <div class="abstract-content">
+                写在前面的话文章首发先知社区，未经允许，禁止转载
+今天上网的时候看到一个新闻,ES文件浏览器存在漏洞，同一个网络下的用户可以直接访问安装了ＥＳ的用户手机上的文件，正好我手机上也安装了es，于是就测试了下。
+测试poc地址下载
+ip:
+开始是192.168.0.100
+后来有事去了，再连就是192.168.0.102
+版本号:4.1.9.4
+0x00验证漏洞首先电脑和手机处于同一个网络，再查看我的手机ip,和es的版本
+
+
+执行命令python poc.py poc.py --cmd getDeviceInfo --network  192.168.0.
+
+0x01分析原理看了各位大佬的分...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/23</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "apt">apt</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2019/01/22/pwnable_flag/" >
+                
+                    <span>pwnable_fd</span>
+            </a>
+            <div class="abstract-content">
+                开始不知道，ida打开只有三个函数，原来是加了UPX壳
+upx -d flag脱壳大法
+解法1
+
+一堆mov,看一下cs:flag,提示好像发现了什么,点去进去看看
+
+flag就是UPX...? sounds like a delivery service :)
+解法2
+12345678910111213141516171819202122232425└──╼ $gdb -q flagpwndbg: loaded 177 commands. Type pwndbg [filter] for a list.pwndbg: created $rebase, $ida gdb function...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/22</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "pwn">pwn</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2019/01/22/RLO文件名欺骗/" >
+                
+                    <span>RLO文件名欺骗</span>
+            </a>
+            <div class="abstract-content">
+                RLORLO是微软的中东Unicode字符（MiddleeastUnicode）中的一个，Unicode编码为0x202E，其作用是强制其后的字符变为从右到左的方式显示，一般用于中东语言（如阿拉伯语）的强制显示，但是在非中东语言中Explorer遇到此字符仍然是默认右-左显示，例如本來”setup-txt.exe”这样的文件名,在txt前面插入RLO控制字符之后变成”setup-exe.txt”这个时候我们就发现这个东西岂不是可以隐藏我们的文件名，至少可以在视觉角度上，我上网搜了一下，RLO文件名欺骗这个东西已经很多年了，而且利用在病毒木马的攻击中也非常多也可以发现有很多的APT攻击都有...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/22</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "apt">apt</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
             <a class="abstract-title" href = "/2018/12/31/2018流水账/" >
                 
                     <span>2018流水账</span>
@@ -439,13 +565,13 @@
     
     
         <article class="index-post">
-            <a class="abstract-title" href = "/2018/12/18/pwnable_fd/" >
+            <a class="abstract-title" href = "/2018/12/18/pwnable_collision/" >
                 
-                    <span>pwnable_fd</span>
+                    <span>pwnable_collision</span>
             </a>
             <div class="abstract-content">
-                题目:ssh fd@pwnable.kr -p2222 (pw:guest)
-源码123456789101112131415161718192021#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;#include &lt;string.h&gt;char buf[32];int main(int argc, char* argv[], char* envp[])&#123;    if(argc&lt;2)&#123;        printf("pass argv[1] a number\n");        return 0;  ...
+                12.18Daddy told me about cool MD5 hash collision today.I wanna do something like that too!地址:ssh col@pwnable.kr -p2222 (pw:guest)
+题目源码12345678910111213141516171819202122232425262728293031#include &lt;stdio.h&gt;#include &lt;string.h&gt;unsigned long hashcode = 0x21DD09EC;unsigned long check_passw...
             </div>
             <div class="abstract-post-meta">
                 <!-- date  -->
@@ -466,13 +592,13 @@
     
     
         <article class="index-post">
-            <a class="abstract-title" href = "/2018/12/18/pwnable_collision/" >
+            <a class="abstract-title" href = "/2018/12/18/pwnable_fd/" >
                 
-                    <span>pwnable_collision</span>
+                    <span>pwnable_fd</span>
             </a>
             <div class="abstract-content">
-                12.18Daddy told me about cool MD5 hash collision today.I wanna do something like that too!地址:ssh col@pwnable.kr -p2222 (pw:guest)
-题目源码12345678910111213141516171819202122232425262728293031#include &lt;stdio.h&gt;#include &lt;string.h&gt;unsigned long hashcode = 0x21DD09EC;unsigned long check_passw...
+                题目:ssh fd@pwnable.kr -p2222 (pw:guest)
+源码123456789101112131415161718192021#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;#include &lt;string.h&gt;char buf[32];int main(int argc, char* argv[], char* envp[])&#123;    if(argc&lt;2)&#123;        printf("pass argv[1] a number\n");        return 0;  ...
             </div>
             <div class="abstract-post-meta">
                 <!-- date  -->
@@ -521,131 +647,10 @@ view-source:https://heicore.com/index.html123456&lt;script type=&quot;text/javas
             </div>
         </article>
     
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/11/14/pwn_repeater/" >
-                
-                    <span>pwn之路_repeater(山东省赛)</span>
-            </a>
-            <div class="abstract-content">
-                repeater考点:格式化字符串漏洞
-pwntools知识点fmtstr_payload是pwntools提供的函数，用于自动生成格式化字符串。
-fmtstr_payload有两个参数,第一个参数是int，用于表示取参数的偏移个数,第二个参数是字典，字典的意义是往key的地址，写入value的值
-fmtstr_payload(7, {printf_got: system_add})
-这个函数调用会往printf_got中写入system_add
-分析代码此题为简单的格式化字符串漏洞，首先总览分析一下程序，循环受totalcount次数限制，初始值为1。
-
-程序提供了 getFlag 方...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/14</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "pwn">pwn</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/11/11/ctf/" >
-                
-                    <span>无处安放的wp(不定期更)</span>
-            </a>
-            <div class="abstract-content">
-                tjctf1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991001011021031041051061071081091101111121131141151161171181191201211221231241251261271281291301311321331...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/11</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/11/11/pwn之路_ret2text/" >
-                
-                    <span>pwn之路_ret2text</span>
-            </a>
-            <div class="abstract-content">
-                ret2text题目地址:https://github.com/ctf-wiki/ctf-challenges/tree/master/pwn/stackoverflow/ret2text/bamboofox-ret2text
-源码12345678910111213141516171819202122232425262728#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;#include &lt;time.h&gt;void secure(void)&#123;    int secretcode, input;    srand(tim...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/11</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "pwn">pwn</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/11/08/hackover18/" >
-                
-                    <span>hackover18</span>
-            </a>
-            <div class="abstract-content">
-                文章首发先知
-I AM MANY直接foremost分离即可
-
-flag:hackover18{different_Fl4g_for_3arly_ch33tahz}
-ez web
-Easy web challenge in the slimmest possible design…. namely none.http://ez-web.ctf.hackover.de:8080
-
-发现有robots.txt文件，提示/flag/,进入文件夹,有个falg.txt,点击提示
-
-You do not have permission to enter this Area. A mail has ...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/08</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "ctf">ctf</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/2/">NEXT &#62;</a>
+        <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/5/">5</a><a class="extend next" rel="next" href="/archives/page/2/">NEXT &#62;</a>
     </nav>
     
 </main>
@@ -1296,18 +1301,41 @@ You do not have permission to enter this Area. A mail has ...
     
     
     
-    
-    
-    
-    
-    
-    
-    <div class="total-archive"> Total : 38 </div>
+    <div class="total-archive"> Total : 42 </div>
     
     <div class="post-archive">
     
     
     
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/23</span><a class="archive-post-title" href= "/2019/01/23/Esfile/" >ES文件浏览器漏洞复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/23</span><a class="archive-post-title" href= "/2019/01/23/pwnable_bof/" >pwnable_bof</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span><a class="archive-post-title" href= "/2019/01/22/pwnable_flag/" >pwnable_fd</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span><a class="archive-post-title" href= "/2019/01/22/RLO文件名欺骗/" >RLO文件名欺骗</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
@@ -1364,12 +1392,12 @@ You do not have permission to enter this Area. A mail has ...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2018/11/02/D-CTFQuals2018/" >D-CTFQuals2018</a>
+            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2018/11/02/HID/" >BadUSB初探</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2018/11/02/HID/" >BadUSB初探</a>
+            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2018/11/02/D-CTFQuals2018/" >D-CTFQuals2018</a>
         </li>
     
     
@@ -1384,17 +1412,7 @@ You do not have permission to enter this Area. A mail has ...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/csaw2018wp/" >csaw 2018 wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/tjctf2018misc/" >tjctf2018wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/网鼎杯wp/" >网鼎杯wp</a>
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/phpgd绕过/" >phpgd绕过</a>
         </li>
     
     
@@ -1404,12 +1422,22 @@ You do not have permission to enter this Area. A mail has ...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/phpgd绕过/" >phpgd绕过</a>
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/csaw2018wp/" >csaw 2018 wp</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/php安全/" >php安全</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/网鼎杯wp/" >网鼎杯wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/tjctf2018misc/" >tjctf2018wp</a>
         </li>
     
     
@@ -1484,22 +1512,22 @@ You do not have permission to enter this Area. A mail has ...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/逆向工程入门— ARM64上的Linux/" >逆向入门--ARM64的linux</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/逆向工程基础 - Linux x64/" >逆向入门--linux64</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/isccwp/" >isccwp</a>
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/逆向工程入门— ARM64上的Linux/" >逆向入门--ARM64的linux</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/艰难的hexo上线/" >艰难的hexo上线</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/isccwp/" >isccwp</a>
         </li>
     
     </div>
@@ -1511,23 +1539,25 @@ You do not have permission to enter this Area. A mail has ...
     
         <span class="sidebar-tag-name" data-tags="ctf"><span class="iconfont-archer">&#xe606;</span>ctf</span>
     
-        <span class="sidebar-tag-name" data-tags="BadUSB"><span class="iconfont-archer">&#xe606;</span>BadUSB</span>
-    
         <span class="sidebar-tag-name" data-tags="CVE-2017-8464"><span class="iconfont-archer">&#xe606;</span>CVE-2017-8464</span>
+    
+        <span class="sidebar-tag-name" data-tags="apt"><span class="iconfont-archer">&#xe606;</span>apt</span>
+    
+        <span class="sidebar-tag-name" data-tags="BadUSB"><span class="iconfont-archer">&#xe606;</span>BadUSB</span>
     
         <span class="sidebar-tag-name" data-tags="netcat"><span class="iconfont-archer">&#xe606;</span>netcat</span>
     
         <span class="sidebar-tag-name" data-tags="CVE-2017-11882"><span class="iconfont-archer">&#xe606;</span>CVE-2017-11882</span>
     
-        <span class="sidebar-tag-name" data-tags="writeup"><span class="iconfont-archer">&#xe606;</span>writeup</span>
-    
         <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
     
         <span class="sidebar-tag-name" data-tags="系统"><span class="iconfont-archer">&#xe606;</span>系统</span>
     
-        <span class="sidebar-tag-name" data-tags="php"><span class="iconfont-archer">&#xe606;</span>php</span>
+        <span class="sidebar-tag-name" data-tags="writeup"><span class="iconfont-archer">&#xe606;</span>writeup</span>
     
         <span class="sidebar-tag-name" data-tags="kali docker"><span class="iconfont-archer">&#xe606;</span>kali docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="php"><span class="iconfont-archer">&#xe606;</span>php</span>
     
         <span class="sidebar-tag-name" data-tags="pwn"><span class="iconfont-archer">&#xe606;</span>pwn</span>
     

